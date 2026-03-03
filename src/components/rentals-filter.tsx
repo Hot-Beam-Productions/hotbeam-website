@@ -79,7 +79,7 @@ export function RentalsFilter({ items, categories, footerNote }: RentalsFilterPr
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
           <input
             type="search"
-            placeholder="Search inventory"
+            placeholder="Search by name, brand, or spec"
             value={searchQuery}
             onChange={(event) => setSearchQuery(event.target.value)}
             className="w-full border border-border bg-surface py-2 pl-10 pr-4 text-sm text-foreground placeholder:text-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-laser-cyan/50"
@@ -143,7 +143,7 @@ export function RentalsFilter({ items, categories, footerNote }: RentalsFilterPr
                     href={`/rentals/${item.id}`}
                     className="mono-label rounded-sm border border-laser-cyan/35 px-3 py-1.5 !text-laser-cyan transition-colors hover:bg-laser-cyan/12"
                   >
-                    Details
+                    View details
                   </Link>
                 </div>
               </div>
@@ -154,7 +154,7 @@ export function RentalsFilter({ items, categories, footerNote }: RentalsFilterPr
 
       {filtered.length === 0 && (
         <div className="border border-border bg-surface py-14 text-center">
-          <p className="text-muted">No inventory matched your filters.</p>
+          <p className="text-muted">No items match your current filters.</p>
         </div>
       )}
 
@@ -162,7 +162,7 @@ export function RentalsFilter({ items, categories, footerNote }: RentalsFilterPr
         <p className="mx-auto max-w-2xl text-sm leading-relaxed text-muted-light">{footerNote}</p>
         <div className="mt-6">
           <GlowButton href="/contact" variant="primary">
-            Request Inventory Sheet
+            Get Inventory Sheet
           </GlowButton>
         </div>
       </div>

@@ -11,12 +11,12 @@
     "instagramHandle": "@hotbeamproductions",
     "instagramUrl": "https://www.instagram.com/hotbeamproductions/",
     "heroLogo": "/logo.png",
-    "valueProposition": "Technical production for live events that need to run right the first time."
+    "valueProposition": "Technical production for live events where reliability is non-negotiable."
   },
   "navigation": [
     {
       "href": "/#capabilities",
-      "label": "Capabilities"
+      "label": "Services"
     },
     {
       "href": "/rentals",
@@ -24,17 +24,17 @@
     },
     {
       "href": "/work",
-      "label": "Case Studies"
+      "label": "Work"
     },
     {
       "href": "/contact",
-      "label": "Contact Operations"
+      "label": "Request a Proposal"
     }
   ],
   "seo": {
     "defaultTitle": "Hot Beam Productions | Colorado Live Event Production for Touring, Festivals & Venues",
     "titleTemplate": "%s | Hot Beam Productions",
-    "description": "Colorado-based production company specializing in intelligent concert lighting, high-resolution video walls, and variance-approved laser operations for tours, corporate events, and live venues.",
+    "description": "Denver-based live event production for concerts, festivals, campus shows, and brand events. Lighting, lasers, LED video, and special effects delivered by one accountable crew.",
     "keywords": [
       "colorado av production company",
       "denver concert lighting and laser production",
@@ -45,75 +45,75 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Colorado-Based. Nationally Deployed. Always Show-Ready.",
-      "departmentLine": "Lighting \u00b7 Lasers \u00b7 LED Video \u00b7 Special Effects",
-      "description": "One production team from pre-pro through show call. We handle the gear, the crew, and the details \u2014 so you can focus on the show.",
+      "eyebrow": "Denver Crew. National Execution. Show-Day Ready.",
+      "departmentLine": "Lighting · Lasers · LED Video · Special Effects",
+      "description": "From pre-production through strike, one team handles design, gear, crew, and live operation.",
       "primaryCta": {
-        "label": "Get a Quote",
+        "label": "Request a Proposal",
         "href": "/contact"
       },
       "secondaryCta": {
-        "label": "See Our Work",
+        "label": "View Recent Work",
         "href": "/work"
       },
-      "headline": "Your Vision, Our Rig. World-Class Production Starts Here.",
-      "subheadline": "Lighting, lasers, LED video, and SFX for touring artists, venues, and festivals \u2014 designed and operated by people who live for the live show."
+      "headline": "Live Event Production That Shows Up Ready.",
+      "subheadline": "Lighting, lasers, LED video, and SFX for touring artists, venues, festivals, and brand events."
     },
     "services": {
-      "label": "Capabilities",
-      "title": "Built For Demanding Shows",
-      "subtitle": "Specialists in each department plan it, build it, and run it on show day.",
+      "label": "Services",
+      "title": "Built for Real-World Show Conditions",
+      "subtitle": "Specialists plan it, build it, and run it on show day.",
       "featuredServiceId": "lasers",
       "items": [
         {
           "id": "lighting",
           "icon": "lightbulb",
           "title": "Lighting",
-          "description": "Show lighting for both live audience and camera, built for real run-of-show conditions.",
+          "description": "Lighting systems designed for live audiences and cameras.",
           "highlights": [
-            "grandMA3 programming",
-            "Touring and architectural rigs",
-            "Timecoded and busked shows"
+            "Previsualization and programming",
+            "Touring and one-off rigs",
+            "Timecode and busked operation"
           ]
         },
         {
           "id": "video",
           "icon": "monitor",
           "title": "Video",
-          "description": "End-to-end LED, IMAG, and playback systems with reliable routing, switching, and processing.",
+          "description": "LED walls, IMAG, and playback systems with stable routing and switching.",
           "highlights": [
-            "ROE LED and Barco processing",
+            "LED wall processing and mapping",
             "Multi-screen confidence systems",
-            "Playback and media server integration"
+            "Media server and playback integration"
           ]
         },
         {
           "id": "lasers",
           "icon": "zap",
           "title": "Lasers",
-          "description": "Variance-compliant laser production with strict safety controls and clean cue sync.",
+          "description": "Variance-compliant laser shows with tight cue sync and operator-first safety.",
           "highlights": [
             "FDA-compliant operation",
-            "Kvant Spectrum inventory",
-            "ILDA, timecode, and control integration"
+            "Touring and venue laser packages",
+            "Timecode, DMX, and Art-Net integration"
           ]
         },
         {
           "id": "sfx",
           "icon": "sparkles",
           "title": "SFX",
-          "description": "CO2, haze, confetti, and atmospherics timed to lighting cues.",
+          "description": "Atmospherics and impact effects timed to musical moments and scene changes.",
           "highlights": [
-            "Cryo and haze deployment",
+            "CO2, haze, and confetti systems",
             "Cue-synced effect timing",
-            "Site-specific risk planning"
+            "Site-specific safety planning"
           ]
         }
       ]
     },
     "results": [
       {
-        "label": "Shows Produced",
+        "label": "Events Produced",
         "value": "500+"
       },
       {
@@ -126,25 +126,25 @@
       }
     ],
     "closingCta": {
-      "title": "Let\u2019s Build Your Next Show",
-      "description": "Send us your date, venue, and rider. We\u2019ll come back with a clear plan \u2014 crew, gear, and timeline included.",
+      "title": "Ready to Plan the Next Show?",
+      "description": "Share your date, venue, and goals. We will send a clear scope with crew, gear, and timeline.",
       "button": {
-        "label": "Get a Quote",
+        "label": "Request a Proposal",
         "href": "/contact"
       }
     },
     "trustSignals": [
-      "Featured: Fox Theatre Boulder \u00b7 Boiler Room Production",
-      "FDA variance-compliant laser shows",
-      "Venue, promoter & artist rider workflows",
-      "Colorado-based crew, nationwide reach"
+      "Trusted by venues, promoters, and touring teams",
+      "FDA variance-compliant laser operations",
+      "Single-team delivery from prep through strike",
+      "Denver-based crew with national deployment"
     ]
   },
   "work": {
     "heading": {
-      "label": "Portfolio",
-      "title": "Selected Productions",
-      "subtitle": "Projects executed across amphitheaters, festivals, and high-stakes corporate environments."
+      "label": "Recent Work",
+      "title": "Shows We Have Built and Run",
+      "subtitle": "A selection of concert, campus, and special-event productions delivered by our team."
     },
     "projects": [
       {
@@ -158,8 +158,8 @@
           "lighting",
           "lasers"
         ],
-        "description": "Show production support for OMNOM with laser and lighting integration for a packed university event.",
-        "longDescription": "Delivered laser and lighting support for OMNOM at A-Sig Indiana University, aligning visuals with the artist set flow and venue limitations while maintaining clean, safe operation throughout load-in, show, and load-out.",
+        "description": "Lighting and laser support for OMNOM at Indiana University, built for a packed student venue.",
+        "longDescription": "We designed and operated a combined lighting and laser package for OMNOM at A-Sig, syncing cues to set dynamics while staying within venue constraints and safety requirements.",
         "mainImageUrl": "/logo-dark.jpg",
         "gallery": [
           "/logo-dark.jpg",
@@ -178,8 +178,8 @@
           "lighting",
           "lasers"
         ],
-        "description": "Live show production for Odd Mob at The Fox in Boulder.",
-        "longDescription": "Ran lighting and laser-driven visual moments for Odd Mob at The Fox, building a club-forward look tuned to the room and artist pacing.",
+        "description": "Lighting and laser direction for Odd Mob at The Fox Theatre in Boulder.",
+        "longDescription": "Our team programmed and operated a club-forward visual system for Odd Mob, balancing high-impact beam looks with clean transitions and reliable execution all night.",
         "mainImageUrl": "/logo.png",
         "gallery": [
           "/logo.png",
@@ -198,8 +198,8 @@
           "lighting",
           "lasers"
         ],
-        "description": "Production visuals for Proppa at SAE Boulder.",
-        "longDescription": "Provided on-site show support for Proppa at SAE Boulder with coordinated lighting and laser looks designed for high-impact drops and sustained atmosphere.",
+        "description": "Visual production for Proppa at SAE Boulder with synchronized lighting and lasers.",
+        "longDescription": "We delivered a tightly timed lighting and laser show that emphasized key drops, maintained atmosphere between moments, and ran efficiently from load-in through strike.",
         "mainImageUrl": "/logo-icon.png",
         "gallery": [
           "/logo-icon.png",
@@ -218,8 +218,8 @@
           "lighting",
           "lasers"
         ],
-        "description": "Event production support for Gudfella at The Hanger in New Orleans.",
-        "longDescription": "Designed and executed the visual package for Gudfella at The Hanger, balancing venue constraints with high-energy beam architecture and show-ready cueing.",
+        "description": "Full visual support for Gudfella at The Hanger in New Orleans.",
+        "longDescription": "We built and ran a venue-specific lighting and laser package for Gudfella, optimizing placement, programming, and show flow for a high-energy room.",
         "mainImageUrl": "/logo-dark.jpg",
         "gallery": [
           "/logo-dark.jpg",
@@ -238,8 +238,8 @@
           "lighting",
           "lasers"
         ],
-        "description": "Show visuals for Gudfella at Chi Psi in Boulder.",
-        "longDescription": "Executed a fast-turn student event production for Gudfella at Chi Psi Boulder with synchronized beams and room-filling atmosphere.",
+        "description": "Lighting and laser production for Gudfella at Chi Psi Boulder.",
+        "longDescription": "This fast-turn campus show required quick deployment and precise operation; we delivered synchronized looks that kept impact high without overbuilding the rig.",
         "mainImageUrl": "/logo.png",
         "gallery": [
           "/logo.png",
@@ -258,8 +258,8 @@
           "lighting",
           "lasers"
         ],
-        "description": "Production support for Twin Diplomacy at ZBT Boulder.",
-        "longDescription": "Delivered a compact but high-output visual setup for Twin Diplomacy at ZBT Boulder with quick deployment and focused cue execution.",
+        "description": "Compact lighting and laser package for Twin Diplomacy at ZBT Boulder.",
+        "longDescription": "We engineered a high-output setup with a small footprint, focused on fast load-in, efficient cueing, and consistent visual coverage across the room.",
         "mainImageUrl": "/logo-icon.png",
         "gallery": [
           "/logo-icon.png",
@@ -270,15 +270,15 @@
       {
         "id": "its-murph-mission-ballroom-lasers",
         "slug": "its-murph-mission-ballroom-lasers",
-        "title": "Laser Support for it\u2019s murph at Mission Ballroom",
+        "title": "Laser Support for it’s murph at Mission Ballroom",
         "client": "Mission Ballroom",
         "location": "Denver, CO",
         "eventDate": "2024-08-24",
         "services": [
           "lasers"
         ],
-        "description": "Provided laser systems and operation support for it\u2019s murph at Mission Ballroom.",
-        "longDescription": "Supplied and operated laser components for it\u2019s murph at Mission Ballroom, integrating with existing show infrastructure while maintaining variance-compliant procedures.",
+        "description": "Laser system support and operation for it's murph at Mission Ballroom.",
+        "longDescription": "We integrated laser systems into the existing show infrastructure at Mission Ballroom and operated with strict variance-compliant procedures throughout the performance.",
         "mainImageUrl": "/logo-dark.jpg",
         "gallery": [
           "/logo-dark.jpg",
@@ -296,8 +296,8 @@
         "services": [
           "lasers"
         ],
-        "description": "Provided laser package support for BUNT at The Shrine in Los Angeles.",
-        "longDescription": "Handled laser deployment and operation for BUNT at The Shrine LA, coordinating with touring departments to ensure safe and impactful beam looks.",
+        "description": "Laser package deployment for BUNT at The Shrine in Los Angeles.",
+        "longDescription": "Our team coordinated with touring departments to deploy and operate lasers safely, delivering clean aerial looks that fit the artist's pacing and scene changes.",
         "mainImageUrl": "/logo.png",
         "gallery": [
           "/logo.png",
@@ -316,8 +316,8 @@
           "lighting",
           "lasers"
         ],
-        "description": "Show production for Noizu at Phi Delt Boulder.",
-        "longDescription": "Supported Noizu at Phi Delt Boulder with a tight-footprint production setup that emphasized dynamic beam moments and consistent visual pacing.",
+        "description": "Lighting and laser production support for Noizu at Phi Delt Boulder.",
+        "longDescription": "We delivered a tight-footprint visual build for a high-density audience environment, with dynamic cue structure and reliable operation from open to close.",
         "mainImageUrl": "/logo-icon.png",
         "gallery": [
           "/logo-icon.png",
@@ -335,8 +335,8 @@
         "services": [
           "lighting"
         ],
-        "description": "Custom timecoded lighting show designed for a private event at the peak of Crested Butte.",
-        "longDescription": "Built and programmed a fully timecoded light show for a private client event at the peak of Crested Butte, with cue structure tailored to music moments and the mountain environment.",
+        "description": "Custom timecoded lighting show for a private event in Crested Butte.",
+        "longDescription": "We designed and programmed a fully timecoded show tailored to the music and mountain setting, then executed onsite with detailed pre-production and safety planning.",
         "mainImageUrl": "/logo-dark.jpg",
         "gallery": [
           "/logo-dark.jpg",
@@ -355,8 +355,8 @@
           "lighting",
           "lasers"
         ],
-        "description": "Show production for Charlie Wonder at the Fox Boiler Room in Boulder.",
-        "longDescription": "Delivered lighting and laser support for Charlie Wonder at Fox Boiler Room Boulder, with artist-aligned cueing and rapid event-day deployment.",
+        "description": "Lighting and laser execution for Charlie Wonder at the Fox Boiler Room.",
+        "longDescription": "We aligned cueing to the artist set and venue limitations, delivering fast deployment and polished visual moments throughout the event.",
         "mainImageUrl": "/logo.png",
         "gallery": [
           "/logo.png",
@@ -375,8 +375,8 @@
           "lighting",
           "lasers"
         ],
-        "description": "Show production for Goodneighburs at Theta Chi in Boulder.",
-        "longDescription": "Delivered lighting and laser support for Goodneighburs at Theta Chi Boulder, with artist-focused cueing and smooth deployment from load-in through show end.",
+        "description": "Lighting and laser production for Goodneighburs at Theta Chi Boulder.",
+        "longDescription": "We produced a clean, artist-aligned visual program with efficient setup, strong beam architecture, and consistent show control from load-in through final cue.",
         "mainImageUrl": "/logo-dark.jpg",
         "gallery": [
           "/logo-dark.jpg",
@@ -388,15 +388,15 @@
   },
   "about": {
     "heading": {
-      "label": "The Company",
-      "title": "Built By Operators",
-      "subtitle": "A technical team that plans thoroughly, communicates clearly, and executes under pressure."
+      "label": "About Hot Beam",
+      "title": "Operators First. Production Partners Always.",
+      "subtitle": "We are a hands-on technical team trusted for complex shows where timing, safety, and execution matter."
     },
-    "storyTitle": "Production Partners",
+    "storyTitle": "How We Work",
     "story": [
-      "Hot Beam was built by working show crew. We started the company to provide accurate prep, reliable systems, and accountable leadership.",
-      "The same team that plans your project runs your show. Fewer handoffs means clearer communication and fewer surprises.",
-      "We support promoters, agencies, venues, and production managers with practical plans and clear communication."
+      "Hot Beam was founded by working crew who wanted production partners to get clearer plans and fewer surprises.",
+      "The people who scope your show are the same people onsite calling cues and solving problems in real time.",
+      "We support promoters, agencies, venues, and tour teams with practical systems, disciplined communication, and reliable follow-through."
     ],
     "stats": [
       {
@@ -419,30 +419,30 @@
     "values": [
       {
         "title": "Technical Rigor",
-        "description": "We read riders carefully, model systems before load-in, and document every step."
+        "description": "We prep thoroughly, model systems early, and document critical details before show day."
       },
       {
         "title": "Single-Team Accountability",
-        "description": "The team that scopes your show is the team that delivers it. Fewer layers, faster decisions."
+        "description": "One team owns planning and execution, so decisions are faster and accountability is clear."
       },
       {
         "title": "Creative Discipline",
-        "description": "Design decisions follow show goals, sightlines, camera needs, and cue timing."
+        "description": "We design for the audience, the camera, and the run-of-show, not just for looks."
       }
     ],
     "partners": [
       {
         "id": "daniel",
         "name": "Daniel Mankin",
-        "role": "Co-Founder \u00b7 Technical Director",
-        "bio": "Daniel leads system architecture, laser operations, and show programming. He is FDA LSO certified.",
+        "role": "Co-Founder · Technical Director",
+        "bio": "Daniel leads technical direction, laser safety, and control programming across touring and special events. He is FDA LSO certified.",
         "imageUrl": "https://pub-XXXX.r2.dev/team/daniel.jpg"
       },
       {
         "id": "beau",
         "name": "Beau",
-        "role": "Co-Founder \u00b7 Production Manager",
-        "bio": "Beau leads logistics, crew operations, and site execution. He keeps schedules, vendors, and staffing aligned from prep through strike.",
+        "role": "Co-Founder · Production Manager",
+        "bio": "Beau leads logistics, staffing, and day-of operations, keeping schedules, vendors, and crews aligned from prep through strike.",
         "imageUrl": "https://pub-XXXX.r2.dev/team/beau.jpg"
       }
     ],
@@ -467,10 +467,10 @@
       }
     ],
     "closingCta": {
-      "title": "Need A Production Team That Can Execute?",
-      "description": "Send your venue, timeline, and goals. We will return a practical technical plan and budget path.",
+      "title": "Need a Team That Can Carry the Whole Show?",
+      "description": "Send your date, venue, and goals. We will return a practical scope, staffing plan, and next steps.",
       "button": {
-        "label": "Start a Conversation",
+        "label": "Request a Proposal",
         "href": "/contact"
       }
     }
@@ -478,8 +478,8 @@
   "rentals": {
     "heading": {
       "label": "Inventory",
-      "title": "Show-Ready Equipment",
-      "subtitle": "Core inventory available as dry hire or bundled with technical labor and transportation."
+      "title": "Rental Inventory",
+      "subtitle": "Show-ready gear available as dry hire or bundled with crew, transport, and operation."
     },
     "categories": [
       {
@@ -488,38 +488,38 @@
       },
       {
         "value": "video",
-        "label": "Visual Display Infrastructure"
+        "label": "LED & Video"
       },
       {
         "value": "lasers",
-        "label": "High-Power Laser Systems"
+        "label": "Laser Systems"
       },
       {
         "value": "atmospherics",
-        "label": "Atmospheric Modifiers"
+        "label": "Atmospherics"
       },
       {
         "value": "audio-dj",
-        "label": "Professional Audio & DJ Hardware"
+        "label": "DJ & Audio"
       },
       {
         "value": "lighting",
-        "label": "Intelligent Wash & Beam Lighting"
+        "label": "Lighting"
       },
       {
         "value": "rigging",
-        "label": "Structural Rigging"
+        "label": "Rigging"
       },
       {
         "value": "staging",
-        "label": "Modular Staging"
+        "label": "Staging"
       },
       {
         "value": "power",
-        "label": "Power Distribution"
+        "label": "Power"
       }
     ],
-    "footerNote": "Need a complete list? Request the current inventory sheet.",
+    "footerNote": "Need quantities, pricing, and package options? Request the latest inventory sheet.",
     "items": [
       {
         "id": "premium-led-video-wall-system-2-8mm-vx400",
@@ -527,7 +527,7 @@
         "name": "6.5 x 9.8ft Premium LED Video Wall System (2.8mm) with Novastar VX400",
         "category": "video",
         "brand": "Hot Beam Productions",
-        "description": "Transform your stage architecture with our broadcast-ready 6.5 x 9.8ft LED Video Wall package. Featuring a high-density 2.8mm pixel pitch and a staggering 3840Hz refresh rate, this 24-panel modular system guarantees absolutely flicker-free performance on camera and stunning visual clarity for live audiences. To ensure flawless operation, this package includes the industry-standard Novastar VX400 all-in-one controller. With a 2.9 million pixel loading capacity, four Gigabit Ethernet outputs, and SuperView III stepless scaling, the VX400 provides seamless video processing, allowing you to map, crop, and scale your visual content effortlessly.",
+        "description": "24-panel 2.8mm LED wall package with Novastar VX400 processing for flicker-free camera and audience playback.",
         "specs": [
           "Panel Pixel Pitch: 2.8mm",
           "Diode Type / Density: SMD1515 / 123,904 pixels per sqm",
@@ -551,11 +551,11 @@
         "name": "Able Archer 20W RGB Laser Projector (FB4 Integrated)",
         "category": "lasers",
         "brand": "Able",
-        "description": "Command the skyline and dominate festival stages with the Able Archer 20W RGB Laser. Engineered for mega-scale events, this IP65-rated weatherproof projector delivers an immense 20,000mW of pristine laser energy. With an integrated Pangolin FB4 media server, you can trigger complex shows, liquid skies, and custom animations directly via Art-Net, sACN, or Ethernet without the need for cumbersome ILDA cables. The projector features a razor-tight <1.2mrad beam divergence for extreme long-throw visibility and utilizes 30Kpps high-speed scanners for perfectly smooth geometric rendering.",
+        "description": "IP65 20W RGB laser projector with integrated FB4 for Art-Net and sACN control on large-format shows.",
         "specs": [
-          "Total Optical Power: \u226520,000mW",
+          "Total Optical Power: ≥20,000mW",
           "Laser Diode Distribution: 6.4W Red, 6.4W Green, 8W Blue",
-          "Scanning Speed: 30Kpps @ 8\u00b0",
+          "Scanning Speed: 30Kpps @ 8°",
           "Beam Divergence: <1.2mrad",
           "Control Interfaces: FB4, Art-Net, Ethernet, DMX, ILDA",
           "Ingress Protection: IP65"
@@ -575,11 +575,11 @@
         "name": "High-Power 10W RGB Laser Projector",
         "category": "lasers",
         "brand": "Generic",
-        "description": "Deliver stunning aerial effects and precise geometric animations with our High-Power 10W RGB Laser. Perfectly scaled for mid-sized indoor venues and high-energy nightclub environments, this projector utilizes high-performance analog modulation for infinite, smooth color blending. Equipped with professional 30Kpps high-speed scanners and a tight <1.5mrad beam divergence, the unit ensures sharp, flicker-free graphics. Control your show your way with support for ILDA, DMX512, and automatic sound-active modes.",
+        "description": "10W RGB laser projector for indoor venues and clubs, with ILDA and DMX control plus smooth color blending.",
         "specs": [
           "Total Optical Power: 10,000mW",
           "Laser Diode Distribution: 3W Red, 3W Green, 4W Blue",
-          "Scanning Speed: 30Kpps @ 8\u00b0",
+          "Scanning Speed: 30Kpps @ 8°",
           "Beam Divergence: <1.5mrad",
           "Control Interfaces: ILDA, DMX512, Auto, Sound"
         ],
@@ -596,7 +596,7 @@
         "name": "Alpha Theta CDJ-3000x Professional DJ Multi Player",
         "category": "audio-dj",
         "brand": "Alpha Theta",
-        "description": "Step into the booth with the undisputed global standard in DJ performance technology. The Alpha Theta CDJ-3000x is driven by an advanced multi-core MPU, ensuring lightning-fast track loading and flawless performance reliability. Navigate your sets intuitively on the massive 10.1-inch capacitive touchscreen, and experience unparalleled sonic purity thanks to the onboard ESS 32-bit DAC, which delivers a breathtaking 115 dB signal-to-noise ratio. With Gigabit PRO DJ LINK networking, dual USB-C ports, and Wi-Fi capability for CloudDirectPlay, the CDJ-3000x is built to command the world's largest festival stages.",
+        "description": "Flagship multi-player with fast track load, large touchscreen control, and pro networking for touring DJ booths.",
         "specs": [
           "Audio Processing Resolution: 96kHz / 32-bit ESS DAC",
           "Signal-to-Noise Ratio: 115 dB",
@@ -617,7 +617,7 @@
         "name": "Pioneer DJ DJM-A9 4-Channel Professional Mixer",
         "category": "audio-dj",
         "brand": "Pioneer DJ",
-        "description": "The heartbeat of the modern DJ booth. The Pioneer DJ DJM-A9 is a next-generation 4-channel mixer engineered for absolute sonic excellence. Utilizing 32-bit ESS Technology A/D and D/A converters, it delivers crystal-clear, high-resolution audio to both the dancefloor and the booth monitors. Designed for seamless artist transitions, the A9 features dual independent headphone outputs for effortless back-to-back sets, a phantom-powered microphone input for studio-grade condenser mics, and an expanded Sound Color FX section. Integrated Bluetooth and Wi-Fi capabilities ensure you are always connected, making this the ultimate mixing hub for any professional deployment.",
+        "description": "4-channel club-standard mixer with high-resolution audio path, dual USB, and back-to-back ready workflow.",
         "specs": [
           "Audio Processing Resolution: 96kHz / 32-bit ESS AD/DA",
           "Signal-to-Noise Ratio: 105 dB (Line)",
@@ -638,10 +638,10 @@
         "name": "Artfox IPStrobe M Motorized Strobe & Wash (IP65)",
         "category": "lighting",
         "brand": "Artfox",
-        "description": "Deliver devastating visual impact with the Artfox IPStrobe M. Comparable to the legendary Colorstrike M, this IP65-rated motorized strobe and wash fixture is built to withstand the harshest outdoor festival conditions. It features a blistering 1176W cool-white central strobe tube surrounded by a rich 392W RGB background wash panel, allowing for aggressive strobe blasts and saturated color washes from a single unit. With a lightning-fast 185-degree motorized tilt, full pixel mapping capabilities, and seamless Art-Net/DMX control, the IPStrobe M is the ultimate dynamic effect luminaire.",
+        "description": "IP65 motorized strobe and wash fixture built for outdoor stages, with bright white strobe and RGB background wash.",
         "specs": [
           "Light Source Engine: 1176W White Strobe / 392W RGB",
-          "Beam Optics: 185\u00b0 Motorized Tilt",
+          "Beam Optics: 185° Motorized Tilt",
           "Color Generation: RGB Wash + Pure White Strobe",
           "Control Protocols: Art-Net, sACN, DMX, RDM",
           "Ingress Protection: IP65"
@@ -662,10 +662,10 @@
         "name": "Artfox Matrix Hybrid CMY 460 Moving Head",
         "category": "lighting",
         "brand": "Artfox",
-        "description": "Maximize your lighting rig's potential with the Artfox Matrix Hybrid CMY 460. This powerful all-in-one moving head is driven by a 460W Cool White LED engine and features a motorized linear zoom ranging from a piercing 4\u00b0 beam to a broad 30\u00b0 wash. Engineered for professional lighting designers, it offers incredibly smooth CMY subtractive color mixing, variable CTO/CTB color temperature correction, dual rotating prisms, and dynamic gobo wheels. Whether you need sharp mid-air aerial effects, textured stage spots, or even color washes, the Hybrid CMY 460 delivers uncompromising performance.",
+        "description": "460W hybrid moving head with CMY mixing, zoom, prisms, and gobo options for beam, spot, and wash looks.",
         "specs": [
           "Light Source Engine: 460W Cool White LED (8000K)",
-          "Motorized Zoom: 4\u00b0 to 30\u00b0",
+          "Motorized Zoom: 4° to 30°",
           "Color Generation: CMY Mixing + Variable CTO/CTB",
           "Control Protocol: DMX512 (25 Channel)",
           "Ingress Protection: IP20"
@@ -686,10 +686,10 @@
         "name": "Artfox Solar 7 Moving Zoom Wash",
         "category": "lighting",
         "brand": "Artfox",
-        "description": "Fast, compact, and incredibly bright. The Artfox Solar 7 Moving Wash features seven potent 40W RGBW LEDs capable of producing brilliant, perfectly blended colors. Its motorized linear zoom effortlessly transitions the beam angle from a tight 6\u00b0 column of light to a wide 45\u00b0 stage wash, making it an incredibly versatile tool for any rig. Thanks to its lightweight design and advanced 3-phase motors, the Solar 7 executes lightning-fast pan and tilt movements, ensuring it keeps pace with the most demanding, high-energy light shows.",
+        "description": "Compact moving wash with 7x40W RGBW LEDs and fast zoom for punchy beams or wide stage coverage.",
         "specs": [
           "Light Source Engine: 7x 40W RGBW LEDs",
-          "Motorized Zoom: 6\u00b0 to 45\u00b0",
+          "Motorized Zoom: 6° to 45°",
           "Color Generation: RGBW 4-in-1 Mixing",
           "Control Protocol: DMX512 (17/22 Channel)",
           "Ingress Protection: IP20 / IP65 Variants Available"
@@ -708,7 +708,7 @@
         "name": "Cryogenic CO2 Cannon Jet (Includes 75lb Siphon Tank)",
         "category": "atmospherics",
         "brand": "Hot Beam Productions",
-        "description": "Deliver massive, stadium-shaking energy with our professional Cryogenic CO2 Cannons. Engineered to blast dense, ice-cold plumes of white fog up to 35 feet in the air, these jets are the ultimate special effect for beat drops and grand entrances. The fog dissipates instantly, leaving the stage completely clear. To ensure you achieve the perfect cryogenic flash, this rental package includes one fully loaded 75lb Siphon CO2 tank per cannon, providing approximately 135 seconds of total output time. Fully DMX controllable for precise, synchronized firing.",
+        "description": "DMX-controlled CO2 jet package that delivers fast, high-impact plumes with an included 75lb siphon tank.",
         "specs": [
           "Output Reach: 25 - 35 feet vertical plume",
           "Consumable Required: Liquid CO2 (75lb Siphon Tank)",
@@ -726,7 +726,7 @@
         "name": "Artfox 1500W Professional Hazer",
         "category": "atmospherics",
         "brand": "Artfox",
-        "description": "Maximize the visual impact of your entire lighting and laser rig with the Artfox 1500W Professional Hazer. Unlike standard foggers, this touring-grade hazer outputs a fine, long-lasting mist at a massive 38,000 cubic feet per minute, perfectly illuminating mid-air light beams without smoking out your performers. Built into a rugged flight case, it features a 5-angle adjustable output baffle to work seamlessly with your venue's air currents. It heats up in just 60 seconds and offers full DMX512 control for precise atmospheric management.",
+        "description": "Touring hazer with strong, even output for lighting and laser definition without heavy fog buildup.",
         "specs": [
           "Output Volume: 38,000 cubic feet per minute",
           "Consumable Required: Professional Haze Fluid (6L Tank)",
@@ -748,7 +748,7 @@
         "name": "3m (9.84ft) F34 Aluminum Square Truss",
         "category": "rigging",
         "brand": "F34",
-        "description": "The industry standard for safe, heavy-duty rigging. Our 3-meter F34 290mm square trussing is constructed from high-strength aluminum with 50mm main tubes and a 2mm wall thickness, guaranteeing maximum load-bearing capacity for your lighting and video walls. Features quick-lock conical couplers for rapid, secure deployment.",
+        "description": "3m F34 square truss segment for main spans, grids, and structural runs.",
         "specs": [
           "Length: 3m (9.84ft)",
           "Profile: F34 290mm square truss",
@@ -770,7 +770,7 @@
         "name": "1.5m (4.92ft) F34 Aluminum Square Truss",
         "category": "rigging",
         "brand": "F34",
-        "description": "Highly versatile 1.5-meter F34 square truss segment. Built to the same rigorous 50mm/2mm tubing standards as our longer spans, this half-size segment is perfect for creating custom grid dimensions, vertical totems, or adjusting the height of goal-post arches. Includes conical coupling hardware.",
+        "description": "1.5m F34 square truss segment for modular builds, totems, and custom span lengths.",
         "specs": [
           "Length: 1.5m (4.92ft)",
           "Profile: F34 290mm square truss",
@@ -792,7 +792,7 @@
         "name": "F34 6-Way Junction Corner Block",
         "category": "rigging",
         "brand": "F34",
-        "description": "Build complex 3D grids and arches effortlessly. This heavy-duty 6-way junction block allows you to connect F34 truss segments in up to six different directions simultaneously, providing ultimate structural flexibility.",
+        "description": "F34 six-way corner block for building multi-direction truss structures and 3D grids.",
         "specs": [
           "Connections: 6 directions",
           "Compatible Profile: F34",
@@ -812,7 +812,7 @@
         "name": "3x3ft Heavy-Duty F34 Base Plate",
         "category": "rigging",
         "brand": "F34",
-        "description": "Ensure absolute stability for your freestanding truss totems. This massive 3x3-foot aluminum base plate provides a wide center of gravity, preventing heavy moving heads from tipping your vertical columns.",
+        "description": "Heavy-duty 3x3ft base plate for stabilizing larger freestanding truss totems.",
         "specs": [
           "Footprint: 3x3ft",
           "Use Case: Heavy totems",
@@ -832,7 +832,7 @@
         "name": "2x2ft F34 Base Plate",
         "category": "rigging",
         "brand": "F34",
-        "description": "A compact but highly stable 2x2-foot base plate designed to safely support standard vertical F34 truss totems holding lightweight lighting fixtures or TV monitors.",
+        "description": "2x2ft base plate for compact truss totems and lighter fixture loads.",
         "specs": [
           "Footprint: 2x2ft",
           "Use Case: Standard totems",
@@ -851,7 +851,7 @@
         "name": "1x1ft F34 Top Plate",
         "category": "rigging",
         "brand": "F34",
-        "description": "Mount your moving heads or laser projectors safely atop any vertical F34 truss totem. This 1x1-foot top plate provides a perfectly flat, secure mounting surface.",
+        "description": "1x1ft top plate for safely mounting fixtures on vertical F34 totems.",
         "specs": [
           "Footprint: 1x1ft",
           "Use Case: Fixture mounting",
@@ -870,7 +870,7 @@
         "name": "24-inch Truss Arm Extension Pole (Boom Arm)",
         "category": "rigging",
         "brand": "F34",
-        "description": "Maximize your rigging space. This 24-inch aluminum extension pole features dual self-locking clamps that attach securely to a 2-inch truss tube, allowing you to hang fixtures out and away from the main span to achieve superior lighting angles.",
+        "description": "24-inch truss boom arm for offset fixture mounting and improved focus angles.",
         "specs": [
           "Length: 24 inches",
           "Mounting: Dual self-locking clamps",
@@ -889,7 +889,7 @@
         "name": "Heavy-Duty Truss Lift / Crank Stand",
         "category": "rigging",
         "brand": "Global Truss",
-        "description": "Elevate your lighting and video rigs safely and efficiently. These heavy-duty multi-mast crank stands provide immense mechanical advantage, allowing a single operator to hoist hundreds of pounds of loaded truss to heights exceeding 13 feet. Featuring an automatic friction brake winch, spring-loaded safety locking pins, and massive adjustable outrigger legs for leveling on uneven terrain, these lifts guarantee absolute structural safety and stability for your event.",
+        "description": "Heavy-duty crank stand for safely raising loaded truss sections in indoor or outdoor setups.",
         "specs": [
           "Lift Capacity: 220 - 330 lbs",
           "Max Height: 13 - 15 ft",
@@ -910,7 +910,7 @@
         "name": "Artfox 4x4ft Modular Stage Deck (Adjustable Height)",
         "category": "staging",
         "brand": "Artfox",
-        "description": "Build a rock-solid foundation for your performers. Our premium 4x4-foot stage decks feature an 18mm anti-slip plywood surface capable of supporting a massive 800kg per square meter. The true advantage lies in the infinitely adjustable telescoping legs, which allow you to set the stage height anywhere from 2 to 3.3 feet, making it incredibly easy to achieve a perfectly level stage on uneven outdoor terrain or slopes.",
+        "description": "4x4ft modular stage deck with adjustable legs for level platforms on uneven surfaces.",
         "specs": [
           "Deck Size: 4x4ft (1.22m x 1.22m)",
           "Deck Surface: 18mm anti-slip plywood",
@@ -930,7 +930,7 @@
         "name": "Artfox Stage Deck Stairs (Adjustable)",
         "category": "staging",
         "brand": "Artfox",
-        "description": "Provide safe, professional access to your stage platform. These heavy-duty stage stairs lock securely into our Artfox 4x4 decks and perfectly match their adjustable heights, ensuring a seamless transition from the venue floor to the performance area.",
+        "description": "Adjustable stair unit that locks into matching stage decks for safe performer access.",
         "specs": [
           "Compatible System: Artfox stage decks",
           "Height Match: 24 - 40 inches",
@@ -949,7 +949,7 @@
         "name": "400A Three-Phase Power Distribution Rack",
         "category": "power",
         "brand": "Hot Beam Productions",
-        "description": "The beating heart of your production's power grid. This heavy-duty 400A Three-Phase Power Distro takes high-capacity Cam-Lok feeds from generators or venue tie-ins and safely routes it to your stage equipment. Featuring built-in circuit breakers for immediate backstage resetting, the unit provides multiple 19-pin Socapex outputs for overhead lighting grids and standard 20A Edison duplexes for stage-level gear. Housed in a rugged 21RU rolling rack, it ensures your rig receives clean, uninterrupted, and perfectly balanced power.",
+        "description": "400A three-phase power distro rack for routing generator or tie-in feeds to stage circuits.",
         "specs": [
           "Input Connection: 400A Cam-Lok (3 Phase)",
           "Output Connections: Socapex, NEMA 5-15 Duplex",
@@ -970,7 +970,7 @@
         "name": "50ft Socapex Extension Cable (19-Pin, 12 AWG)",
         "category": "power",
         "brand": "Hot Beam Productions",
-        "description": "Streamline your lighting rig's power infrastructure and eliminate the mess of extension cords. This heavy-duty 50-foot Socapex cable utilizes thick 12 AWG copper conductors to safely deliver six independent 20A power circuits through a single, crush-proof multipin snake. Perfect for feeding power from your distro directly to the truss grid.",
+        "description": "50ft 19-pin Socapex cable for carrying six circuits from distro to truss positions.",
         "specs": [
           "Length: 50ft",
           "Connector: 19-Pin (Male to Female)",
@@ -991,7 +991,7 @@
         "name": "Socapex Breakout Cable (19-Pin to 6x Edison)",
         "category": "power",
         "brand": "Hot Beam Productions",
-        "description": "Distribute power cleanly across your truss. This breakout tail attaches to the end of a Socapex cable, splitting the single 19-pin connection into six clearly numbered standard 20A Edison (NEMA 5-15) receptacles. This allows you to plug your intelligent moving heads, strobes, and lasers directly into the local grid, minimizing cable clutter and weight.",
+        "description": "19-pin to Edison breakout tail for distributing six local circuits at the truss or stage edge.",
         "specs": [
           "Input: 19-Pin male",
           "Outputs: 6x NEMA 5-15 Edison",
@@ -1011,22 +1011,22 @@
   "contact": {
     "heading": {
       "label": "Contact",
-      "title": "Request A Proposal",
-      "subtitle": "Share your event brief and technical priorities. We will respond with a clear next step."
+      "title": "Tell Us What You Are Producing",
+      "subtitle": "Share your date, venue, and priorities. We will reply with clear next steps within one business day."
     },
-    "directContactTitle": "Direct Contact",
+    "directContactTitle": "Talk to Production",
     "cards": [
       {
-        "title": "Response Window",
-        "body": "Proposal requests receive a response within one business day. For urgent shows, call directly."
+        "title": "Response Time",
+        "body": "Proposal requests are reviewed within one business day. If your timeline is tight, call us directly."
       },
       {
-        "title": "Coverage",
+        "title": "Coverage Area",
         "body": "Based in Denver, with regular work across the Front Range, mountain venues, and national tours."
       }
     ],
     "eventTypes": [
-      "Concert / Festival",
+      "Concert or Festival",
       "Corporate Event",
       "Conference",
       "Private Event",
@@ -1034,31 +1034,31 @@
       "Other"
     ],
     "serviceNeeds": [
-      "Lighting Design & Programming",
-      "LED / Video Systems",
+      "Lighting Design and Programming",
+      "LED and Video Systems",
       "Laser Production",
       "Special Effects",
       "Full Technical Production"
     ],
     "success": {
-      "title": "Request Received",
-      "message": "Your brief has been received. We will follow up within one business day."
+      "title": "Thanks, We Got It",
+      "message": "Your request is in. Our team will follow up within one business day."
     },
-    "submitLabel": "Send Proposal Request",
+    "submitLabel": "Send My Request",
     "complianceBadges": [
       "FDA laser safety and variance workflow",
-      "Certificate of Insurance available on request",
+      "Certificate of insurance available on request",
       "Documented safety and site coordination process"
     ]
   },
   "footer": {
-    "description": "Live event production for concerts, tours, brand activations, and corporate stages. Real people, reliable production.",
+    "description": "Technical production for concerts, festivals, campus events, and brand activations. Planned carefully, executed cleanly.",
     "departments": [
-      "Lighting",
-      "Video",
-      "Lasers",
+      "Lighting Design",
+      "LED Video",
+      "Laser Production",
       "Special Effects",
-      "Crew & Labor"
+      "Crew and Show Operations"
     ]
   }
 }

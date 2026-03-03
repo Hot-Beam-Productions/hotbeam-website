@@ -60,7 +60,7 @@ export function Navbar({ brand, navigation }: NavbarProps) {
             href={`mailto:${brand.email}`}
             className="mono-label rounded-sm border border-laser-cyan bg-laser-cyan/10 px-4 py-2 !text-laser-cyan transition-all hover:bg-laser-cyan/20"
           >
-            24/7 Support: {brand.email}
+            Email Production Team
           </Link>
         </div>
 
@@ -105,7 +105,7 @@ export function Navbar({ brand, navigation }: NavbarProps) {
                   onClick={() => setMobileOpen(false)}
                   className="mono-label !text-sm !text-laser-cyan"
                 >
-                  24/7 Support: {brand.email}
+                  Email Production Team
                 </Link>
               </div>
             </div>

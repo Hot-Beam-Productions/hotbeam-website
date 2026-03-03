@@ -8,7 +8,7 @@ import { BreadcrumbJsonLd } from "@/components/breadcrumb-jsonld";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Request a live event production proposal from Hot Beam Productions. Share your show requirements and receive a scoped response within one business day.",
+    "Request a production proposal from Hot Beam Productions. Share your event scope and get clear next steps within one business day.",
   alternates: { canonical: "/contact" },
 };
 

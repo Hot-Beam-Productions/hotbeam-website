@@ -209,10 +209,10 @@ export default async function WorkProjectPage({ params }: Props) {
         <div className="flex flex-col items-start justify-between gap-5 border-t border-border pt-12 md:flex-row md:items-center">
           <div>
             <h2 className="font-heading text-3xl tracking-tight text-foreground md:text-4xl">
-              Planning something similar?
+              Planning a Similar Show?
             </h2>
             <p className="mt-2 text-sm text-muted">
-              Share your scope and we will shape the right technical approach.
+              Share your scope and timeline. We will map a practical production approach.
             </p>
           </div>
           <GlowButton href="/contact" variant="primary">

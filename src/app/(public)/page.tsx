@@ -116,55 +116,53 @@ export default async function Home() {
       <section id="capabilities" className="px-6 py-24" aria-labelledby="services-heading">
         <div className="mx-auto max-w-7xl">
           <h2 id="services-heading" className="font-heading text-4xl tracking-tight md:text-5xl">
-            What We Do
+            Core Services
           </h2>
 
           <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
             <article className="border border-border bg-surface p-6">
               <h3 id="intelligent-lighting" className="font-heading text-3xl tracking-tight text-foreground">
-                Lighting Design & Operation
+                Lighting Design and Show Operation
               </h3>
               <p className="mt-4 text-sm leading-relaxed text-muted-light">
-                From CAD pre-vis to live FOH operation, we design and run lighting rigs that move with the
-                performance. Our inventory includes IP-rated moving heads, LED wash fixtures, and custom truss
-                packages — all programmed, tested, and show-ready before we ever leave the shop.
+                We design, previsualize, and run lighting systems built for live pacing, camera needs, and
+                real venue constraints. Every rig is programmed, tested, and deployment-ready before load-in.
               </p>
               <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-muted-light">
-                <li>Avolites & grandMA Control</li>
-                <li>IP65 Outdoor-Rated Fixtures</li>
-                <li>Full CAD Pre-Visualization</li>
+                <li>Previsualization and cue programming</li>
+                <li>grandMA and Avolites control workflows</li>
+                <li>Indoor and IP-rated outdoor systems</li>
               </ul>
             </article>
 
             <article className="border border-border bg-surface p-6">
               <h3 id="class-iv-lasers" className="font-heading text-3xl tracking-tight text-foreground">
-                Laser Shows & Programming
+                Laser Design and Operation
               </h3>
               <p className="mt-4 text-sm leading-relaxed text-muted-light">
-                We specialize in Class IV laser programming and live operation using Pangolin Beyond. From
-                aerial beam shows to projection mapping, every laser element integrates cleanly into your
-                existing DMX universe. Every show is fully FDA variance-compliant — no shortcuts on safety, ever.
+                From beam architecture to live playback, we build laser moments that fit the music and
+                integrate with the rest of your show file. Safety and variance compliance stay built in from
+                day one.
               </p>
               <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-muted-light">
                 <li>Pangolin Beyond Programming</li>
-                <li>FDA Variance-Compliant</li>
-                <li>Full DMX Integration</li>
+                <li>FDA variance-compliant workflows</li>
+                <li>Timecode, DMX, and Art-Net integration</li>
               </ul>
             </article>
 
             <article className="border border-border bg-surface p-6">
               <h3 id="led-video-walls" className="font-heading text-3xl tracking-tight text-foreground">
-                LED Video & Media Servers
+                LED Video and Media Systems
               </h3>
               <p className="mt-4 text-sm leading-relaxed text-muted-light">
-                Scalable LED video walls and media server programming built for immersive visual storytelling.
-                Whether it&apos;s live IMAG, custom motion graphics, or venue-mapped content, we tailor every
-                pixel to your stage and your story.
+                We deploy LED walls and media servers that hold up under show pressure. Content playback,
+                IMAG, and venue-specific mapping are configured for stable operation and fast recovery.
               </p>
               <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-muted-light">
-                <li>Resolume Media Servers</li>
-                <li>Live Multi-Camera IMAG</li>
-                <li>Venue-Specific Deployment Planning</li>
+                <li>LED wall processing and mapping</li>
+                <li>Media server and playback systems</li>
+                <li>Multi-camera and IMAG support</li>
               </ul>
             </article>
           </div>
@@ -180,22 +178,22 @@ export default async function Home() {
             <article className="border border-border bg-surface p-6">
               <h3 className="font-heading text-2xl tracking-tight text-foreground">Touring Artists</h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-light">
-                Scalable lighting and visual packages that integrate with your rider and adapt to every room
-                on the run. We work directly with TMs and PMs to make advancing seamless.
+                Rider-aware production packages that travel cleanly and adapt across venues without sacrificing
+                consistency.
               </p>
             </article>
             <article className="border border-border bg-surface p-6">
               <h3 className="font-heading text-2xl tracking-tight text-foreground">Corporate & Brand Events</h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-light">
-                Clean, reliable production for keynotes, brand activations, and live broadcasts. Everything
-                runs on time, looks polished, and stays on-brand.
+                Polished technical execution for keynotes, launches, and broadcasts where timing and brand
+                control matter.
               </p>
             </article>
             <article className="border border-border bg-surface p-6">
               <h3 className="font-heading text-2xl tracking-tight text-foreground">Collegiate & Campus Events</h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-light">
-                Festival-grade lighting, lasers, and staging for Greek life, campus organizations, and
-                university events. We handle the production so you can focus on the experience.
+                High-impact concert environments for campus events, with practical planning that keeps safety
+                and schedule on track.
               </p>
             </article>
           </div>
@@ -205,18 +203,19 @@ export default async function Home() {
       <section className="px-6 pb-24" aria-labelledby="equipment-inventory-heading">
         <div className="mx-auto max-w-7xl border border-border bg-surface p-8">
           <h2 id="equipment-inventory-heading" className="font-heading text-4xl tracking-tight md:text-5xl">
-            Rider-Ready Gear
+            Show-Ready Inventory
           </h2>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-light">
-            Tour-tested hardware from leading manufacturers — maintained, prepped, and ready to meet your rider.
+            Lighting, laser, video, rigging, and power systems maintained for fast deployment and predictable
+            performance.
           </p>
           <ul className="mt-6 grid list-disc gap-3 pl-5 text-sm text-muted-light md:grid-cols-2 lg:grid-cols-3">
-            <li>Pangolin Beyond Laser Control</li>
-            <li>Chauvet Professional Moving Fixtures</li>
-            <li>Resolume Media Server Packages</li>
-            <li>IP-Rated Laser Projectors</li>
-            <li>Touring-Grade Truss & Rigging</li>
-            <li>Signal & Power Distribution</li>
+            <li>Laser control and projector packages</li>
+            <li>Moving lights, strobes, and wash fixtures</li>
+            <li>LED wall and media server systems</li>
+            <li>Truss, lifts, and rigging hardware</li>
+            <li>Stage decks and support infrastructure</li>
+            <li>Power distribution and cabling</li>
           </ul>
         </div>
       </section>
@@ -225,16 +224,16 @@ export default async function Home() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-10 flex items-end justify-between gap-6">
             <div>
-              <p className="mono-label mb-3 !text-laser-cyan">Our Work</p>
+              <p className="mono-label mb-3 !text-laser-cyan">Case Studies</p>
               <h2 id="featured-work-heading" className="font-heading text-4xl tracking-tight md:text-5xl">
-                Recent Projects
+                Selected Projects
               </h2>
             </div>
             <Link
               href="/work"
               className="mono-label !text-muted-light transition-colors hover:!text-laser-cyan"
             >
-              See all projects &rarr;
+              View all work &rarr;
             </Link>
           </div>
 

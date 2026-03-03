@@ -11,7 +11,7 @@ import { BreadcrumbJsonLd } from "@/components/breadcrumb-jsonld";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Meet the operators behind Hot Beam Productions. Technical leadership, disciplined execution, and production planning built for complex live environments.",
+    "Meet the operators behind Hot Beam Productions. We plan and run live event systems for concerts, campus shows, and brand events.",
   alternates: { canonical: "/about" },
 };
 

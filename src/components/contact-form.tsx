@@ -36,19 +36,19 @@ export function ContactForm({ contact }: ContactFormProps) {
     setError(undefined);
 
     if (!endpoint) {
-      setError("Contact endpoint is not configured.");
+      setError("Contact form is not configured yet. Please email us directly.");
       setPending(false);
       return;
     }
 
     if (!turnstileSiteKey) {
-      setError("Turnstile site key is not configured.");
+      setError("Bot verification is unavailable right now. Please email us directly.");
       setPending(false);
       return;
     }
 
     if (!turnstileToken) {
-      setError("Please complete bot verification before sending your request.");
+      setError("Please complete verification before sending.");
       setPending(false);
       return;
     }
@@ -91,7 +91,7 @@ export function ContactForm({ contact }: ContactFormProps) {
         return;
       }
 
-      setError(responseData.error ?? "Unable to submit request. Please try again.");
+      setError(responseData.error ?? "We could not send your request. Please try again.");
     } catch {
       setError("Network error while sending your request. Please try again.");
     } finally {
@@ -136,7 +136,7 @@ export function ContactForm({ contact }: ContactFormProps) {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
           <label htmlFor="name" className="mb-2 block text-sm text-muted-light">
-            Name <span aria-hidden="true">*</span>
+            Full Name <span aria-hidden="true">*</span>
           </label>
           <input
             id="name"
@@ -144,7 +144,7 @@ export function ContactForm({ contact }: ContactFormProps) {
             required
             minLength={2}
             className={inputStyles}
-            placeholder="Your full name"
+            placeholder="Jane Smith"
             autoComplete="name"
           />
         </div>
@@ -191,13 +191,13 @@ export function ContactForm({ contact }: ContactFormProps) {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
         <div>
           <label htmlFor="venue" className="mb-2 block text-sm text-muted-light">
-            Venue / City
+            Venue and City
           </label>
           <input
             id="venue"
             name="venue"
             className={inputStyles}
-            placeholder="Venue name and city"
+            placeholder="Red Rocks Amphitheatre, Morrison"
           />
         </div>
 
@@ -206,7 +206,7 @@ export function ContactForm({ contact }: ContactFormProps) {
             Event Type
           </label>
           <select id="eventType" name="eventType" className={inputStyles} defaultValue="">
-            <option value="">Select event type</option>
+            <option value="">Choose event type</option>
             {contact.eventTypes.map((eventType) => (
               <option key={eventType} value={eventType}>
                 {eventType}
@@ -217,7 +217,7 @@ export function ContactForm({ contact }: ContactFormProps) {
       </div>
 
       <fieldset>
-        <legend className="mb-3 text-sm text-muted-light">Production Needs</legend>
+        <legend className="mb-3 text-sm text-muted-light">Services Needed</legend>
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
           {contact.serviceNeeds.map((need) => (
             <label
@@ -247,7 +247,7 @@ export function ContactForm({ contact }: ContactFormProps) {
           required
           minLength={10}
           className={inputStyles}
-          placeholder="Share scope, run-of-show requirements, attendance, and any technical constraints."
+          placeholder="Share event goals, audience size, run-of-show needs, and any technical constraints."
         />
       </div>
 
@@ -262,15 +262,14 @@ export function ContactForm({ contact }: ContactFormProps) {
             />
           ) : (
             <p className="text-xs text-red-200">
-              Turnstile is not configured. Add `NEXT_PUBLIC_TURNSTILE_SITE_KEY` to enable form
-              submissions.
+              Verification is not configured. Add `NEXT_PUBLIC_TURNSTILE_SITE_KEY` to enable submissions.
             </p>
           )}
         </div>
 
         <GlowButton type="submit" variant="primary" disabled={pending}>
           <Send className="mr-2 inline h-4 w-4" aria-hidden="true" />
-          {pending ? "Sending..." : contact.submitLabel}
+          {pending ? "Sending request..." : contact.submitLabel}
         </GlowButton>
       </div>
     </form>

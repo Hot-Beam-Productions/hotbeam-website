@@ -1,8 +1,8 @@
 import type { NavLink } from "@/lib/types";
 
 export const DEFAULT_NAVIGATION: NavLink[] = [
-  { href: "/#capabilities", label: "Capabilities" },
+  { href: "/#capabilities", label: "Services" },
   { href: "/rentals", label: "Inventory" },
-  { href: "/work", label: "Case Studies" },
-  { href: "/contact", label: "Contact Operations" },
+  { href: "/work", label: "Work" },
+  { href: "/contact", label: "Request a Proposal" },
 ];

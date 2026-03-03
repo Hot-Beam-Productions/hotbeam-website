@@ -151,19 +151,19 @@ export default async function RentalDetailPage({ params }: Props) {
               {item.available ? (
                 <>
                   <CheckCircle2 className="h-4 w-4 text-emerald-300" aria-hidden="true" />
-                  <span className="mono-label !text-emerald-300">Available for current dates</span>
+                  <span className="mono-label !text-emerald-300">Available for your dates</span>
                 </>
               ) : (
                 <>
                   <CircleAlert className="h-4 w-4 text-amber-200" aria-hidden="true" />
-                  <span className="mono-label !text-amber-200">Check availability</span>
+                  <span className="mono-label !text-amber-200">Check date availability</span>
                 </>
               )}
             </div>
 
             {item.specs.length > 0 && (
               <section className="mt-7 border border-border bg-surface p-5">
-                <p className="mono-label mb-3 !text-foreground">Key Specs</p>
+                <p className="mono-label mb-3 !text-foreground">Specs</p>
                 <ul className="space-y-2">
                   {item.specs.map((spec) => (
                     <li key={spec} className="flex items-start gap-2 text-sm text-muted-light">
@@ -177,7 +177,7 @@ export default async function RentalDetailPage({ params }: Props) {
 
             {relatedItems.length > 0 && (
               <section className="mt-7 border border-border bg-surface p-5">
-                <p className="mono-label mb-3 !text-foreground">Frequently Rented Together</p>
+                <p className="mono-label mb-3 !text-foreground">Common Pairings</p>
                 <ul className="space-y-2">
                   {relatedItems.map((related) => (
                     <li key={related.id}>
@@ -192,7 +192,7 @@ export default async function RentalDetailPage({ params }: Props) {
 
             <div className="mt-7 border-t border-border pt-6">
               <GlowButton href="/contact" variant="primary">
-                Inquire About This Unit
+                Ask About This Item
               </GlowButton>
             </div>
           </article>

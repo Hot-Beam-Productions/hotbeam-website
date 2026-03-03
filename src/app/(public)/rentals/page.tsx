@@ -7,7 +7,7 @@ import { BreadcrumbJsonLd } from "@/components/breadcrumb-jsonld";
 export const metadata: Metadata = {
   title: "Inventory",
   description:
-    "Browse show-ready inventory from Hot Beam Productions including lighting, audio, video, laser, and effects systems.",
+    "Browse show-ready rental inventory from Hot Beam Productions, including lighting, laser, video, staging, rigging, and power systems.",
   alternates: { canonical: "/rentals" },
 };
 

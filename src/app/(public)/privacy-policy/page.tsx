@@ -4,7 +4,7 @@ import { getPublicBrandData } from "@/lib/public-site-data";
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "How Hot Beam Productions collects, uses, and protects personal information shared through this website.",
+    "How Hot Beam Productions collects, uses, and protects personal information submitted through this website.",
   alternates: { canonical: "/privacy-policy" },
 };
 

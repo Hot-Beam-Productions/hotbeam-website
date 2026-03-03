@@ -4,7 +4,7 @@ import { getPublicNavigationData } from "@/lib/public-site-data";
 
 export const metadata: Metadata = {
   title: "Site Map",
-  description: "Browse all major pages on the Hot Beam Productions website.",
+  description: "Browse the main service, work, and legal pages on the Hot Beam Productions website.",
   alternates: { canonical: "/site-map" },
 };
 
@@ -22,11 +22,11 @@ export default async function SiteMapPage() {
       <div className="mx-auto max-w-4xl">
         <p className="mono-label !text-laser-cyan">Website</p>
         <h1 className="mt-3 font-heading text-5xl tracking-tight text-foreground md:text-6xl">Site Map</h1>
-        <p className="mt-4 text-sm text-muted">Quick links to key pages and legal information.</p>
+        <p className="mt-4 text-sm text-muted">Quick links to core pages, contact paths, and legal information.</p>
 
         <div className="mt-10 grid gap-8 md:grid-cols-2">
           <section className="border border-border bg-surface p-6">
-            <h2 className="font-heading text-2xl tracking-tight text-foreground">Primary Pages</h2>
+            <h2 className="font-heading text-2xl tracking-tight text-foreground">Main Pages</h2>
             <ul className="mt-4 space-y-2">
               {navigation.map((item) => (
                 <li key={item.href}>
@@ -39,7 +39,7 @@ export default async function SiteMapPage() {
           </section>
 
           <section className="border border-border bg-surface p-6">
-            <h2 className="font-heading text-2xl tracking-tight text-foreground">Legal Pages</h2>
+            <h2 className="font-heading text-2xl tracking-tight text-foreground">Legal and Policy Pages</h2>
             <ul className="mt-4 space-y-2">
               {legalLinks.map((item) => (
                 <li key={item.href}>
