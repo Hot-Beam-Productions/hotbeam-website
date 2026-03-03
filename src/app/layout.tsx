@@ -122,7 +122,7 @@ export default async function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(schemaGraph),
+            __html: JSON.stringify(schemaGraph).replace(/</g, "\\u003c"),
           }}
         />
       </head>

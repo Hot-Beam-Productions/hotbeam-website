@@ -79,7 +79,7 @@ export default async function RentalDetailPage({ params }: Props) {
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema).replace(/</g, "\\u003c") }}
         />
         <Link
           href="/rentals"
