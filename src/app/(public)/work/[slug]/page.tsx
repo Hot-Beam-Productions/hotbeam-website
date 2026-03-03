@@ -5,8 +5,9 @@ import { ArrowLeft } from "lucide-react";
 import { CmsImage } from "@/components/cms-image";
 import { GlowButton } from "@/components/glow-button";
 import { MediaPlaceholder } from "@/components/media-placeholder";
-import { getPublicWorkData } from "@/lib/public-site-data";
+import { getPublicWorkData, getPublicBrandData } from "@/lib/public-site-data";
 import { isPublishedMediaUrl, stripMediaUrlDecorators } from "@/lib/media-url";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-jsonld";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -20,6 +21,11 @@ const serviceStyles: Record<string, string> = {
   sfx: "border-emerald-400/30 bg-emerald-400/10 text-emerald-200",
 };
 
+export async function generateStaticParams() {
+  const { work } = await getPublicWorkData();
+  return work.projects.map((project) => ({ slug: project.slug }));
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const { work } = await getPublicWorkData();
@@ -30,9 +36,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: project.title,
     description: project.description,
+    alternates: { canonical: `/work/${slug}` },
     openGraph: {
       title: project.title,
       description: project.description,
+      url: `/work/${slug}`,
+      type: "article",
       images: project.mainImageUrl ? [{ url: stripMediaUrlDecorators(project.mainImageUrl) }] : [],
     },
   };
@@ -40,13 +49,39 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function WorkProjectPage({ params }: Props) {
   const { slug } = await params;
-  const { work } = await getPublicWorkData();
+  const [{ work }, { brand }] = await Promise.all([getPublicWorkData(), getPublicBrandData()]);
   const project = work.projects.find((item) => item.slug === slug);
   if (!project) notFound();
+
+  const eventSchema = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: project.title,
+    description: project.description,
+    startDate: project.eventDate,
+    location: { "@type": "Place", name: project.location },
+    organizer: { "@type": "Organization", name: brand.name, url: brand.url },
+    ...(project.mainImageUrl
+      ? { image: stripMediaUrlDecorators(project.mainImageUrl) }
+      : {}),
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+  };
 
   return (
     <div className="px-6 pb-24 pt-28 md:pt-32">
       <div className="mx-auto max-w-5xl">
+        <BreadcrumbJsonLd
+          baseUrl={brand.url}
+          items={[
+            { name: "Home", href: "/" },
+            { name: "Work", href: "/work" },
+            { name: project.title, href: `/work/${project.slug}` },
+          ]}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
+        />
         <Link
           href="/work"
           className="mono-label mb-10 inline-flex items-center gap-2 !text-muted transition-colors hover:!text-laser-cyan"

@@ -26,6 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const { brand, seo } = await getPublicBrandSeoData();
 
   return {
+    metadataBase: new URL(brand.url),
     title: {
       default: seo.defaultTitle,
       template: seo.titleTemplate,
@@ -36,6 +37,10 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: brand.name,
       locale: "en_US",
       type: "website",
+      images: [{ url: "/og-default.jpg", width: 1200, height: 630, alt: brand.name }],
+    },
+    twitter: {
+      card: "summary_large_image",
     },
   };
 }
@@ -68,7 +73,16 @@ export default async function RootLayout({
     "@context": "https://schema.org",
     "@graph": [
       {
+        "@type": "WebSite",
+        "@id": `${brand.url}/#website`,
+        name: brand.name,
+        url: brand.url,
+        description: seo.description,
+        publisher: { "@type": "Organization", "@id": `${brand.url}/#organization` },
+      },
+      {
         "@type": "LocalBusiness",
+        "@id": `${brand.url}/#local-business`,
         name: brand.name,
         url: brand.url,
         telephone: brand.phoneHref,
@@ -93,6 +107,7 @@ export default async function RootLayout({
       },
       {
         "@type": "Organization",
+        "@id": `${brand.url}/#organization`,
         name: brand.name,
         url: brand.url,
         email: brand.email,

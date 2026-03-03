@@ -3,11 +3,13 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
 import { SectionHeading } from "@/components/section-heading";
 import { getPublicContactData } from "@/lib/public-site-data";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-jsonld";
 
 export const metadata: Metadata = {
   title: "Contact",
   description:
     "Request a live event production proposal from Hot Beam Productions. Share your show requirements and receive a scoped response within one business day.",
+  alternates: { canonical: "/contact" },
 };
 
 export default async function ContactPage() {
@@ -16,6 +18,13 @@ export default async function ContactPage() {
   return (
     <div className="px-6 pb-24 pt-28 md:pt-32">
       <div className="mx-auto max-w-7xl">
+        <BreadcrumbJsonLd
+          baseUrl={brand.url}
+          items={[
+            { name: "Home", href: "/" },
+            { name: "Contact", href: "/contact" },
+          ]}
+        />
         <SectionHeading
           label={contact.heading.label}
           title={contact.heading.title}

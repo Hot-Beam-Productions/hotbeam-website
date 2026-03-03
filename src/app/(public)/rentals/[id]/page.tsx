@@ -5,11 +5,17 @@ import { ArrowLeft, CheckCircle2, CircleAlert } from "lucide-react";
 import { CmsImage } from "@/components/cms-image";
 import { GlowButton } from "@/components/glow-button";
 import { MediaPlaceholder } from "@/components/media-placeholder";
-import { getPublicRentalsData } from "@/lib/public-site-data";
+import { getPublicRentalsData, getPublicBrandData } from "@/lib/public-site-data";
 import { isPublishedMediaUrl, stripMediaUrlDecorators } from "@/lib/media-url";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-jsonld";
 
 interface Props {
   params: Promise<{ id: string }>;
+}
+
+export async function generateStaticParams() {
+  const { rentals } = await getPublicRentalsData();
+  return rentals.items.map((item) => ({ id: item.id }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -22,9 +28,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${item.name} Rental`,
     description: item.description,
+    alternates: { canonical: `/rentals/${id}` },
     openGraph: {
       title: `${item.name} | ${item.brand}`,
       description: item.description,
+      url: `/rentals/${id}`,
       images:
         isPublishedMediaUrl(item.imageUrl)
           ? [{ url: stripMediaUrlDecorators(item.imageUrl) }]
@@ -35,15 +43,44 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function RentalDetailPage({ params }: Props) {
   const { id } = await params;
-  const { rentals } = await getPublicRentalsData();
+  const [{ rentals }, { brand }] = await Promise.all([getPublicRentalsData(), getPublicBrandData()]);
   const item = rentals.items.find((entry) => entry.id === id);
   if (!item) notFound();
 
   const relatedItems = rentals.items.filter((entry) => item.frequentlyRentedTogether?.includes(entry.id));
 
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: item.name,
+    description: item.description,
+    brand: { "@type": "Brand", name: item.brand },
+    ...(isPublishedMediaUrl(item.imageUrl)
+      ? { image: stripMediaUrlDecorators(item.imageUrl) }
+      : {}),
+    offers: {
+      "@type": "Offer",
+      availability: item.available
+        ? "https://schema.org/InStock"
+        : "https://schema.org/PreOrder",
+    },
+  };
+
   return (
     <div className="px-6 pb-24 pt-28 md:pt-32">
       <div className="mx-auto max-w-5xl">
+        <BreadcrumbJsonLd
+          baseUrl={brand.url}
+          items={[
+            { name: "Home", href: "/" },
+            { name: "Inventory", href: "/rentals" },
+            { name: item.name, href: `/rentals/${item.id}` },
+          ]}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+        />
         <Link
           href="/rentals"
           className="mono-label mb-10 inline-flex items-center gap-2 !text-muted transition-colors hover:!text-laser-cyan"

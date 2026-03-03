@@ -33,7 +33,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return allRoutes.map((route) => ({
     url: `${url}${route}`,
     lastModified: now,
-    changeFrequency: route === "/" ? "weekly" : "monthly",
-    priority: route === "/" ? 1 : 0.7,
+    changeFrequency: getChangeFrequency(route),
+    priority: getRoutePriority(route),
   }));
+}
+
+function getRoutePriority(route: string): number {
+  if (route === "/") return 1.0;
+  if (route === "/contact") return 0.9;
+  if (route === "/work" || route === "/rentals" || route === "/about") return 0.8;
+  if (route.startsWith("/work/") || route.startsWith("/rentals/")) return 0.6;
+  return 0.3;
+}
+
+function getChangeFrequency(route: string): "weekly" | "monthly" | "yearly" {
+  if (route === "/" || route === "/work" || route === "/rentals" || route === "/contact") return "weekly";
+  if (route.startsWith("/work/") || route.startsWith("/rentals/")) return "monthly";
+  return "yearly";
 }

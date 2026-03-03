@@ -5,12 +5,14 @@ import { CmsImage } from "@/components/cms-image";
 import { MediaPlaceholder } from "@/components/media-placeholder";
 import { SectionHeading } from "@/components/section-heading";
 import { isPublishedMediaUrl } from "@/lib/media-url";
-import { getPublicWorkData } from "@/lib/public-site-data";
+import { getPublicWorkData, getPublicBrandData } from "@/lib/public-site-data";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-jsonld";
 
 export const metadata: Metadata = {
   title: "Work",
   description:
     "Selected live event productions by Hot Beam Productions, including amphitheater, festival, and corporate technical environments.",
+  alternates: { canonical: "/work" },
 };
 
 const serviceStyles: Record<string, string> = {
@@ -22,11 +24,18 @@ const serviceStyles: Record<string, string> = {
 };
 
 export default async function WorkPage() {
-  const { work } = await getPublicWorkData();
+  const [{ work }, { brand }] = await Promise.all([getPublicWorkData(), getPublicBrandData()]);
 
   return (
     <div className="px-6 pb-24 pt-28 md:pt-32">
       <div className="mx-auto max-w-7xl">
+        <BreadcrumbJsonLd
+          baseUrl={brand.url}
+          items={[
+            { name: "Home", href: "/" },
+            { name: "Work", href: "/work" },
+          ]}
+        />
         <SectionHeading
           label={work.heading.label}
           title={work.heading.title}

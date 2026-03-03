@@ -4,6 +4,7 @@ import { getPublicBrandData } from "@/lib/public-site-data";
 export const metadata: Metadata = {
   title: "Terms of Use",
   description: "Terms governing your access to and use of the Hot Beam Productions website.",
+  alternates: { canonical: "/terms-of-use" },
 };
 
 export default async function TermsOfUsePage() {
