@@ -5,6 +5,7 @@ export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
     "How Hot Beam Productions collects, uses, and protects personal information shared through this website.",
+  alternates: { canonical: "/privacy-policy" },
 };
 
 export default async function PrivacyPolicyPage() {

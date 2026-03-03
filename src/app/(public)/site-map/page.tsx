@@ -5,6 +5,7 @@ import { getPublicNavigationData } from "@/lib/public-site-data";
 export const metadata: Metadata = {
   title: "Site Map",
   description: "Browse all major pages on the Hot Beam Productions website.",
+  alternates: { canonical: "/site-map" },
 };
 
 export default async function SiteMapPage() {

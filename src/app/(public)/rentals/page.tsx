@@ -1,20 +1,29 @@
 import type { Metadata } from "next";
 import { RentalsFilter } from "@/components/rentals-filter";
 import { SectionHeading } from "@/components/section-heading";
-import { getPublicRentalsData } from "@/lib/public-site-data";
+import { getPublicRentalsData, getPublicBrandData } from "@/lib/public-site-data";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-jsonld";
 
 export const metadata: Metadata = {
   title: "Inventory",
   description:
     "Browse show-ready inventory from Hot Beam Productions including lighting, audio, video, laser, and effects systems.",
+  alternates: { canonical: "/rentals" },
 };
 
 export default async function RentalsPage() {
-  const { rentals } = await getPublicRentalsData();
+  const [{ rentals }, { brand }] = await Promise.all([getPublicRentalsData(), getPublicBrandData()]);
 
   return (
     <div className="px-6 pb-24 pt-28 md:pt-32">
       <div className="mx-auto max-w-7xl">
+        <BreadcrumbJsonLd
+          baseUrl={brand.url}
+          items={[
+            { name: "Home", href: "/" },
+            { name: "Inventory", href: "/rentals" },
+          ]}
+        />
         <SectionHeading
           label={rentals.heading.label}
           title={rentals.heading.title}

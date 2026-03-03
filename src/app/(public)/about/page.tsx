@@ -5,22 +5,31 @@ import { GlowButton } from "@/components/glow-button";
 import { MediaPlaceholder } from "@/components/media-placeholder";
 import { SectionHeading } from "@/components/section-heading";
 import { isPublishedMediaUrl } from "@/lib/media-url";
-import { getPublicAboutData } from "@/lib/public-site-data";
+import { getPublicAboutData, getPublicBrandData } from "@/lib/public-site-data";
+import { BreadcrumbJsonLd } from "@/components/breadcrumb-jsonld";
 
 export const metadata: Metadata = {
   title: "About",
   description:
     "Meet the operators behind Hot Beam Productions. Technical leadership, disciplined execution, and production planning built for complex live environments.",
+  alternates: { canonical: "/about" },
 };
 
 const statIcons = [Zap, Users, MapPin, Award];
 
 export default async function AboutPage() {
-  const { about } = await getPublicAboutData();
+  const [{ about }, { brand }] = await Promise.all([getPublicAboutData(), getPublicBrandData()]);
 
   return (
     <div className="px-6 pb-24 pt-28 md:pt-32">
       <div className="mx-auto max-w-7xl">
+        <BreadcrumbJsonLd
+          baseUrl={brand.url}
+          items={[
+            { name: "Home", href: "/" },
+            { name: "About", href: "/about" },
+          ]}
+        />
         <SectionHeading
           label={about.heading.label}
           title={about.heading.title}

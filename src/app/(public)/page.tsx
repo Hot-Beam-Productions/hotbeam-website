@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -7,7 +8,23 @@ import { InstagramFeed } from "@/components/instagram-feed";
 import { MediaPlaceholder } from "@/components/media-placeholder";
 import { CmsImage } from "@/components/cms-image";
 import { isPublishedMediaUrl } from "@/lib/media-url";
-import { getPublicHomePageData } from "@/lib/public-site-data";
+import { getPublicHomePageData, getPublicBrandSeoData } from "@/lib/public-site-data";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { brand, seo } = await getPublicBrandSeoData();
+
+  return {
+    title: { absolute: seo.defaultTitle },
+    description: seo.description,
+    alternates: { canonical: "/" },
+    openGraph: {
+      title: brand.name,
+      description: seo.description,
+      url: "/",
+      type: "website",
+    },
+  };
+}
 
 export default async function Home() {
   const { home, work, brand } = await getPublicHomePageData();
