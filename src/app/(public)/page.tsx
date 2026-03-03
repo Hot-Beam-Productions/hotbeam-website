@@ -10,7 +10,6 @@ import { CmsImage } from "@/components/cms-image";
 import { isPublishedMediaUrl } from "@/lib/media-url";
 import { getPublicHomePageData, getPublicBrandSeoData } from "@/lib/public-site-data";
 import { clampSeoDescription, clampSeoTitle } from "@/lib/seo";
-import { HeroBackgroundMedia } from "@/components/hero-background-media";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { brand, seo } = await getPublicBrandSeoData();
@@ -44,11 +43,10 @@ export default async function Home() {
     <>
       <section className="relative flex h-screen items-center justify-center overflow-clip">
         <div className="absolute inset-0">
-          <HeroBackgroundMedia
-            src={heroVideoSrc}
-            type={heroVideoType}
-            poster={heroVideoPoster}
-          />
+          <video className="h-full w-full object-cover" autoPlay loop muted playsInline poster={heroVideoPoster}>
+            <source src={heroVideoSrc} type={heroVideoType} />
+            Your browser does not support the video tag.
+          </video>
           <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
         </div>
 
