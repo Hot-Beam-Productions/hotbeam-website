@@ -80,7 +80,7 @@ export default async function WorkProjectPage({ params }: Props) {
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventSchema).replace(/</g, "\\u003c") }}
         />
         <Link
           href="/work"
