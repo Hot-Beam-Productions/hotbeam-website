@@ -49,20 +49,25 @@
   },
   "home": {
     "hero": {
-      "eyebrow": "Denver Crew. National Execution. Show-Day Ready.",
+      "eyebrow": "Tour-Grade Production. One Accountable Crew.",
       "departmentLine": "Lighting · Lasers · LED Video · Special Effects",
-      "description": "From pre-production through strike, one team handles design, gear, crew, and live operation.",
+      "description": "Share your date and goals. We return a practical show plan with clear crew, gear, and timeline options.",
       "primaryCta": {
-        "label": "Request a Proposal",
+        "label": "Get My Show Plan",
         "href": "/contact"
       },
       "secondaryCta": {
         "label": "View Recent Work",
         "href": "/work"
       },
-      "headline": "Live Event Production That Shows Up Ready.",
-      "subheadline": "Lighting, lasers, LED video, and SFX for touring artists, venues, festivals, and brand events."
+      "headline": "Make the Show Bigger, Not Riskier.",
+      "subheadline": "Lighting, lasers, LED video, and SFX for touring artists, venues, festivals, and brand events that cannot miss."
     },
+    "quickDecisionSignals": [
+      "Typical first response within one business day",
+      "No-obligation first scope and staffing plan",
+      "One accountable team from prep through strike"
+    ],
     "services": {
       "label": "Services",
       "title": "Built for Real-World Show Conditions",
@@ -130,19 +135,43 @@
       }
     ],
     "closingCta": {
-      "title": "Ready to Plan the Next Show?",
-      "description": "Share your date, venue, and goals. We will send a clear scope with crew, gear, and timeline.",
+      "title": "Hold Your Date Before Prime Weekends Fill",
+      "description": "Send the basics now and get a clear scope within one business day. No pressure to book after the first reply.",
       "button": {
-        "label": "Request a Proposal",
+        "label": "Get My Show Plan",
         "href": "/contact"
       }
     },
     "trustSignals": [
-      "Trusted by venues, promoters, and touring teams",
-      "FDA variance-compliant laser operations",
+      "500+ events produced for venues, promoters, and touring teams",
+      "FDA variance-compliant laser operation and safety workflows",
       "Single-team delivery from prep through strike",
-      "Denver-based crew with national deployment"
-    ]
+      "Denver-based crew with multi-state deployment"
+    ],
+    "bookingFlow": {
+      "label": "Fast Planning Path",
+      "title": "How Booking Works",
+      "description": "Most teams do not need a long discovery cycle. Start with your show basics and get a practical scope you can approve, revise, or walk away from.",
+      "steps": [
+        {
+          "title": "Share the Show Basics",
+          "description": "Tell us your date, venue, and priorities. Two minutes is enough to start."
+        },
+        {
+          "title": "Review Your Right-Sized Scope",
+          "description": "We send practical options for crew, gear, and timeline so tradeoffs are clear before you commit."
+        },
+        {
+          "title": "Execute With One Lead Team",
+          "description": "The same operators who scope the show stay accountable through load-in, show call, and strike."
+        }
+      ],
+      "assurance": "No pressure to book after the first scope review. If the fit is not right, you still leave with clearer production direction.",
+      "cta": {
+        "label": "Start with your show date",
+        "href": "/contact"
+      }
+    }
   },
   "work": {
     "heading": {
@@ -1015,14 +1044,23 @@
   "contact": {
     "heading": {
       "label": "Contact",
-      "title": "Tell Us What You Are Producing",
-      "subtitle": "Share your date, venue, and priorities. We will reply with clear next steps within one business day."
+      "title": "Get a Show Plan Within One Business Day",
+      "subtitle": "Share your date, venue, and priorities. We will reply with clear scope options and next steps."
     },
-    "directContactTitle": "Talk to Production",
+    "nextSteps": [
+      "We review your scope and constraints.",
+      "You get a right-sized production plan within one business day.",
+      "If it fits, we lock crew, gear, and timeline with you."
+    ],
+    "urgentCallout": {
+      "title": "Working on a tight timeline?",
+      "description": "Call us directly and mention your event date so we can prioritize your request."
+    },
+    "directContactTitle": "Talk to a Show Operator",
     "cards": [
       {
         "title": "Response Time",
-        "body": "Proposal requests are reviewed within one business day. If your timeline is tight, call us directly."
+        "body": "Requests are reviewed within one business day. For tight timelines, call us and flag your event date."
       },
       {
         "title": "Coverage Area",
@@ -1046,9 +1084,9 @@
     ],
     "success": {
       "title": "Thanks, We Got It",
-      "message": "Your request is in. Our team will follow up within one business day."
+      "message": "Your request is in. Our team will follow up within one business day with practical next steps."
     },
-    "submitLabel": "Send My Request",
+    "submitLabel": "Get My Show Plan",
     "complianceBadges": [
       "FDA laser safety and variance workflow",
       "Certificate of insurance available on request",

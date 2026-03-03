@@ -100,6 +100,43 @@ export const homeServiceSchema = z.object({
   highlights: z.array(z.string()),
 });
 
+const defaultHomeQuickDecisionSignals = [
+  "Typical first response within one business day",
+  "No-obligation first scope and staffing plan",
+  "One accountable team from prep through strike",
+];
+
+const defaultHomeBookingSteps = [
+  {
+    title: "Share the Show Basics",
+    description: "Tell us your date, venue, and priorities. Two minutes is enough to start.",
+  },
+  {
+    title: "Review Your Right-Sized Scope",
+    description:
+      "We send practical options for crew, gear, and timeline so tradeoffs are clear before you commit.",
+  },
+  {
+    title: "Execute With One Lead Team",
+    description:
+      "The same operators who scope the show stay accountable through load-in, show call, and strike.",
+  },
+];
+
+const homeBookingFlowSchema = z.object({
+  label: z.string().min(1),
+  title: z.string().min(1),
+  description: z.string().min(1),
+  steps: z.array(
+    z.object({
+      title: z.string().min(1),
+      description: z.string().min(1),
+    })
+  ).min(1),
+  assurance: z.string().min(1),
+  cta: ctaSchema,
+});
+
 export const homeSchema = z.object({
   hero: z.object({
     eyebrow: z.string(),
@@ -112,7 +149,21 @@ export const homeSchema = z.object({
     primaryCta: ctaSchema,
     secondaryCta: ctaSchema,
   }),
+  quickDecisionSignals: z.array(z.string()).min(1).default(defaultHomeQuickDecisionSignals),
   trustSignals: z.array(z.string()),
+  bookingFlow: homeBookingFlowSchema.default({
+    label: "Fast Planning Path",
+    title: "How Booking Works",
+    description:
+      "Most teams do not need a long discovery cycle. Start with your show basics and get a practical scope you can approve, revise, or walk away from.",
+    steps: defaultHomeBookingSteps,
+    assurance:
+      "No pressure to book after the first scope review. If the fit is not right, you still leave with clearer production direction.",
+    cta: {
+      label: "Start with your show date",
+      href: "/contact",
+    },
+  }),
   services: z.object({
     label: z.string(),
     title: z.string().min(1),
@@ -145,6 +196,18 @@ export const aboutSchema = z.object({
 
 export const contactSchema = z.object({
   heading: sectionHeadingSchema,
+  nextSteps: z.array(z.string()).min(1).default([
+    "We review your scope and constraints.",
+    "You get a right-sized production plan within one business day.",
+    "If it fits, we lock crew, gear, and timeline with you.",
+  ]),
+  urgentCallout: z.object({
+    title: z.string().min(1),
+    description: z.string().min(1),
+  }).default({
+    title: "Working on a tight timeline?",
+    description: "Call us directly and mention your event date so we can prioritize your request.",
+  }),
   directContactTitle: z.string().min(1),
   cards: z.array(z.object({ title: z.string(), body: z.string() })),
   eventTypes: z.array(z.string()),

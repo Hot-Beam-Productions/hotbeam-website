@@ -155,8 +155,12 @@ export function ContactForm({ contact }: ContactFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-7" aria-busy={pending}>
       <p className="text-sm leading-relaxed text-muted-light">
-        Takes about a minute. Share the basics first, then add optional details if you want a tighter first quote.
+        Takes about a minute. Start with the essentials and we will send clear scope options within one business day.
       </p>
+      <ul className="space-y-1 text-xs text-muted-light">
+        <li>No obligation to book after the first reply.</li>
+        <li>Optional details help us send a tighter first quote.</li>
+      </ul>
 
       <input
         tabIndex={-1}
@@ -253,7 +257,7 @@ export function ContactForm({ contact }: ContactFormProps) {
           aria-describedby="message-hint"
         />
         <p id="message-hint" className="mt-2 text-xs text-muted">
-          1 to 3 short paragraphs are enough.
+          1 to 3 short paragraphs are enough. Include date, venue, and target experience if available.
         </p>
       </div>
 
@@ -345,6 +349,10 @@ export function ContactForm({ contact }: ContactFormProps) {
       </details>
 
       <div className="flex flex-col gap-4">
+        <div className="border border-border/70 bg-surface-light/20 px-4 py-3 text-xs leading-relaxed text-muted-light">
+          We use this request only to scope your event and reply directly. No mailing list enrollment.
+        </div>
+
         <div>
           {turnstileSiteKey ? (
             <div className="space-y-2">

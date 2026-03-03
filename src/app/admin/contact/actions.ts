@@ -3,9 +3,15 @@ import { revalidatePaths } from "@/lib/admin-action";
 import { actionError, type ActionResult } from "@/lib/action-result";
 import { contactSchema } from "@/lib/schemas";
 import type { ContactData } from "@/lib/types";
+import rawData from "@/data/data.json";
 
 export async function getContactAdmin(): Promise<ContactData> {
-  return getSiteDoc<ContactData>("contact");
+  try {
+    const data = await getSiteDoc<unknown>("contact");
+    return contactSchema.parse(data);
+  } catch {
+    return contactSchema.parse(rawData.contact);
+  }
 }
 
 export async function updateContact(

@@ -43,6 +43,33 @@ export default function ContactEditorPage() {
               </div>
             </div>
 
+            <div className={sectionClass}>
+              <h2 className="font-heading text-lg text-foreground">Intake Sequence</h2>
+              <ArrayEditor
+                label="What Happens Next Steps"
+                value={data.nextSteps}
+                onChange={(val) => update("nextSteps", val)}
+                placeholder="Step text..."
+              />
+              <div>
+                <label className={labelClass}>Urgent Callout Title</label>
+                <input
+                  className={inputClass}
+                  value={data.urgentCallout.title}
+                  onChange={(e) => update("urgentCallout.title", e.target.value)}
+                />
+              </div>
+              <div>
+                <label className={labelClass}>Urgent Callout Description</label>
+                <textarea
+                  className={inputClass}
+                  rows={2}
+                  value={data.urgentCallout.description}
+                  onChange={(e) => update("urgentCallout.description", e.target.value)}
+                />
+              </div>
+            </div>
+
             {/* Info Cards */}
             <div className={sectionClass}>
               <div className="flex items-center justify-between">

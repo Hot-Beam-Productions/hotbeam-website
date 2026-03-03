@@ -108,7 +108,19 @@ export interface HomeData {
     primaryCta: Cta;
     secondaryCta: Cta;
   };
+  quickDecisionSignals: string[];
   trustSignals: string[];
+  bookingFlow: {
+    label: string;
+    title: string;
+    description: string;
+    steps: Array<{
+      title: string;
+      description: string;
+    }>;
+    assurance: string;
+    cta: Cta;
+  };
   services: {
     label: string;
     title: string;
@@ -150,6 +162,11 @@ export interface AboutData {
 
 export interface ContactData {
   heading: SectionHeading;
+  nextSteps: string[];
+  urgentCallout: {
+    title: string;
+    description: string;
+  };
   directContactTitle: string;
   cards: Array<{
     title: string;

@@ -94,6 +94,12 @@ export default async function Home() {
             </GlowButton>
           </div>
 
+          <div className="mx-auto mt-6 flex max-w-4xl flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-muted-light md:text-sm">
+            {home.quickDecisionSignals.map((signal) => (
+              <p key={signal}>{signal}</p>
+            ))}
+          </div>
+
           <div className="mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3">
             {home.results.map((item) => (
               <div key={item.label} className="border border-border bg-surface px-5 py-4 text-left">
@@ -112,6 +118,38 @@ export default async function Home() {
               {signal}
             </p>
           ))}
+        </div>
+      </section>
+
+      <section className="px-6 pb-24" aria-labelledby="booking-flow-heading">
+        <div className="mx-auto max-w-7xl border border-border bg-surface p-8 md:p-10">
+          <p className="mono-label !text-laser-cyan">{home.bookingFlow.label}</p>
+          <h2 id="booking-flow-heading" className="mt-3 font-heading text-4xl tracking-tight md:text-5xl">
+            {home.bookingFlow.title}
+          </h2>
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-light md:text-base">
+            {home.bookingFlow.description}
+          </p>
+
+          <div className="mt-9 grid grid-cols-1 gap-4 lg:grid-cols-3">
+            {home.bookingFlow.steps.map((step, index) => (
+              <article key={step.title} className="border border-border bg-surface-light/30 p-6">
+                <p className="mono-label !text-laser-cyan">Step {index + 1}</p>
+                <h3 className="mt-3 font-heading text-2xl tracking-tight text-foreground">{step.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-light">{step.description}</p>
+              </article>
+            ))}
+          </div>
+
+          <p className="mt-7 text-xs leading-relaxed text-muted">
+            {home.bookingFlow.assurance}
+          </p>
+          <Link
+            href={home.bookingFlow.cta.href}
+            className="mono-label mt-5 inline-block !text-laser-cyan transition-colors hover:!text-foreground"
+          >
+            {home.bookingFlow.cta.label} &rarr;
+          </Link>
         </div>
       </section>
 

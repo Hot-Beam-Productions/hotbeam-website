@@ -32,6 +32,32 @@ export default async function ContactPage() {
           subtitle={contact.heading.subtitle}
         />
 
+        <section className="mb-10 grid grid-cols-1 gap-4 lg:grid-cols-3">
+          <article className="border border-border bg-surface p-6 lg:col-span-2">
+            <p className="mono-label !text-laser-cyan">What Happens Next</p>
+            <ol className="mt-4 space-y-2">
+              {contact.nextSteps.map((step, index) => (
+                <li key={step} className="text-sm leading-relaxed text-muted-light">
+                  <span className="mr-2 font-heading text-foreground">{index + 1}.</span>
+                  {step}
+                </li>
+              ))}
+            </ol>
+          </article>
+          <article className="border border-border bg-surface p-6">
+            <h2 className="font-heading text-xl tracking-tight text-foreground">{contact.urgentCallout.title}</h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted-light">
+              {contact.urgentCallout.description}
+            </p>
+            <a
+              href={`tel:${brand.phoneHref}`}
+              className="mono-label mt-4 inline-block !text-laser-cyan transition-colors hover:!text-foreground"
+            >
+              {brand.phoneDisplay}
+            </a>
+          </article>
+        </section>
+
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-3">
           <aside className="space-y-8">
             <div>
