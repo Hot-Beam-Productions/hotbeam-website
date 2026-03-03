@@ -21,21 +21,41 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       return route.startsWith("/") ? route : null;
     })
     .filter((route): route is string => Boolean(route));
+  const coreRoutes = ["/about", "/work", "/rentals", "/contact"];
   const legalRoutes = ["/privacy-policy", "/terms-of-use", "/site-map"];
 
   const projectRoutes = work.projects.map((project) => `/work/${project.slug}`);
   const rentalRoutes = rentals.items.map((rental) => `/rentals/${rental.slug}`);
 
-  const allRoutes = [...new Set(["/", ...baseRoutes, ...legalRoutes, ...projectRoutes, ...rentalRoutes])];
+  const allRoutes = [...new Set(["/", ...baseRoutes, ...coreRoutes, ...legalRoutes, ...projectRoutes, ...rentalRoutes])];
 
-  const now = new Date();
+  const projectLastModified = new Map(
+    work.projects.map((project) => [`/work/${project.slug}`, parseDate(project.updatedAt) ?? parseDate(project.eventDate)])
+  );
+  const rentalLastModified = new Map(
+    rentals.items.map((rental) => [`/rentals/${rental.slug}`, parseDate(rental.updatedAt)])
+  );
+  const latestContentDate = maxDate(
+    [...projectLastModified.values(), ...rentalLastModified.values()].filter((value): value is Date => Boolean(value))
+  ) ?? new Date();
 
   return allRoutes.map((route) => ({
     url: `${url}${route}`,
-    lastModified: now,
+    lastModified: projectLastModified.get(route) ?? rentalLastModified.get(route) ?? latestContentDate,
     changeFrequency: getChangeFrequency(route),
     priority: getRoutePriority(route),
   }));
+}
+
+function parseDate(rawValue: string | undefined): Date | null {
+  if (!rawValue) return null;
+  const parsed = new Date(rawValue);
+  return Number.isFinite(parsed.getTime()) ? parsed : null;
+}
+
+function maxDate(dates: Date[]): Date | null {
+  if (dates.length === 0) return null;
+  return new Date(Math.max(...dates.map((date) => date.getTime())));
 }
 
 function getRoutePriority(route: string): number {

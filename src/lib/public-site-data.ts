@@ -44,6 +44,7 @@ type FirestoreValue =
 interface FirestoreDocument {
   name: string;
   fields?: Record<string, FirestoreValue>;
+  updateTime?: string;
 }
 
 interface FirestoreCollectionResponse {
@@ -115,7 +116,12 @@ function decodeFirestoreFields(fields: Record<string, FirestoreValue>): Record<s
 function decodeFirestoreDocument<T>(doc: FirestoreDocument): T {
   const id = doc.name.split("/").pop() ?? "";
   const decoded = decodeFirestoreFields(doc.fields ?? {});
-  return { id, ...decoded } as T;
+  const fieldUpdatedAt = typeof (decoded as { updatedAt?: unknown }).updatedAt === "string"
+    ? (decoded as { updatedAt: string }).updatedAt
+    : undefined;
+
+  const updatedAt = fieldUpdatedAt ?? doc.updateTime;
+  return { id, ...decoded, ...(updatedAt ? { updatedAt } : {}) } as T;
 }
 
 function sortByOrder<T extends { order?: number }>(items: T[]): T[] {

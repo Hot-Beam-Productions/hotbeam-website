@@ -44,6 +44,7 @@ export const projectSchema = z.object({
   gallery: z.array(z.string()),
   featured: z.boolean(),
   order: z.number().int().min(0).optional(),
+  updatedAt: z.string().optional(),
 });
 
 export const rentalSchema = z.object({
@@ -58,6 +59,7 @@ export const rentalSchema = z.object({
   imageUrl: z.string(),
   available: z.boolean(),
   order: z.number().int().min(0).optional(),
+  updatedAt: z.string().optional(),
 });
 
 export const teamMemberSchema = z.object({

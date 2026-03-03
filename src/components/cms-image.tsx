@@ -6,7 +6,7 @@ type CmsImageProps = Omit<ImageProps, "src" | "alt"> & {
   alt: string;
 };
 
-export function CmsImage({ src, alt, style, ...props }: CmsImageProps) {
+export function CmsImage({ src, alt, sizes, style, ...props }: CmsImageProps) {
   const parsed = parseMediaUrl(src);
   if (!parsed.src) return null;
 
@@ -15,7 +15,7 @@ export function CmsImage({ src, alt, style, ...props }: CmsImageProps) {
       {...props}
       src={parsed.src}
       alt={alt}
-      unoptimized
+      sizes={sizes ?? "(max-width: 768px) 100vw, 50vw"}
       style={{
         ...style,
         objectPosition: focalPointToObjectPosition(parsed.focalPoint),

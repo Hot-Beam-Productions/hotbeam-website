@@ -8,6 +8,7 @@ import { MediaPlaceholder } from "@/components/media-placeholder";
 import { getPublicWorkData, getPublicBrandData } from "@/lib/public-site-data";
 import { isPublishedMediaUrl, stripMediaUrlDecorators } from "@/lib/media-url";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-jsonld";
+import { buildSeoTitle, clampSeoDescription } from "@/lib/seo";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -45,14 +46,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const imageUrl = project.mainImageUrl
     ? toAbsoluteUrl(brand.url, stripMediaUrlDecorators(project.mainImageUrl))
     : null;
+  const description = clampSeoDescription(project.description);
+  const title = buildSeoTitle(project.title, brand.name);
 
   return {
-    title: project.title,
-    description: project.description,
+    title: { absolute: title },
+    description,
     alternates: { canonical: canonicalPath },
     openGraph: {
-      title: project.title,
-      description: project.description,
+      title,
+      description,
       url: canonicalPath,
       type: "article",
       images: imageUrl ? [{ url: imageUrl }] : [],

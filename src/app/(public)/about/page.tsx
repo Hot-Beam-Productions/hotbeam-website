@@ -31,6 +31,7 @@ export default async function AboutPage() {
           ]}
         />
         <SectionHeading
+          as="h1"
           label={about.heading.label}
           title={about.heading.title}
           subtitle={about.heading.subtitle}

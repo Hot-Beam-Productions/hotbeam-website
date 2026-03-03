@@ -140,7 +140,7 @@ export function RentalsFilter({ items, categories, footerNote }: RentalsFilterPr
 
                 <div className="border-t border-border pt-4">
                   <Link
-                    href={`/rentals/${item.id}`}
+                    href={`/rentals/${item.slug}`}
                     className="mono-label rounded-sm border border-laser-cyan/35 px-3 py-1.5 !text-laser-cyan transition-colors hover:bg-laser-cyan/12"
                   >
                     View details

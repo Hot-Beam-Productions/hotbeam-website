@@ -8,9 +8,10 @@ import { MediaPlaceholder } from "@/components/media-placeholder";
 import { getPublicRentalsData, getPublicBrandData } from "@/lib/public-site-data";
 import { isPublishedMediaUrl, stripMediaUrlDecorators } from "@/lib/media-url";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-jsonld";
+import { buildSeoTitle, clampSeoDescription } from "@/lib/seo";
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: Promise<{ slug: string }>;
 }
 
 function toAbsoluteUrl(baseUrl: string, pathOrUrl: string): string {
@@ -36,27 +37,29 @@ function toPropertyValue(spec: string): { "@type": "PropertyValue"; name?: strin
 
 export async function generateStaticParams() {
   const { rentals } = await getPublicRentalsData();
-  return rentals.items.map((item) => ({ id: item.id }));
+  return rentals.items.map((item) => ({ slug: item.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
+  const { slug } = await params;
   const [{ rentals }, { brand }] = await Promise.all([getPublicRentalsData(), getPublicBrandData()]);
-  const item = rentals.items.find((entry) => entry.id === id);
+  const item = rentals.items.find((entry) => entry.slug === slug);
 
   if (!item) return { title: "Not Found" };
   const canonicalPath = `/rentals/${item.slug}`;
   const imageUrl = isPublishedMediaUrl(item.imageUrl)
     ? toAbsoluteUrl(brand.url, stripMediaUrlDecorators(item.imageUrl))
     : null;
+  const title = buildSeoTitle(item.name, brand.name);
+  const description = clampSeoDescription(item.description);
 
   return {
-    title: `${item.name} Rental`,
-    description: item.description,
+    title: { absolute: title },
+    description,
     alternates: { canonical: canonicalPath },
     openGraph: {
-      title: `${item.name} | ${item.brand}`,
-      description: item.description,
+      title,
+      description,
       url: canonicalPath,
       images: imageUrl ? [{ url: imageUrl }] : [],
     },
@@ -64,9 +67,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function RentalDetailPage({ params }: Props) {
-  const { id } = await params;
+  const { slug } = await params;
   const [{ rentals }, { brand }] = await Promise.all([getPublicRentalsData(), getPublicBrandData()]);
-  const item = rentals.items.find((entry) => entry.id === id);
+  const item = rentals.items.find((entry) => entry.slug === slug);
   if (!item) notFound();
 
   const relatedItems = rentals.items.filter((entry) => item.frequentlyRentedTogether?.includes(entry.id));
@@ -108,7 +111,7 @@ export default async function RentalDetailPage({ params }: Props) {
           items={[
             { name: "Home", href: "/" },
             { name: "Inventory", href: "/rentals" },
-            { name: item.name, href: `/rentals/${item.id}` },
+            { name: item.name, href: `/rentals/${item.slug}` },
           ]}
         />
         <script
@@ -181,7 +184,7 @@ export default async function RentalDetailPage({ params }: Props) {
                 <ul className="space-y-2">
                   {relatedItems.map((related) => (
                     <li key={related.id}>
-                      <Link className="text-sm text-laser-cyan hover:underline" href={`/rentals/${related.id}`}>
+                      <Link className="text-sm text-laser-cyan hover:underline" href={`/rentals/${related.slug}`}>
                         {related.name}
                       </Link>
                     </li>

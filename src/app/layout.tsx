@@ -3,6 +3,7 @@ import { JetBrains_Mono, Manrope, Sora } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { getPublicBrandSeoData } from "@/lib/public-site-data";
+import { clampSeoDescription, clampSeoTitle } from "@/lib/seo";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -32,19 +33,21 @@ function toAbsoluteUrl(baseUrl: string, pathOrUrl: string): string {
 
 export async function generateMetadata(): Promise<Metadata> {
   const { brand, seo } = await getPublicBrandSeoData();
+  const description = clampSeoDescription(seo.description);
 
   return {
     metadataBase: new URL(brand.url),
     title: {
-      default: seo.defaultTitle,
+      default: clampSeoTitle(seo.defaultTitle),
       template: seo.titleTemplate,
     },
-    description: seo.description,
+    description,
     keywords: seo.keywords,
     openGraph: {
       siteName: brand.name,
       locale: "en_US",
       type: "website",
+      description,
       images: [{ url: "/og-default.jpg", width: 1200, height: 630, alt: brand.name }],
     },
     twitter: {

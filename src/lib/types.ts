@@ -64,6 +64,7 @@ export interface ProjectItem {
   gallery: string[];
   featured: boolean;
   order?: number;
+  updatedAt?: string;
 }
 
 export interface RentalItem {
@@ -78,6 +79,7 @@ export interface RentalItem {
   imageUrl: string;
   available: boolean;
   order?: number;
+  updatedAt?: string;
 }
 
 export interface TeamMember {

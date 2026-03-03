@@ -37,6 +37,7 @@ export default async function WorkPage() {
           ]}
         />
         <SectionHeading
+          as="h1"
           label={work.heading.label}
           title={work.heading.title}
           subtitle={work.heading.subtitle}

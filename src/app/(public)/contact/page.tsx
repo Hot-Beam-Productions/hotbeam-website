@@ -26,6 +26,7 @@ export default async function ContactPage() {
           ]}
         />
         <SectionHeading
+          as="h1"
           label={contact.heading.label}
           title={contact.heading.title}
           subtitle={contact.heading.subtitle}

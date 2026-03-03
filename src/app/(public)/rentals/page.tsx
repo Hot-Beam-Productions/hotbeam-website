@@ -25,6 +25,7 @@ export default async function RentalsPage() {
           ]}
         />
         <SectionHeading
+          as="h1"
           label={rentals.heading.label}
           title={rentals.heading.title}
           subtitle={rentals.heading.subtitle}

@@ -7,10 +7,13 @@ export default async function robots(): Promise<MetadataRoute.Robots> {
   } = await getPublicBrandData();
 
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-    },
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/admin", "/admin/*"],
+      },
+    ],
     sitemap: `${url}/sitemap.xml`,
   };
 }

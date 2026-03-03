@@ -27,6 +27,10 @@
       "label": "Work"
     },
     {
+      "href": "/about",
+      "label": "Company"
+    },
+    {
       "href": "/contact",
       "label": "Request a Proposal"
     }

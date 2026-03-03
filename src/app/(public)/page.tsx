@@ -9,17 +9,20 @@ import { MediaPlaceholder } from "@/components/media-placeholder";
 import { CmsImage } from "@/components/cms-image";
 import { isPublishedMediaUrl } from "@/lib/media-url";
 import { getPublicHomePageData, getPublicBrandSeoData } from "@/lib/public-site-data";
+import { clampSeoDescription, clampSeoTitle } from "@/lib/seo";
+import { HeroBackgroundMedia } from "@/components/hero-background-media";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { brand, seo } = await getPublicBrandSeoData();
+  const description = clampSeoDescription(seo.description);
 
   return {
-    title: { absolute: seo.defaultTitle },
-    description: seo.description,
+    title: { absolute: clampSeoTitle(seo.defaultTitle) },
+    description,
     alternates: { canonical: "/" },
     openGraph: {
       title: brand.name,
-      description: seo.description,
+      description,
       url: "/",
       type: "website",
     },
@@ -35,16 +38,17 @@ export default async function Home() {
       ? "video/webm"
       : "video/mp4"
     : "video/quicktime";
-  const heroVideoPoster = home.hero.videoPoster || undefined;
+  const heroVideoPoster = home.hero.videoPoster || "/og-default.jpg";
 
   return (
     <>
       <section className="relative flex h-screen items-center justify-center overflow-clip">
         <div className="absolute inset-0">
-          <video className="h-full w-full object-cover" autoPlay loop muted playsInline poster={heroVideoPoster}>
-            <source src={heroVideoSrc} type={heroVideoType} />
-            Your browser does not support the video tag.
-          </video>
+          <HeroBackgroundMedia
+            src={heroVideoSrc}
+            type={heroVideoType}
+            poster={heroVideoPoster}
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
         </div>
 
