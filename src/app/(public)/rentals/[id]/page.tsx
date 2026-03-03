@@ -13,6 +13,27 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
+function toAbsoluteUrl(baseUrl: string, pathOrUrl: string): string {
+  try {
+    return new URL(pathOrUrl, `${baseUrl}/`).toString();
+  } catch {
+    return pathOrUrl;
+  }
+}
+
+function toPropertyValue(spec: string): { "@type": "PropertyValue"; name?: string; value: string } {
+  const [name, ...rest] = spec.split(":");
+  if (rest.length === 0) {
+    return { "@type": "PropertyValue", value: spec };
+  }
+
+  return {
+    "@type": "PropertyValue",
+    name: name.trim(),
+    value: rest.join(":").trim(),
+  };
+}
+
 export async function generateStaticParams() {
   const { rentals } = await getPublicRentalsData();
   return rentals.items.map((item) => ({ id: item.id }));
@@ -20,23 +41,24 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const { rentals } = await getPublicRentalsData();
+  const [{ rentals }, { brand }] = await Promise.all([getPublicRentalsData(), getPublicBrandData()]);
   const item = rentals.items.find((entry) => entry.id === id);
 
   if (!item) return { title: "Not Found" };
+  const canonicalPath = `/rentals/${item.slug}`;
+  const imageUrl = isPublishedMediaUrl(item.imageUrl)
+    ? toAbsoluteUrl(brand.url, stripMediaUrlDecorators(item.imageUrl))
+    : null;
 
   return {
     title: `${item.name} Rental`,
     description: item.description,
-    alternates: { canonical: `/rentals/${id}` },
+    alternates: { canonical: canonicalPath },
     openGraph: {
       title: `${item.name} | ${item.brand}`,
       description: item.description,
-      url: `/rentals/${id}`,
-      images:
-        isPublishedMediaUrl(item.imageUrl)
-          ? [{ url: stripMediaUrlDecorators(item.imageUrl) }]
-          : [],
+      url: canonicalPath,
+      images: imageUrl ? [{ url: imageUrl }] : [],
     },
   };
 }
@@ -52,17 +74,29 @@ export default async function RentalDetailPage({ params }: Props) {
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
+    "@id": `${brand.url}/rentals/${item.slug}#product`,
     name: item.name,
+    sku: item.id,
+    category: item.category,
+    url: `${brand.url}/rentals/${item.slug}`,
     description: item.description,
     brand: { "@type": "Brand", name: item.brand },
     ...(isPublishedMediaUrl(item.imageUrl)
-      ? { image: stripMediaUrlDecorators(item.imageUrl) }
+      ? { image: toAbsoluteUrl(brand.url, stripMediaUrlDecorators(item.imageUrl)) }
       : {}),
+    additionalProperty: item.specs.map(toPropertyValue),
     offers: {
       "@type": "Offer",
+      url: `${brand.url}/rentals/${item.slug}`,
       availability: item.available
         ? "https://schema.org/InStock"
         : "https://schema.org/PreOrder",
+      seller: {
+        "@type": "Organization",
+        "@id": `${brand.url}/#organization`,
+        name: brand.name,
+      },
+      businessFunction: "http://purl.org/goodrelations/v1#LeaseOut",
     },
   };
 

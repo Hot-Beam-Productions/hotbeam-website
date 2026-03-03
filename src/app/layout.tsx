@@ -22,6 +22,14 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "600", "700"],
 });
 
+function toAbsoluteUrl(baseUrl: string, pathOrUrl: string): string {
+  try {
+    return new URL(pathOrUrl, `${baseUrl}/`).toString();
+  } catch {
+    return pathOrUrl;
+  }
+}
+
 export async function generateMetadata(): Promise<Metadata> {
   const { brand, seo } = await getPublicBrandSeoData();
 
@@ -49,6 +57,8 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const { brand, seo } = await getPublicBrandSeoData();
+  const logoUrl = toAbsoluteUrl(brand.url, brand.heroLogo || "/logo.png");
+  const ogImageUrl = toAbsoluteUrl(brand.url, "/og-default.jpg");
 
   const offerCatalog = {
     "@type": "OfferCatalog",
@@ -78,6 +88,8 @@ export default async function RootLayout({
         name: brand.name,
         url: brand.url,
         description: seo.description,
+        inLanguage: "en-US",
+        image: ogImageUrl,
         publisher: { "@type": "Organization", "@id": `${brand.url}/#organization` },
       },
       {
@@ -103,14 +115,30 @@ export default async function RootLayout({
           { "@type": "State", name: "Colorado" },
           { "@type": "Country", name: "United States" },
         ],
+        image: ogImageUrl,
+        logo: logoUrl,
+        sameAs: [brand.instagramUrl],
         hasOfferCatalog: offerCatalog,
       },
       {
         "@type": "Organization",
         "@id": `${brand.url}/#organization`,
         name: brand.name,
+        alternateName: brand.shortName,
         url: brand.url,
         email: brand.email,
+        logo: logoUrl,
+        sameAs: [brand.instagramUrl],
+        contactPoint: [
+          {
+            "@type": "ContactPoint",
+            contactType: "customer support",
+            telephone: brand.phoneHref,
+            email: brand.email,
+            areaServed: "US",
+            availableLanguage: ["en"],
+          },
+        ],
         hasOfferCatalog: offerCatalog,
       },
     ],

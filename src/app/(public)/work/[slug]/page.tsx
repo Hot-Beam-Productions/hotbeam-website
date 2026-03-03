@@ -13,6 +13,14 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
+function toAbsoluteUrl(baseUrl: string, pathOrUrl: string): string {
+  try {
+    return new URL(pathOrUrl, `${baseUrl}/`).toString();
+  } catch {
+    return pathOrUrl;
+  }
+}
+
 const serviceStyles: Record<string, string> = {
   audio: "border-blue-400/30 bg-blue-400/10 text-blue-200",
   lighting: "border-amber-400/30 bg-amber-400/10 text-amber-200",
@@ -28,21 +36,26 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const { work } = await getPublicWorkData();
+  const [{ work }, { brand }] = await Promise.all([getPublicWorkData(), getPublicBrandData()]);
   const project = work.projects.find((item) => item.slug === slug);
 
   if (!project) return { title: "Not Found" };
 
+  const canonicalPath = `/work/${project.slug}`;
+  const imageUrl = project.mainImageUrl
+    ? toAbsoluteUrl(brand.url, stripMediaUrlDecorators(project.mainImageUrl))
+    : null;
+
   return {
     title: project.title,
     description: project.description,
-    alternates: { canonical: `/work/${slug}` },
+    alternates: { canonical: canonicalPath },
     openGraph: {
       title: project.title,
       description: project.description,
-      url: `/work/${slug}`,
+      url: canonicalPath,
       type: "article",
-      images: project.mainImageUrl ? [{ url: stripMediaUrlDecorators(project.mainImageUrl) }] : [],
+      images: imageUrl ? [{ url: imageUrl }] : [],
     },
   };
 }
@@ -56,13 +69,20 @@ export default async function WorkProjectPage({ params }: Props) {
   const eventSchema = {
     "@context": "https://schema.org",
     "@type": "Event",
+    "@id": `${brand.url}/work/${project.slug}#event`,
     name: project.title,
     description: project.description,
+    url: `${brand.url}/work/${project.slug}`,
     startDate: project.eventDate,
     location: { "@type": "Place", name: project.location },
-    organizer: { "@type": "Organization", name: brand.name, url: brand.url },
+    organizer: {
+      "@type": "Organization",
+      "@id": `${brand.url}/#organization`,
+      name: brand.name,
+      url: brand.url,
+    },
     ...(project.mainImageUrl
-      ? { image: stripMediaUrlDecorators(project.mainImageUrl) }
+      ? { image: toAbsoluteUrl(brand.url, stripMediaUrlDecorators(project.mainImageUrl)) }
       : {}),
     eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
   };

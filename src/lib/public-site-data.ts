@@ -61,6 +61,31 @@ const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ?? process.env.FIR
 const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY ?? process.env.FIREBASE_API_KEY;
 const PUBLIC_DATA_REVALIDATE_SECONDS = 30 * 60;
 const PUBLIC_CACHE_TAG = "public-site-data";
+const CANONICAL_SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN?.trim() || "";
+const ROOT_DOMAIN = "hotbeamproductions.com";
+const WWW_DOMAIN = "www.hotbeamproductions.com";
+
+function normalizeOrigin(rawUrl: string): string {
+  const parsed = new URL(rawUrl);
+  parsed.protocol = "https:";
+  parsed.pathname = "";
+  parsed.search = "";
+  parsed.hash = "";
+  if (parsed.hostname === ROOT_DOMAIN) {
+    parsed.hostname = WWW_DOMAIN;
+  }
+  return parsed.toString().replace(/\/$/, "");
+}
+
+function normalizeBrand(brand: BrandData): BrandData {
+  try {
+    const fallbackOrigin = normalizeOrigin(brand.url);
+    const origin = CANONICAL_SITE_ORIGIN ? normalizeOrigin(CANONICAL_SITE_ORIGIN) : fallbackOrigin;
+    return { ...brand, url: origin };
+  } catch {
+    return brand;
+  }
+}
 
 function decodeFirestoreValue(value: FirestoreValue): unknown {
   if ("nullValue" in value) return null;
@@ -163,7 +188,7 @@ function normalizeFallbackSiteData(candidate: SiteData | null): SiteData {
 
   return {
     ...fallbackSiteData,
-    brand: parsedBrand ?? fallbackSiteData.brand,
+    brand: normalizeBrand(parsedBrand ?? fallbackSiteData.brand),
     navigation:
       parsedNavigation && parsedNavigation.length > 0
         ? parsedNavigation
@@ -247,7 +272,7 @@ async function getCollectionDocs<T>(collectionName: string, options: LoadOptions
 async function loadBrandData(options: LoadOptions = {}): Promise<BrandData> {
   const baseFallback = await getBaseFallbackData(options);
   const brandDoc = await getSiteDoc<BrandData>("brand", options);
-  return parseOrNull(brandSchema.safeParse(brandDoc)) ?? baseFallback.brand;
+  return normalizeBrand(parseOrNull(brandSchema.safeParse(brandDoc)) ?? baseFallback.brand);
 }
 
 async function loadNavigationData(options: LoadOptions = {}): Promise<NavLink[]> {
