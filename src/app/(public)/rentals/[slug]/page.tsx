@@ -148,25 +148,14 @@ export default async function RentalDetailPage({ params }: Props) {
             <h1 className="mt-2 font-heading text-5xl leading-[0.95] tracking-tight text-foreground md:text-6xl">
               {item.name}
             </h1>
-            <p className="mt-4 text-base leading-relaxed text-muted">{item.description}</p>
-
-            <div className="mt-6 flex items-center gap-2 text-sm">
-              {item.available ? (
-                <>
-                  <CheckCircle2 className="h-4 w-4 text-emerald-300" aria-hidden="true" />
-                  <span className="mono-label !text-emerald-300">Available for your dates</span>
-                </>
-              ) : (
-                <>
-                  <CircleAlert className="h-4 w-4 text-amber-200" aria-hidden="true" />
-                  <span className="mono-label !text-amber-200">Check date availability</span>
-                </>
-              )}
-            </div>
+            <section className="mt-6 border border-border bg-surface p-5">
+              <p className="mono-label mb-3 !text-foreground">Overview</p>
+              <p className="text-base leading-relaxed text-muted">{item.description}</p>
+            </section>
 
             {item.specs.length > 0 && (
               <section className="mt-7 border border-border bg-surface p-5">
-                <p className="mono-label mb-3 !text-foreground">Specs</p>
+                <p className="mono-label mb-3 !text-foreground">Technical Specs</p>
                 <ul className="space-y-2">
                   {item.specs.map((spec) => (
                     <li key={spec} className="flex items-start gap-2 text-sm text-muted-light">
@@ -193,11 +182,27 @@ export default async function RentalDetailPage({ params }: Props) {
               </section>
             )}
 
-            <div className="mt-7 border-t border-border pt-6">
-              <GlowButton href="/contact" variant="primary">
-                Ask About This Item
-              </GlowButton>
-            </div>
+            <section className="mt-7 border border-border bg-surface p-5">
+              <p className="mono-label mb-3 !text-foreground">Availability & Inquiry</p>
+              <div className="flex items-center gap-2 text-sm">
+                {item.available ? (
+                  <>
+                    <CheckCircle2 className="h-4 w-4 text-emerald-300" aria-hidden="true" />
+                    <span className="mono-label !text-emerald-300">Available for your dates</span>
+                  </>
+                ) : (
+                  <>
+                    <CircleAlert className="h-4 w-4 text-amber-200" aria-hidden="true" />
+                    <span className="mono-label !text-amber-200">Check date availability</span>
+                  </>
+                )}
+              </div>
+              <div className="mt-5 border-t border-border pt-5">
+                <GlowButton href="/contact" variant="primary">
+                  Ask About This Item
+                </GlowButton>
+              </div>
+            </section>
           </article>
         </div>
       </div>

@@ -2,7 +2,21 @@
 
 import { type ComponentType, useMemo, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { Boxes, Headphones, Layers, Lightbulb, Monitor, Search, Sparkles, Wind, Wrench, Zap, Cable } from "lucide-react";
+import {
+  Boxes,
+  Cable,
+  CheckCircle2,
+  CircleAlert,
+  Headphones,
+  Layers,
+  Lightbulb,
+  Monitor,
+  Search,
+  Sparkles,
+  Wind,
+  Wrench,
+  Zap,
+} from "lucide-react";
 import Link from "next/link";
 import { GlowButton } from "@/components/glow-button";
 import { CmsImage } from "@/components/cms-image";
@@ -33,6 +47,10 @@ export function RentalsFilter({ items, categories, footerNote }: RentalsFilterPr
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const prefersReduced = useReducedMotion();
+  const categoryLabelMap = useMemo(
+    () => new Map(categories.map((category) => [category.value, category.label])),
+    [categories]
+  );
 
   const filtered = useMemo(() => {
     return items.filter((item) => {
@@ -98,56 +116,57 @@ export function RentalsFilter({ items, categories, footerNote }: RentalsFilterPr
           className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         >
           {filtered.map((item, index) => (
-            <motion.article
+            <motion.div
               key={item.id}
               initial={prefersReduced ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.24, delay: prefersReduced ? 0 : index * 0.04 }}
-              className="group overflow-hidden border border-border bg-surface transition-all duration-300 hover:border-laser-cyan/40"
+              className="h-full"
             >
-              <div className="relative h-48 w-full overflow-hidden bg-surface-light">
-                {isPublishedMediaUrl(item.imageUrl) ? (
-                  <CmsImage
-                    src={item.imageUrl}
-                    alt={item.name}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                ) : (
-                  <MediaPlaceholder label="Inventory image" aspect="video" className="!aspect-auto h-full" />
-                )}
-              </div>
-
-              <div className="space-y-3 p-5">
-                <p className="mono-label !text-muted-light">{item.brand}</p>
-                <h3 className="font-heading text-2xl leading-tight tracking-tight text-foreground">
-                  {item.name}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted-light">{item.description}</p>
-
-                {item.specs.length > 0 && (
-                  <div className="flex flex-wrap gap-1 pt-1">
-                    {item.specs.slice(0, 3).map((spec) => (
-                      <span
-                        key={spec}
-                        className="border border-border bg-surface-light px-2 py-1 text-[11px] uppercase tracking-wide text-muted-light"
-                      >
-                        {spec}
-                      </span>
-                    ))}
-                  </div>
-                )}
-
-                <div className="border-t border-border pt-4">
-                  <Link
-                    href={`/rentals/${item.slug}`}
-                    className="mono-label rounded-sm border border-laser-cyan/35 px-3 py-1.5 !text-laser-cyan transition-colors hover:bg-laser-cyan/12"
-                  >
-                    View details
-                  </Link>
+              <Link
+                href={`/rentals/${item.slug}`}
+                className="group block h-full overflow-hidden border border-border bg-surface transition-all duration-300 hover:border-laser-cyan/40"
+              >
+                <div className="relative h-52 w-full overflow-hidden border-b border-border bg-surface-light p-3">
+                  {isPublishedMediaUrl(item.imageUrl) ? (
+                    <CmsImage
+                      src={item.imageUrl}
+                      alt={item.name}
+                      fill
+                      className="object-contain p-2 transition-transform duration-700 group-hover:scale-[1.03]"
+                    />
+                  ) : (
+                    <MediaPlaceholder label="Inventory image" aspect="video" className="!aspect-auto h-full" />
+                  )}
                 </div>
-              </div>
-            </motion.article>
+
+                <div className="space-y-3 p-5">
+                  <div className="flex items-start justify-between gap-3">
+                    <p className="mono-label !text-muted-light">
+                      {item.brand} · {categoryLabelMap.get(item.category) ?? item.category}
+                    </p>
+                    <span
+                      className={`inline-flex items-center gap-1 border px-2 py-1 text-[10px] uppercase tracking-[0.12em] ${
+                        item.available
+                          ? "border-emerald-400/30 bg-emerald-500/10 text-emerald-300"
+                          : "border-amber-300/30 bg-amber-500/10 text-amber-200"
+                      }`}
+                    >
+                      {item.available ? <CheckCircle2 className="h-3 w-3" /> : <CircleAlert className="h-3 w-3" />}
+                      {item.available ? "Available" : "Check Dates"}
+                    </span>
+                  </div>
+
+                  <h3 className="font-heading text-2xl leading-tight tracking-tight text-foreground transition-colors group-hover:text-laser-cyan">
+                    {item.name}
+                  </h3>
+
+                  <div className="border-t border-border pt-3">
+                    <span className="mono-label !text-laser-cyan">View details &rarr;</span>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
           ))}
         </motion.div>
       </AnimatePresence>

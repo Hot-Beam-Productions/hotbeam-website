@@ -13,6 +13,27 @@ import { getRentalsAdmin, deleteRental } from "./actions";
 import { isPublishedMediaUrl } from "@/lib/media-url";
 import type { RentalItem } from "@/lib/types";
 
+type ImageStatus = "ok" | "missing" | "needs_review";
+
+function getImageStatus(item: RentalItem): ImageStatus {
+  const imageUrl = item.imageUrl?.trim() ?? "";
+  if (!imageUrl) return "missing";
+  if (imageUrl.includes("pub-XXXX") || imageUrl.includes("picsum.photos")) return "needs_review";
+  return isPublishedMediaUrl(imageUrl) ? "ok" : "needs_review";
+}
+
+function imageStatusClasses(status: ImageStatus): string {
+  if (status === "ok") return "border-emerald-500/30 bg-emerald-500/10 text-emerald-300";
+  if (status === "missing") return "border-red-500/30 bg-red-500/10 text-red-300";
+  return "border-amber-500/30 bg-amber-500/10 text-amber-200";
+}
+
+function imageStatusLabel(status: ImageStatus): string {
+  if (status === "ok") return "OK";
+  if (status === "missing") return "Missing";
+  return "Needs Review";
+}
+
 export default function RentalsListPage() {
   const [items, setItems] = useState<RentalItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -20,6 +41,7 @@ export default function RentalsListPage() {
   const [error, setError] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
+  const [imageStatusFilter, setImageStatusFilter] = useState<"all" | ImageStatus>("all");
   const { addToast } = useToast();
 
   const refreshRentals = useCallback(async () => {
@@ -58,14 +80,13 @@ export default function RentalsListPage() {
   const filteredItems = useMemo(() => {
     const term = searchQuery.trim().toLowerCase();
     return items.filter((item) => {
-      const matchesSearch = term
-        ? item.name.toLowerCase().includes(term)
-        : true;
-      const matchesCategory =
-        categoryFilter === "all" || item.category === categoryFilter;
-      return matchesSearch && matchesCategory;
+      const matchesSearch = term ? item.name.toLowerCase().includes(term) : true;
+      const matchesCategory = categoryFilter === "all" || item.category === categoryFilter;
+      const status = getImageStatus(item);
+      const matchesImageStatus = imageStatusFilter === "all" || status === imageStatusFilter;
+      return matchesSearch && matchesCategory && matchesImageStatus;
     });
-  }, [items, searchQuery, categoryFilter]);
+  }, [items, searchQuery, categoryFilter, imageStatusFilter]);
 
   async function handleDelete() {
     if (!deleteTarget) return;
@@ -110,7 +131,7 @@ export default function RentalsListPage() {
 
       {error && <FormStatus type="error" message={error} />}
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-[minmax(0,1fr)_200px]">
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,1fr)_200px_180px]">
         <div className="relative">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" />
           <input
@@ -133,6 +154,16 @@ export default function RentalsListPage() {
             </option>
           ))}
         </select>
+        <select
+          value={imageStatusFilter}
+          onChange={(event) => setImageStatusFilter(event.target.value as "all" | ImageStatus)}
+          className="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-foreground focus:border-laser-cyan focus:outline-none"
+        >
+          <option value="all">All image statuses</option>
+          <option value="ok">OK</option>
+          <option value="missing">Missing</option>
+          <option value="needs_review">Needs Review</option>
+        </select>
       </div>
 
       {items.length === 0 ? (
@@ -151,13 +182,14 @@ export default function RentalsListPage() {
         <>
           <div className="space-y-3 md:hidden">
             {filteredItems.map((item) => {
+              const status = getImageStatus(item);
               const hasImage = isPublishedMediaUrl(item.imageUrl);
               return (
                 <div key={item.id} className="rounded-lg border border-border bg-surface/60 p-3">
                   <div className="flex items-start gap-3">
-                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded border border-border">
+                    <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded border border-border bg-surface-light p-1">
                       {hasImage ? (
-                        <CmsImage src={item.imageUrl} alt={item.name} fill className="object-cover" />
+                        <CmsImage src={item.imageUrl} alt={item.name} fill className="object-contain p-1" />
                       ) : (
                         <div className="flex h-full items-center justify-center bg-surface text-xs text-muted">--</div>
                       )}
@@ -168,6 +200,9 @@ export default function RentalsListPage() {
                       <p className="text-xs text-muted capitalize">{item.category}</p>
                       <p className={`text-xs ${item.available ? "text-emerald-400" : "text-amber-400"}`}>
                         {item.available ? "Available" : "Unavailable"}
+                      </p>
+                      <p className={`mt-1 inline-flex border px-1.5 py-0.5 text-[10px] uppercase tracking-wide ${imageStatusClasses(status)}`}>
+                        {imageStatusLabel(status)}
                       </p>
                     </div>
                   </div>
@@ -190,20 +225,22 @@ export default function RentalsListPage() {
                 <tr className="border-b border-border bg-surface text-left text-xs uppercase tracking-wider text-muted">
                   <th className="px-4 py-3">Item</th>
                   <th className="px-4 py-3">Category</th>
+                  <th className="px-4 py-3">Image</th>
                   <th className="px-4 py-3">Available</th>
                   <th className="px-4 py-3 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredItems.map((item) => {
+                  const status = getImageStatus(item);
                   const hasImage = isPublishedMediaUrl(item.imageUrl);
                   return (
                     <tr key={item.id} className="border-b border-border transition-colors hover:bg-surface/50">
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-3">
-                          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded border border-border">
+                          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded border border-border bg-surface-light p-1">
                             {hasImage ? (
-                              <CmsImage src={item.imageUrl} alt={item.name} fill className="object-cover" />
+                              <CmsImage src={item.imageUrl} alt={item.name} fill className="object-contain p-1" />
                             ) : (
                               <div className="flex h-full items-center justify-center bg-surface text-xs text-muted">--</div>
                             )}
@@ -215,6 +252,11 @@ export default function RentalsListPage() {
                         </div>
                       </td>
                       <td className="px-4 py-3 text-muted-light capitalize">{item.category}</td>
+                      <td className="px-4 py-3">
+                        <span className={`inline-flex border px-2 py-1 text-[10px] uppercase tracking-wide ${imageStatusClasses(status)}`}>
+                          {imageStatusLabel(status)}
+                        </span>
+                      </td>
                       <td className="px-4 py-3">
                         <span className={`text-xs ${item.available ? "text-emerald-400" : "text-amber-400"}`}>
                           {item.available ? "Available" : "Unavailable"}
