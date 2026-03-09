@@ -12,7 +12,7 @@ export default async function TermsOfUsePage() {
     brand: { name, email },
   } = await getPublicBrandData();
 
-  const effectiveDate = "February 27, 2026";
+  const effectiveDate = "March 9, 2026";
 
   return (
     <div className="px-6 pb-24 pt-28 md:pt-32">
@@ -71,6 +71,25 @@ export default async function TermsOfUsePage() {
             <p className="mt-3">
               We may update these Terms of Use at any time by posting revised terms on this page. Continued
               use of the website after updates means you accept the revised terms.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-heading text-2xl tracking-tight text-foreground">Governing Law</h2>
+            <p className="mt-3">
+              These Terms of Use are governed by and construed in accordance with the laws of the State
+              of Colorado, without regard to its conflict of law provisions.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="font-heading text-2xl tracking-tight text-foreground">Dispute Resolution</h2>
+            <p className="mt-3">
+              If you have a dispute arising from your use of this website or these Terms, we encourage
+              you to contact us first so we can attempt to resolve the matter in good faith. If a
+              resolution cannot be reached, any legal action shall be brought exclusively in the state or
+              federal courts located in Boulder County, Colorado, and you consent to the personal
+              jurisdiction of those courts.
             </p>
           </section>
 

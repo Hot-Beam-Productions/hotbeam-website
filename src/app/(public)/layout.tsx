@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { TechNoticeBanner } from "@/components/tech-notice-banner";
 import { getPublicShellData } from "@/lib/public-site-data";
 
 export default async function PublicLayout({
@@ -14,6 +15,7 @@ export default async function PublicLayout({
         {children}
       </main>
       <Footer brand={brand} footer={footer} navigation={navigation} />
+      <TechNoticeBanner />
     </>
   );
 }
