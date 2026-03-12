@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { Package, Pencil, Plus, Search, Settings, Trash2 } from "lucide-react";
+import { Package, Pencil, Plus, Search, Trash2 } from "lucide-react";
 import { CmsImage } from "@/components/cms-image";
 import { LoadingSpinner } from "@/components/admin/loading-spinner";
 import { ConfirmDialog } from "@/components/admin/confirm-dialog";
@@ -106,27 +106,18 @@ export default function RentalsListPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-heading text-3xl tracking-wide text-foreground">Rentals</h1>
+          <h1 className="font-heading text-3xl tracking-wide text-foreground">Rental Items</h1>
           <p className="mt-1 text-sm text-muted">
             {filteredItems.length} of {items.length} items
           </p>
         </div>
-        <div className="flex gap-2">
-          <Link
-            href="/admin/rentals/settings"
-            className="flex items-center gap-2 rounded-md border border-border px-4 py-2 text-sm text-muted-light transition-colors hover:bg-surface-light"
-          >
-            <Settings className="h-4 w-4" />
-            Settings
-          </Link>
-          <Link
-            href="/admin/rentals/new"
-            className="flex items-center gap-2 rounded-md bg-laser-cyan px-4 py-2 text-sm font-semibold text-background transition-all hover:brightness-110"
-          >
-            <Plus className="h-4 w-4" />
-            Add Item
-          </Link>
-        </div>
+        <Link
+          href="/admin/rentals/new"
+          className="flex items-center gap-2 rounded-md bg-laser-cyan px-4 py-2 text-sm font-semibold text-background transition-all hover:brightness-110"
+        >
+          <Plus className="h-4 w-4" />
+          Add Item
+        </Link>
       </div>
 
       {error && <FormStatus type="error" message={error} />}
@@ -198,9 +189,6 @@ export default function RentalsListPage() {
                       <p className="truncate font-medium text-foreground">{item.name}</p>
                       <p className="text-xs text-muted">{item.brand}</p>
                       <p className="text-xs text-muted capitalize">{item.category}</p>
-                      <p className={`text-xs ${item.available ? "text-emerald-400" : "text-amber-400"}`}>
-                        {item.available ? "Available" : "Unavailable"}
-                      </p>
                       <p className={`mt-1 inline-flex border px-1.5 py-0.5 text-[10px] uppercase tracking-wide ${imageStatusClasses(status)}`}>
                         {imageStatusLabel(status)}
                       </p>
@@ -226,7 +214,6 @@ export default function RentalsListPage() {
                   <th className="px-4 py-3">Item</th>
                   <th className="px-4 py-3">Category</th>
                   <th className="px-4 py-3">Image</th>
-                  <th className="px-4 py-3">Available</th>
                   <th className="px-4 py-3 text-right">Actions</th>
                 </tr>
               </thead>
@@ -255,11 +242,6 @@ export default function RentalsListPage() {
                       <td className="px-4 py-3">
                         <span className={`inline-flex border px-2 py-1 text-[10px] uppercase tracking-wide ${imageStatusClasses(status)}`}>
                           {imageStatusLabel(status)}
-                        </span>
-                      </td>
-                      <td className="px-4 py-3">
-                        <span className={`text-xs ${item.available ? "text-emerald-400" : "text-amber-400"}`}>
-                          {item.available ? "Available" : "Unavailable"}
                         </span>
                       </td>
                       <td className="px-4 py-3">

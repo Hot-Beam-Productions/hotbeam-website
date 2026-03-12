@@ -8,10 +8,6 @@ import {
   LayoutDashboard,
   Film,
   Package,
-  Home,
-  Users,
-  Mail,
-  Settings,
   LogOut,
   Menu,
   X,
@@ -22,11 +18,7 @@ import { cn } from "@/lib/utils";
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/portfolio", label: "Portfolio", icon: Film },
-  { href: "/admin/rentals", label: "Rentals", icon: Package },
-  { href: "/admin/home", label: "Home Page", icon: Home },
-  { href: "/admin/about", label: "About Page", icon: Users },
-  { href: "/admin/contact", label: "Contact Page", icon: Mail },
-  { href: "/admin/brand", label: "Brand & Footer", icon: Settings },
+  { href: "/admin/rentals", label: "Rental Items", icon: Package },
 ];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {

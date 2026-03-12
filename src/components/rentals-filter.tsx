@@ -5,8 +5,6 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   Boxes,
   Cable,
-  CheckCircle2,
-  CircleAlert,
   Headphones,
   Layers,
   Lightbulb,
@@ -141,21 +139,9 @@ export function RentalsFilter({ items, categories, footerNote }: RentalsFilterPr
                 </div>
 
                 <div className="space-y-3 p-5">
-                  <div className="flex items-start justify-between gap-3">
-                    <p className="mono-label !text-muted-light">
-                      {item.brand} · {categoryLabelMap.get(item.category) ?? item.category}
-                    </p>
-                    <span
-                      className={`inline-flex items-center gap-1 border px-2 py-1 text-[10px] uppercase tracking-[0.12em] ${
-                        item.available
-                          ? "border-emerald-400/30 bg-emerald-500/10 text-emerald-300"
-                          : "border-amber-300/30 bg-amber-500/10 text-amber-200"
-                      }`}
-                    >
-                      {item.available ? <CheckCircle2 className="h-3 w-3" /> : <CircleAlert className="h-3 w-3" />}
-                      {item.available ? "Available" : "Check Dates"}
-                    </span>
-                  </div>
+                  <p className="mono-label !text-muted-light">
+                    {item.brand} · {categoryLabelMap.get(item.category) ?? item.category}
+                  </p>
 
                   <h3 className="font-heading text-2xl leading-tight tracking-tight text-foreground transition-colors group-hover:text-laser-cyan">
                     {item.name}

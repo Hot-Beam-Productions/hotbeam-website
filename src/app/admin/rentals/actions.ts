@@ -1,6 +1,4 @@
 import {
-  getSiteDoc,
-  updateSiteDoc,
   getCollectionDocs,
   getDocById,
   setDocument,
@@ -9,8 +7,8 @@ import {
 } from "@/lib/firestore-client";
 import { revalidatePaths } from "@/lib/admin-action";
 import { actionError, type ActionResult } from "@/lib/action-result";
-import { rentalSchema, rentalsSettingsSchema } from "@/lib/schemas";
-import type { RentalItem, RentalsSettings, SiteData } from "@/lib/types";
+import { rentalSchema } from "@/lib/schemas";
+import type { RentalItem, SiteData } from "@/lib/types";
 import rawData from "@/data/data.json";
 
 const fallbackSiteData = rawData as SiteData;
@@ -101,22 +99,5 @@ export async function deleteRental(
     return { success: true };
   } catch (err) {
     return actionError(err, "Failed to delete rental");
-  }
-}
-
-export async function getRentalsSettingsAdmin(): Promise<RentalsSettings> {
-  return getSiteDoc<RentalsSettings>("rentals-settings");
-}
-
-export async function updateRentalsSettings(
-  data: RentalsSettings
-): Promise<ActionResult> {
-  try {
-    const parsed = rentalsSettingsSchema.parse(data);
-    await updateSiteDoc("rentals-settings", parsed as unknown as Record<string, unknown>);
-    await revalidatePaths(["/rentals"]);
-    return { success: true };
-  } catch (err) {
-    return actionError(err, "Save failed");
   }
 }

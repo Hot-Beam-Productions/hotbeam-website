@@ -57,7 +57,6 @@ export const rentalSchema = z.object({
   specs: z.array(z.string()),
   frequentlyRentedTogether: z.array(z.string()).optional(),
   imageUrl: z.string(),
-  available: z.boolean(),
   order: z.number().int().min(0).optional(),
   updatedAt: z.string().optional(),
 });

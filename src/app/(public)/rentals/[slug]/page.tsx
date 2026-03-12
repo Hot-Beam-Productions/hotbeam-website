@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, CircleAlert } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { CmsImage } from "@/components/cms-image";
 import { GlowButton } from "@/components/glow-button";
 import { MediaPlaceholder } from "@/components/media-placeholder";
@@ -91,9 +91,6 @@ export default async function RentalDetailPage({ params }: Props) {
     offers: {
       "@type": "Offer",
       url: `${brand.url}/rentals/${item.slug}`,
-      availability: item.available
-        ? "https://schema.org/InStock"
-        : "https://schema.org/PreOrder",
       seller: {
         "@type": "Organization",
         "@id": `${brand.url}/#organization`,
@@ -183,20 +180,10 @@ export default async function RentalDetailPage({ params }: Props) {
             )}
 
             <section className="mt-7 border border-border bg-surface p-5">
-              <p className="mono-label mb-3 !text-foreground">Availability & Inquiry</p>
-              <div className="flex items-center gap-2 text-sm">
-                {item.available ? (
-                  <>
-                    <CheckCircle2 className="h-4 w-4 text-emerald-300" aria-hidden="true" />
-                    <span className="mono-label !text-emerald-300">Available for your dates</span>
-                  </>
-                ) : (
-                  <>
-                    <CircleAlert className="h-4 w-4 text-amber-200" aria-hidden="true" />
-                    <span className="mono-label !text-amber-200">Check date availability</span>
-                  </>
-                )}
-              </div>
+              <p className="mono-label mb-3 !text-foreground">Inquiry</p>
+              <p className="text-sm text-muted-light">
+                Need this item in your build? Send the show details and we will scope the right package.
+              </p>
               <div className="mt-5 border-t border-border pt-5">
                 <GlowButton href="/contact" variant="primary">
                   Ask About This Item

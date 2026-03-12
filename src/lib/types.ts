@@ -77,7 +77,6 @@ export interface RentalItem {
   specs: string[];
   frequentlyRentedTogether?: string[];
   imageUrl: string;
-  available: boolean;
   order?: number;
   updatedAt?: string;
 }

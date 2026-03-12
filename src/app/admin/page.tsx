@@ -2,17 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Film, Package, Home, Users, Mail, Settings } from "lucide-react";
+import { Film, Package } from "lucide-react";
 import { getProjectsAdmin } from "@/app/admin/portfolio/actions";
 import { getRentalsAdmin } from "@/app/admin/rentals/actions";
 
 const quickLinks = [
   { href: "/admin/portfolio", label: "Portfolio", description: "Manage productions", icon: Film, countKey: "projects" as const },
-  { href: "/admin/rentals", label: "Rentals", description: "Equipment catalog", icon: Package, countKey: "rentals" as const },
-  { href: "/admin/home", label: "Home Page", description: "Hero & sections", icon: Home },
-  { href: "/admin/about", label: "About Page", description: "Story & team", icon: Users },
-  { href: "/admin/contact", label: "Contact Page", description: "Form settings", icon: Mail },
-  { href: "/admin/brand", label: "Brand & Footer", description: "Site-wide settings", icon: Settings },
+  { href: "/admin/rentals", label: "Rental Items", description: "Equipment catalog", icon: Package, countKey: "rentals" as const },
 ];
 
 export default function AdminDashboard() {

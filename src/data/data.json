@@ -512,7 +512,7 @@
     "heading": {
       "label": "Inventory",
       "title": "Rental Inventory",
-      "subtitle": "Show-ready gear available as dry hire or bundled with crew, transport, and operation."
+      "subtitle": "Show-ready gear for dry hire or bundled with crew, transport, and operation."
     },
     "categories": [
       {
@@ -575,7 +575,6 @@
           "3x3ft-heavy-duty-f34-base-plate"
         ],
         "imageUrl": "https://pub-ec3449af645a4c318ca0a84f96ef82c8.r2.dev/rentals/premium-led-video-wall-system-2-8mm-vx400.webp",
-        "available": true,
         "order": 0
       },
       {
@@ -599,7 +598,6 @@
           "socapex-breakout-cable-19-pin-to-6x-edison"
         ],
         "imageUrl": "https://pub-XXXX.r2.dev/rentals/able-archer-20w-rgb-laser-projector-fb4-integrated.jpg",
-        "available": true,
         "order": 1
       },
       {
@@ -620,7 +618,6 @@
           "artfox-1500w-professional-hazer"
         ],
         "imageUrl": "https://pub-ec3449af645a4c318ca0a84f96ef82c8.r2.dev/rentals/high-power-10w-rgb-laser-projector.webp",
-        "available": true,
         "order": 2
       },
       {
@@ -641,7 +638,6 @@
           "pioneer-dj-djm-a9-4-channel-professional-mixer"
         ],
         "imageUrl": "https://pub-XXXX.r2.dev/rentals/alpha-theta-cdj-3000x-professional-dj-multi-player.jpg",
-        "available": true,
         "order": 3
       },
       {
@@ -662,7 +658,6 @@
           "alpha-theta-cdj-3000x-professional-dj-multi-player"
         ],
         "imageUrl": "https://pub-XXXX.r2.dev/rentals/pioneer-dj-djm-a9-4-channel-professional-mixer.jpg",
-        "available": true,
         "order": 4
       },
       {
@@ -686,7 +681,6 @@
           "socapex-breakout-cable-19-pin-to-6x-edison"
         ],
         "imageUrl": "https://pub-XXXX.r2.dev/rentals/artfox-ipstrobe-m-motorized-strobe-wash-ip65.jpg",
-        "available": true,
         "order": 5
       },
       {
@@ -710,7 +704,6 @@
           "socapex-breakout-cable-19-pin-to-6x-edison"
         ],
         "imageUrl": "https://pub-XXXX.r2.dev/rentals/artfox-matrix-hybrid-cmy-460-moving-head.jpg",
-        "available": true,
         "order": 6
       },
       {
@@ -732,7 +725,6 @@
           "400a-three-phase-power-distribution-rack"
         ],
         "imageUrl": "https://pub-XXXX.r2.dev/rentals/artfox-solar-7-moving-zoom-wash.jpg",
-        "available": true,
         "order": 7
       },
       {
@@ -750,7 +742,6 @@
         ],
         "frequentlyRentedTogether": [],
         "imageUrl": "https://pub-ec3449af645a4c318ca0a84f96ef82c8.r2.dev/rentals/cryogenic-co2-cannon-jet-includes-75lb-siphon-tank.webp",
-        "available": true,
         "order": 8
       },
       {
@@ -772,7 +763,6 @@
           "able-archer-20w-rgb-laser-projector-fb4-integrated"
         ],
         "imageUrl": "https://pub-XXXX.r2.dev/rentals/artfox-1500w-professional-hazer.jpg",
-        "available": true,
         "order": 9
       },
       {
@@ -794,7 +784,6 @@
           "heavy-duty-truss-lift-crank-stand"
         ],
         "imageUrl": "https://pub-ec3449af645a4c318ca0a84f96ef82c8.r2.dev/rentals/3m-f34-aluminum-square-truss.webp",
-        "available": true,
         "order": 10
       },
       {
@@ -816,7 +805,6 @@
           "3x3ft-heavy-duty-f34-base-plate"
         ],
         "imageUrl": "https://pub-ec3449af645a4c318ca0a84f96ef82c8.r2.dev/rentals/1-5m-f34-aluminum-square-truss.webp",
-        "available": true,
         "order": 11
       },
       {
@@ -836,7 +824,6 @@
           "1-5m-f34-aluminum-square-truss"
         ],
         "imageUrl": "https://pub-ec3449af645a4c318ca0a84f96ef82c8.r2.dev/rentals/f34-6-way-junction-corner-block.webp",
-        "available": true,
         "order": 12
       },
       {
@@ -856,7 +843,6 @@
           "heavy-duty-truss-lift-crank-stand"
         ],
         "imageUrl": "https://pub-ec3449af645a4c318ca0a84f96ef82c8.r2.dev/rentals/3x3ft-heavy-duty-f34-base-plate.webp",
-        "available": true,
         "order": 13
       },
       {
@@ -875,7 +861,6 @@
           "1-5m-f34-aluminum-square-truss"
         ],
         "imageUrl": "https://pub-ec3449af645a4c318ca0a84f96ef82c8.r2.dev/rentals/2x2ft-f34-base-plate.webp",
-        "available": true,
         "order": 14
       },
       {
@@ -894,7 +879,6 @@
           "2x2ft-f34-base-plate"
         ],
         "imageUrl": "https://pub-ec3449af645a4c318ca0a84f96ef82c8.r2.dev/rentals/1x1ft-f34-top-plate.webp",
-        "available": true,
         "order": 15
       },
       {
@@ -913,7 +897,6 @@
           "3m-f34-aluminum-square-truss"
         ],
         "imageUrl": "https://pub-ec3449af645a4c318ca0a84f96ef82c8.r2.dev/rentals/24-inch-truss-arm-extension-pole-boom-arm.webp",
-        "available": true,
         "order": 16
       },
       {
@@ -934,7 +917,6 @@
           "premium-led-video-wall-system-2-8mm-vx400"
         ],
         "imageUrl": "https://pub-XXXX.r2.dev/rentals/heavy-duty-truss-lift-crank-stand.jpg",
-        "available": true,
         "order": 17
       },
       {
@@ -954,7 +936,6 @@
           "artfox-stage-deck-stairs-adjustable"
         ],
         "imageUrl": "https://pub-XXXX.r2.dev/rentals/artfox-4x4ft-modular-stage-deck-adjustable-height.jpg",
-        "available": true,
         "order": 18
       },
       {
@@ -973,7 +954,6 @@
           "artfox-4x4ft-modular-stage-deck-adjustable-height"
         ],
         "imageUrl": "https://pub-XXXX.r2.dev/rentals/artfox-stage-deck-stairs-adjustable.jpg",
-        "available": true,
         "order": 19
       },
       {
@@ -994,7 +974,6 @@
           "socapex-breakout-cable-19-pin-to-6x-edison"
         ],
         "imageUrl": "https://pub-XXXX.r2.dev/rentals/400a-three-phase-power-distribution-rack.jpg",
-        "available": true,
         "order": 20
       },
       {
@@ -1015,7 +994,6 @@
           "socapex-breakout-cable-19-pin-to-6x-edison"
         ],
         "imageUrl": "https://pub-ec3449af645a4c318ca0a84f96ef82c8.r2.dev/rentals/50ft-socapex-extension-cable-19-pin-12-awg.webp",
-        "available": true,
         "order": 21
       },
       {
@@ -1036,7 +1014,6 @@
           "400a-three-phase-power-distribution-rack"
         ],
         "imageUrl": "https://pub-ec3449af645a4c318ca0a84f96ef82c8.r2.dev/rentals/socapex-breakout-cable-19-pin-to-6x-edison.webp",
-        "available": true,
         "order": 22
       }
     ]

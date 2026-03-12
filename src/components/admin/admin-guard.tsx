@@ -6,17 +6,31 @@ import { useAuth } from "./auth-provider";
 import { AdminShell } from "./admin-shell";
 import { LoadingSpinner } from "./loading-spinner";
 
+const REMOVED_ADMIN_PATHS = new Set([
+  "/admin/home",
+  "/admin/about",
+  "/admin/contact",
+  "/admin/brand",
+  "/admin/rentals/settings",
+]);
+
 export function AdminGuard({ children }: { children: React.ReactNode }) {
   const { user, loading, configError } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
   const isLoginPage = pathname === "/admin/login";
+  const isRemovedAdminPath = REMOVED_ADMIN_PATHS.has(pathname);
 
   useEffect(() => {
+    if (!loading && user && isRemovedAdminPath) {
+      router.replace("/admin");
+      return;
+    }
+
     if (!loading && !user && !isLoginPage && !configError) {
       router.push("/admin/login");
     }
-  }, [loading, user, isLoginPage, router, configError]);
+  }, [loading, user, isLoginPage, isRemovedAdminPath, router, configError]);
 
   if (loading) return <LoadingSpinner />;
 
@@ -43,6 +57,8 @@ export function AdminGuard({ children }: { children: React.ReactNode }) {
 
   // Not logged in and not on login page — show nothing while redirecting
   if (!user) return <LoadingSpinner message="Redirecting to login..." />;
+
+  if (isRemovedAdminPath) return <LoadingSpinner message="Redirecting to dashboard..." />;
 
   // Logged in — render admin shell
   return <AdminShell>{children}</AdminShell>;

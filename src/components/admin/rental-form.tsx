@@ -48,7 +48,6 @@ export function RentalForm({ initial, onSubmit, submitLabel }: RentalFormProps) 
     specs: initial?.specs ?? [],
     frequentlyRentedTogether: initial?.frequentlyRentedTogether ?? [],
     imageUrl: initial?.imageUrl ?? "",
-    available: initial?.available ?? true,
     order: initial?.order ?? 0,
   });
   const [initialSnapshot, setInitialSnapshot] = useState(initialSnapshotValue);
@@ -61,7 +60,6 @@ export function RentalForm({ initial, onSubmit, submitLabel }: RentalFormProps) 
   const [specs, setSpecs] = useState<string[]>(initial?.specs ?? []);
   const [frequentlyRentedTogether, setFrequentlyRentedTogether] = useState<string[]>(initial?.frequentlyRentedTogether ?? []);
   const [imageUrl, setImageUrl] = useState(initial?.imageUrl ?? "");
-  const [available, setAvailable] = useState(initial?.available ?? true);
   const [order, setOrder] = useState(initial?.order ?? 0);
   const [autoSlug, setAutoSlug] = useState(!initial);
 
@@ -81,11 +79,9 @@ export function RentalForm({ initial, onSubmit, submitLabel }: RentalFormProps) 
       specs,
       frequentlyRentedTogether,
       imageUrl,
-      available,
       order,
     }),
     [
-      available,
       brand,
       category,
       description,
@@ -185,10 +181,6 @@ export function RentalForm({ initial, onSubmit, submitLabel }: RentalFormProps) 
       <ImageUploader value={imageUrl} onChange={setImageUrl} folder="rentals" label="Image" />
 
       <div className="flex items-center gap-6">
-        <label className="flex items-center gap-2 text-sm text-muted-light">
-          <input type="checkbox" checked={available} onChange={(e) => setAvailable(e.target.checked)} className="h-4 w-4 rounded border-border bg-surface accent-laser-cyan" />
-          Available
-        </label>
         <div className="flex items-center gap-2">
           <label className="text-sm text-muted-light">Order</label>
           <input type="number" value={order} onChange={(e) => setOrder(parseInt(e.target.value) || 0)} min={0} className="w-20 rounded-md border border-border bg-surface px-2 py-1 text-sm text-foreground focus:border-laser-cyan focus:outline-none" />

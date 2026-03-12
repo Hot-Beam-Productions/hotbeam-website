@@ -1,23 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
 
 const STORAGE_KEY = "hbp-tech-notice-dismissed";
 
 export function TechNoticeBanner() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === "undefined") return false;
     try {
-      if (!localStorage.getItem(STORAGE_KEY)) {
-        setVisible(true);
-      }
+      return !localStorage.getItem(STORAGE_KEY);
     } catch {
       // localStorage unavailable (e.g. private browsing restrictions)
+      return false;
     }
-  }, []);
+  });
 
   function dismiss() {
     try {

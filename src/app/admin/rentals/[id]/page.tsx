@@ -34,7 +34,7 @@ export default function EditRentalPage() {
       <Breadcrumbs
         items={[
           { label: "Dashboard", href: "/admin" },
-          { label: "Rentals", href: "/admin/rentals" },
+          { label: "Rental Items", href: "/admin/rentals" },
           { label: item?.name ?? "Edit Rental" },
         ]}
       />

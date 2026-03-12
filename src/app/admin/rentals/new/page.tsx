@@ -10,7 +10,7 @@ export default function NewRentalPage() {
       <Breadcrumbs
         items={[
           { label: "Dashboard", href: "/admin" },
-          { label: "Rentals", href: "/admin/rentals" },
+          { label: "Rental Items", href: "/admin/rentals" },
           { label: "New Item" },
         ]}
       />
