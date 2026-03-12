@@ -7,9 +7,15 @@ import type {
   SiteData,
 } from "@/lib/types";
 import {
+  aboutSchema,
+  brandSchema,
+  contactSchema,
+  footerSchema,
+  homeSchema,
   navigationSchema,
   projectSchema,
   rentalSchema,
+  rentalsSettingsSchema,
   seoSchema,
   workSettingsSchema,
 } from "@/lib/schemas";
@@ -144,6 +150,7 @@ function normalizeFallbackSiteData(candidate: SiteData | null): SiteData {
   }
 
   const source = candidate as Partial<SiteData>;
+  const parsedBrand = parseOrNull(brandSchema.safeParse(source.brand));
   const sourceWork = source.work;
   const sourceRentals = source.rentals;
 
@@ -151,9 +158,20 @@ function normalizeFallbackSiteData(candidate: SiteData | null): SiteData {
     ? parseOrNull(navigationSchema.safeParse({ links: source.navigation }))?.links
     : null;
   const parsedSeo = parseOrNull(seoSchema.safeParse(source.seo));
+  const parsedHome = parseOrNull(homeSchema.safeParse(source.home));
+  const parsedAbout = parseOrNull(aboutSchema.safeParse(source.about));
+  const parsedContact = parseOrNull(contactSchema.safeParse(source.contact));
+  const parsedFooter = parseOrNull(footerSchema.safeParse(source.footer));
   const parsedWorkSettings = parseOrNull(
     workSettingsSchema.safeParse({
       heading: sourceWork?.heading,
+    })
+  );
+  const parsedRentalsSettings = parseOrNull(
+    rentalsSettingsSchema.safeParse({
+      heading: sourceRentals?.heading,
+      categories: sourceRentals?.categories,
+      footerNote: sourceRentals?.footerNote,
     })
   );
 
@@ -169,16 +187,16 @@ function normalizeFallbackSiteData(candidate: SiteData | null): SiteData {
 
   return {
     ...fallbackSiteData,
-    brand: normalizeBrand(fallbackSiteData.brand),
+    brand: normalizeBrand(parsedBrand ?? fallbackSiteData.brand),
     navigation:
       parsedNavigation && parsedNavigation.length > 0
         ? parsedNavigation
         : fallbackSiteData.navigation,
     seo: parsedSeo ?? fallbackSiteData.seo,
-    home: fallbackSiteData.home,
-    about: fallbackSiteData.about,
-    contact: fallbackSiteData.contact,
-    footer: fallbackSiteData.footer,
+    home: parsedHome ?? fallbackSiteData.home,
+    about: parsedAbout ?? fallbackSiteData.about,
+    contact: parsedContact ?? fallbackSiteData.contact,
+    footer: parsedFooter ?? fallbackSiteData.footer,
     work: {
       ...fallbackSiteData.work,
       ...(parsedWorkSettings ?? {}),
@@ -186,6 +204,7 @@ function normalizeFallbackSiteData(candidate: SiteData | null): SiteData {
     },
     rentals: {
       ...fallbackSiteData.rentals,
+      ...(parsedRentalsSettings ?? {}),
       items: parsedRentals.length > 0 ? parsedRentals : fallbackSiteData.rentals.items,
     },
   };
