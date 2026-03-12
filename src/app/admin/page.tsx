@@ -12,9 +12,11 @@ import {
 import { getProjectsAdmin } from "@/app/admin/portfolio/actions";
 import { getRentalsAdmin } from "@/app/admin/rentals/actions";
 import { AdminHubIconGlyph } from "@/components/admin/admin-hub-icons";
+import { useAuth } from "@/components/admin/auth-provider";
 import { EmptyState } from "@/components/admin/empty-state";
 import { FormStatus } from "@/components/admin/form-status";
 import { getAdminHubSettings } from "@/lib/admin-hub";
+import type { FirestoreMetricsResponse } from "@/lib/firestore-metrics-types";
 import type { AdminHubLink } from "@/lib/types";
 
 const siteManagementLinks = [
@@ -34,7 +36,62 @@ const siteManagementLinks = [
   },
 ];
 
+type FirestoreMetricsState =
+  | { status: "loading" }
+  | { status: "ready"; data: FirestoreMetricsResponse }
+  | { status: "not-configured"; message: string }
+  | { status: "error"; message: string };
+
+interface FirestoreMetricsErrorPayload {
+  error?: string;
+  code?: string;
+}
+
+function isFirestoreMetricsResponse(value: unknown): value is FirestoreMetricsResponse {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const candidate = value as Partial<FirestoreMetricsResponse>;
+  return (
+    typeof candidate.windowStart === "string" &&
+    typeof candidate.windowEnd === "string" &&
+    typeof candidate.lastUpdatedAt === "string" &&
+    typeof candidate.reads?.dayTotal === "number" &&
+    typeof candidate.reads?.weekTotal === "number" &&
+    typeof candidate.writes?.dayTotal === "number" &&
+    typeof candidate.writes?.weekTotal === "number" &&
+    typeof candidate.deletes?.dayTotal === "number" &&
+    typeof candidate.deletes?.weekTotal === "number"
+  );
+}
+
+function isFirestoreMetricsErrorPayload(value: unknown): value is FirestoreMetricsErrorPayload {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const candidate = value as FirestoreMetricsErrorPayload;
+  return (
+    candidate.error === undefined || typeof candidate.error === "string"
+  ) && (candidate.code === undefined || typeof candidate.code === "string");
+}
+
+function formatMetricValue(value: number): string {
+  return new Intl.NumberFormat("en-US").format(value);
+}
+
+function formatMetricsTimestamp(value: string): string {
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  }).format(new Date(value));
+}
+
 export default function AdminDashboard() {
+  const { idToken } = useAuth();
   const [counts, setCounts] = useState<{ projects: number | null; rentals: number | null }>({
     projects: null,
     rentals: null,
@@ -42,6 +99,7 @@ export default function AdminDashboard() {
   const [hubLinks, setHubLinks] = useState<AdminHubLink[]>([]);
   const [resourceError, setResourceError] = useState<string | null>(null);
   const [countsError, setCountsError] = useState<string | null>(null);
+  const [metricsState, setMetricsState] = useState<FirestoreMetricsState>({ status: "loading" });
 
   useEffect(() => {
     let active = true;
@@ -81,6 +139,68 @@ export default function AdminDashboard() {
       active = false;
     };
   }, []);
+
+  useEffect(() => {
+    let active = true;
+
+    async function loadMetrics() {
+      if (!idToken) {
+        setMetricsState({ status: "loading" });
+        return;
+      }
+
+      setMetricsState({ status: "loading" });
+
+      try {
+        const response = await fetch("/api/admin/firestore-metrics", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          },
+          cache: "no-store",
+        });
+
+        const payload = await response.json().catch(() => null);
+
+        if (!active) return;
+
+        if (response.ok && isFirestoreMetricsResponse(payload)) {
+          setMetricsState({ status: "ready", data: payload });
+          return;
+        }
+
+        if (response.status === 503 && isFirestoreMetricsErrorPayload(payload) && payload.code === "not_configured") {
+          setMetricsState({
+            status: "not-configured",
+            message:
+              payload.error ||
+              "Firestore metrics are not configured. Add GOOGLE_SERVICE_ACCOUNT_JSON to enable them.",
+          });
+          return;
+        }
+
+        setMetricsState({
+          status: "error",
+          message:
+            (isFirestoreMetricsErrorPayload(payload) ? payload.error : undefined) ||
+            "Firestore metrics could not be loaded.",
+        });
+      } catch {
+        if (!active) return;
+
+        setMetricsState({
+          status: "error",
+          message: "Firestore metrics could not be loaded.",
+        });
+      }
+    }
+
+    void loadMetrics();
+
+    return () => {
+      active = false;
+    };
+  }, [idToken]);
 
   return (
     <div className="space-y-8">
@@ -208,6 +328,88 @@ export default function AdminDashboard() {
           })}
         </div>
       </section>
+
+      <section className="space-y-4 rounded-[1.5rem] border border-border bg-surface/70 p-6 md:p-7">
+        <div>
+          <p className="mono-label">Firestore Usage</p>
+          <h2 className="mt-2 font-heading text-2xl tracking-wide text-foreground">
+            Billing-aware database activity
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm text-muted">
+            Read, write, and delete operation counts from Google Cloud Monitoring over the last
+            day and week.
+          </p>
+        </div>
+
+        {metricsState.status === "not-configured" ? (
+          <FormStatus type="error" message={metricsState.message} />
+        ) : null}
+        {metricsState.status === "error" ? (
+          <FormStatus type="error" message={metricsState.message} />
+        ) : null}
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <FirestoreMetricCard
+            label="Reads"
+            metricState={metricsState}
+            metric={metricsState.status === "ready" ? metricsState.data.reads : null}
+          />
+          <FirestoreMetricCard
+            label="Writes"
+            metricState={metricsState}
+            metric={metricsState.status === "ready" ? metricsState.data.writes : null}
+          />
+          <FirestoreMetricCard
+            label="Deletes"
+            metricState={metricsState}
+            metric={metricsState.status === "ready" ? metricsState.data.deletes : null}
+          />
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function FirestoreMetricCard({
+  label,
+  metricState,
+  metric,
+}: {
+  label: string;
+  metricState: FirestoreMetricsState;
+  metric: FirestoreMetricsResponse["reads"] | null;
+}) {
+  let footer = "Loading Firestore metrics...";
+
+  if (metricState.status === "ready") {
+    footer = `Updated ${formatMetricsTimestamp(metricState.data.lastUpdatedAt)}`;
+  } else if (metricState.status === "not-configured") {
+    footer = "Add GOOGLE_SERVICE_ACCOUNT_JSON to enable this card.";
+  } else if (metricState.status === "error") {
+    footer = "Firestore metrics are temporarily unavailable.";
+  }
+
+  return (
+    <div className="rounded-2xl border border-border bg-background/35 p-5">
+      <p className="text-xs uppercase tracking-[0.18em] text-muted">{label}</p>
+
+      <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2">
+        <div className="rounded-xl border border-border/80 bg-surface/80 px-4 py-3">
+          <p className="text-xs uppercase tracking-[0.18em] text-muted">Last 24h</p>
+          <p className="mt-2 font-heading text-2xl text-foreground">
+            {metric ? formatMetricValue(metric.dayTotal) : "—"}
+          </p>
+        </div>
+
+        <div className="rounded-xl border border-border/80 bg-surface/80 px-4 py-3">
+          <p className="text-xs uppercase tracking-[0.18em] text-muted">Last 7d</p>
+          <p className="mt-2 font-heading text-2xl text-foreground">
+            {metric ? formatMetricValue(metric.weekTotal) : "—"}
+          </p>
+        </div>
+      </div>
+
+      <p className="mt-4 text-xs text-muted-light">{footer}</p>
     </div>
   );
 }

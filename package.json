@@ -11,6 +11,7 @@
     "dev": "next dev",
     "start": "next start",
     "lint": "eslint",
+    "sync:firestore-metrics": "npx tsx scripts/sync-firestore-metrics.ts",
     "sync:fallback-json": "npx tsx scripts/sync-fallback-json.ts",
     "sync:fallback-json:check": "npx tsx scripts/sync-fallback-json.ts --check",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",

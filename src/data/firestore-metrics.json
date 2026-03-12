@@ -1,0 +1,17 @@
+{
+  "windowStart": "2026-03-05T05:09:43.140Z",
+  "windowEnd": "2026-03-12T05:09:43.140Z",
+  "lastUpdatedAt": "2026-03-12T05:09:44.047Z",
+  "reads": {
+    "dayTotal": 2233,
+    "weekTotal": 5897
+  },
+  "writes": {
+    "dayTotal": 1,
+    "weekTotal": 1
+  },
+  "deletes": {
+    "dayTotal": 0,
+    "weekTotal": 0
+  }
+}

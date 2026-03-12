@@ -53,6 +53,7 @@ The repo ships with `.env.local.example` as the source of truth for required con
 - public app configuration for contact endpoints, Turnstile, and R2 media URLs
 - Firebase client keys for the CMS/admin experience
 - server-side R2 credentials for uploads
+- optional Google Cloud Monitoring credentials for Firestore usage metrics
 - optional Instagram and snapshot configuration for published content
 
 Use `.dev.vars.example` for local Wrangler/OpenNext development only. Keep `.env.local` and `.dev.vars` out of git.
@@ -67,6 +68,7 @@ Use `.dev.vars.example` for local Wrangler/OpenNext development only. Keep `.env
 - `npm run deploy` - build and deploy the site with OpenNext/Cloudflare
 - `npm run upload` - upload the built artifact without deploying
 - `npm run cf-typegen` - regenerate Cloudflare environment types
+- `npm run sync:firestore-metrics` - sync admin Firestore usage metrics from Google Cloud Monitoring
 - `npm run sync:fallback-json` - sync published fallback data from Firestore
 - `npm run sync:fallback-json:check` - verify whether fallback data is up to date
 
@@ -74,7 +76,7 @@ Use `.dev.vars.example` for local Wrangler/OpenNext development only. Keep `.env
 
 - The app can be built and previewed locally with OpenNext for Cloudflare.
 - Production automation lives in `.github/workflows/sync-fallback-and-deploy.yml`.
-- The workflow syncs fallback Firestore data on schedule/manual runs and deploys the production build after approved changes land on `main`.
+- The workflow syncs fallback Firestore data and Firestore metrics snapshots on schedule/manual runs and deploys the production build after approved changes land on `main`.
 
 ## Workers
 
