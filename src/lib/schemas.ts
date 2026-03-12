@@ -1,4 +1,5 @@
 import { z } from "zod/v4";
+import { isSupportedVideoUrl } from "@/lib/media-url";
 
 function isSafeHref(href: string): boolean {
   if (!href) return false;
@@ -145,7 +146,10 @@ export const homeSchema = z.object({
     subheadline: z.string(),
     departmentLine: z.string(),
     description: z.string().min(1),
-    videoUrl: z.string().optional(),
+    videoUrl: z.string().trim().optional().refine(
+      (url) => !url || isSupportedVideoUrl(url),
+      "Hero video URL must end in .mp4 or .webm"
+    ),
     videoPoster: z.string().optional(),
     primaryCta: ctaSchema,
     secondaryCta: ctaSchema,

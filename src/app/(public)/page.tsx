@@ -7,7 +7,7 @@ import { HeroBeams } from "@/components/hero-animations";
 import { InstagramFeed } from "@/components/instagram-feed";
 import { MediaPlaceholder } from "@/components/media-placeholder";
 import { CmsImage } from "@/components/cms-image";
-import { isPublishedMediaUrl } from "@/lib/media-url";
+import { getSupportedVideoMimeType, isPublishedMediaUrl, isSupportedVideoUrl } from "@/lib/media-url";
 import { getPublicHomePageData, getPublicBrandSeoData } from "@/lib/public-site-data";
 import { clampSeoDescription, clampSeoTitle } from "@/lib/seo";
 
@@ -31,12 +31,8 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
   const { home, work, brand } = await getPublicHomePageData();
   const featuredProjects = work.projects.filter((project) => project.featured).slice(0, 3);
-  const heroVideoSrc = home.hero.videoUrl || "/hero-showreel.mov";
-  const heroVideoType = home.hero.videoUrl
-    ? /\.webm(?:\?|#|$)/i.test(home.hero.videoUrl)
-      ? "video/webm"
-      : "video/mp4"
-    : "video/quicktime";
+  const heroVideoSrc = isSupportedVideoUrl(home.hero.videoUrl) ? home.hero.videoUrl : "/hero-showreel.mp4";
+  const heroVideoType = getSupportedVideoMimeType(heroVideoSrc);
   const heroVideoPoster = home.hero.videoPoster || "/hero-showreel-poster.jpg";
 
   return (

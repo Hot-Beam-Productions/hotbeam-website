@@ -6,9 +6,20 @@ export interface FocalPoint {
 const FOCAL_PARAM = "fp";
 const DEFAULT_FOCAL_POINT: FocalPoint = { x: 50, y: 50 };
 const PLACEHOLDER_URL_TOKEN = "pub-XXXX";
+const SUPPORTED_VIDEO_URL_PATTERN = /\.(mp4|webm)(?:[?#].*)?$/i;
 
 function normalizeRawUrl(rawUrl: unknown): string {
   return typeof rawUrl === "string" ? rawUrl.trim() : "";
+}
+
+export function isSupportedVideoUrl(rawUrl: unknown): rawUrl is string {
+  const normalizedUrl = normalizeRawUrl(rawUrl);
+  return Boolean(normalizedUrl) && SUPPORTED_VIDEO_URL_PATTERN.test(normalizedUrl);
+}
+
+export function getSupportedVideoMimeType(rawUrl: unknown): "video/mp4" | "video/webm" {
+  const normalizedUrl = normalizeRawUrl(rawUrl);
+  return /\.webm(?:[?#].*)?$/i.test(normalizedUrl) ? "video/webm" : "video/mp4";
 }
 
 function clamp(value: number, min: number, max: number): number {
