@@ -107,7 +107,7 @@ export function SiteProgressModal() {
           </h2>
           <p id={descriptionId} className="mt-4 text-sm leading-relaxed text-muted-light sm:text-base">
             We&apos;re still polishing parts of the site. If you have any questions in the meantime,
-            please use our contact form and we&apos;ll get back to you within one business day.
+            please use our contact form and we&apos;ll get back to you within three business days.
           </p>
 
           <div className="mt-7 flex flex-col gap-3 sm:flex-row">
