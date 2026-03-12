@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { GlowButton } from "@/components/glow-button";
+import { HeroBackgroundMedia } from "@/components/hero-background-media";
 import { HeroBeams } from "@/components/hero-animations";
 import { InstagramFeed } from "@/components/instagram-feed";
 import { MediaPlaceholder } from "@/components/media-placeholder";
@@ -37,16 +38,13 @@ export default async function Home() {
       ? "video/webm"
       : "video/mp4"
     : "video/quicktime";
-  const heroVideoPoster = home.hero.videoPoster || "/og-default.jpg";
+  const heroVideoPoster = home.hero.videoPoster || "/hero-showreel-poster.jpg";
 
   return (
     <>
       <section className="relative flex h-screen items-center justify-center overflow-clip">
         <div className="absolute inset-0">
-          <video className="h-full w-full object-cover" autoPlay loop muted playsInline poster={heroVideoPoster}>
-            <source src={heroVideoSrc} type={heroVideoType} />
-            Your browser does not support the video tag.
-          </video>
+          <HeroBackgroundMedia src={heroVideoSrc} type={heroVideoType} poster={heroVideoPoster} />
           <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
         </div>
 
