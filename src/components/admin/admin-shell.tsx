@@ -8,6 +8,7 @@ import {
   LayoutDashboard,
   Film,
   Package,
+  Link2,
   LogOut,
   Menu,
   X,
@@ -17,6 +18,7 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin/resources", label: "Resource Links", icon: Link2 },
   { href: "/admin/portfolio", label: "Portfolio", icon: Film },
   { href: "/admin/rentals", label: "Rental Items", icon: Package },
 ];

@@ -18,6 +18,8 @@ const serviceCategory = z.enum([
   "power",
 ]);
 const serviceIcon = z.enum(["lightbulb", "monitor", "zap", "sparkles"]);
+const adminHubIcon = z.enum(["gmail", "drive", "jotform", "zoho-books", "link"]);
+const adminHubSection = z.enum(["employee-resources"]);
 
 export const ctaSchema = z.object({
   label: z.string().min(1),
@@ -241,4 +243,18 @@ export const rentalsSettingsSchema = z.object({
   heading: sectionHeadingSchema,
   categories: z.array(z.object({ value: z.string(), label: z.string() })),
   footerNote: z.string(),
+});
+
+export const adminHubLinkSchema = z.object({
+  id: z.string().min(1).regex(/^[a-z0-9-]+$/),
+  label: z.string().min(1),
+  description: z.string().min(1),
+  href: z.string().min(1).refine(isSafeHref, "Invalid link"),
+  icon: adminHubIcon,
+  section: adminHubSection,
+  external: z.boolean(),
+});
+
+export const adminHubSettingsSchema = z.object({
+  links: z.array(adminHubLinkSchema),
 });

@@ -10,6 +10,11 @@ service cloud.firestore {
         && request.auth.token.email.matches('.*@hotbeamproductions[.]com$');
     }
 
+    // Private admin hub settings
+    match /site/adminHub {
+      allow read, write: if isAdmin();
+    }
+
     // Site singleton documents (home, about, contact, brand, etc.)
     match /site/{docId} {
       allow read: if true;

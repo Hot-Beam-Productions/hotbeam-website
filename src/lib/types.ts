@@ -9,6 +9,8 @@ export type ServiceCategory =
   | "staging"
   | "power";
 export type ServiceIcon = "lightbulb" | "monitor" | "zap" | "sparkles";
+export type AdminHubIcon = "gmail" | "drive" | "jotform" | "zoho-books" | "link";
+export type AdminHubSection = "employee-resources";
 
 export interface NavLink {
   href: string;
@@ -197,6 +199,20 @@ export interface RentalsSettings {
     label: string;
   }>;
   footerNote: string;
+}
+
+export interface AdminHubLink {
+  id: string;
+  label: string;
+  description: string;
+  href: string;
+  icon: AdminHubIcon;
+  section: AdminHubSection;
+  external: boolean;
+}
+
+export interface AdminHubSettings {
+  links: AdminHubLink[];
 }
 
 export interface SiteData {
