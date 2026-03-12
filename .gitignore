@@ -33,6 +33,7 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 !.env.local.example
+.dev.vars
 
 # vercel
 .vercel
@@ -46,7 +47,9 @@ next-env.d.ts
 
 # OpenNext
 .open-next
+/.wrangler/
 
 # local worker/build artifacts
 firebase-debug.log
 **/.wrangler/
+.claude/

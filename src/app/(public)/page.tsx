@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
   const { home, work, brand } = await getPublicHomePageData();
   const featuredProjects = work.projects.filter((project) => project.featured).slice(0, 3);
-  const heroVideoSrc = home.hero.videoUrl || "/sae%20proppa%20odd%20mob%202.mov";
+  const heroVideoSrc = home.hero.videoUrl || "/hero-showreel.mov";
   const heroVideoType = home.hero.videoUrl
     ? /\.webm(?:\?|#|$)/i.test(home.hero.videoUrl)
       ? "video/webm"
