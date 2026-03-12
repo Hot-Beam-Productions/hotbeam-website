@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
+import { HashFocusTarget } from "@/components/hash-focus-target";
 import { SectionHeading } from "@/components/section-heading";
 import { getPublicContactData } from "@/lib/public-site-data";
 import { BreadcrumbJsonLd } from "@/components/breadcrumb-jsonld";
@@ -109,9 +110,11 @@ export default async function ContactPage() {
           </aside>
 
           <div className="lg:col-span-2">
-            <div className="border border-border bg-surface p-6 sm:p-8">
-              <ContactForm contact={contact} />
-            </div>
+            <HashFocusTarget id="contact-form">
+              <div className="border border-border bg-surface p-6 sm:p-8">
+                <ContactForm contact={contact} />
+              </div>
+            </HashFocusTarget>
           </div>
         </div>
       </div>
