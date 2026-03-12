@@ -364,7 +364,7 @@ export function ContactForm({ contact }: ContactFormProps) {
                   setTurnstileToken("");
                   setError("Verification failed. Please try again.");
                 }}
-                options={{ theme: "dark", size: "flexible" }}
+                options={{ theme: "dark", size: "flexible", action: "contact_form" }}
               />
               {waitingOnVerification ? (
                 <p className="text-xs text-muted">Complete verification to enable send.</p>

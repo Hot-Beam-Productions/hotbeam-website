@@ -6,7 +6,18 @@ compatibility_flags = ["nodejs_compat"]
 [vars]
 ALLOWED_ORIGINS = "https://hotbeamproductions.com,https://www.hotbeamproductions.com,https://hotbeam.hot-beam-productions.workers.dev,http://localhost:3000"
 CONTACT_TO_ADDRESS = "contact@hotbeamproductions.com"
+# Override these in a local `.dev.vars` file if you need localhost Turnstile submissions to bypass
+# the production hostname expectation during development.
+TURNSTILE_EXPECTED_HOSTNAME = "www.hotbeamproductions.com"
+TURNSTILE_EXPECTED_ACTION = "contact_form"
 
 [[send_email]]
 name = "SEND_EMAIL"
 destination_address = "contact@hotbeamproductions.com"
+
+# Cloudflare Rate Limit bindings currently only support 10s or 60s periods.
+# Replace the placeholder namespace ID before deploying.
+[[ratelimits]]
+name = "CONTACT_SUBMISSION_LIMITER"
+namespace_id = "00000000000000000000000000000000"
+simple = { limit = 5, period = 60 }

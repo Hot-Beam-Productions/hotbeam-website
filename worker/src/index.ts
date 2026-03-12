@@ -22,6 +22,9 @@ interface Env {
   ALLOWED_ORIGINS?: string;
   CONTACT_TO_ADDRESS?: string;
   GOOGLE_APPS_SCRIPT_URL?: string;
+  TURNSTILE_EXPECTED_HOSTNAME?: string;
+  TURNSTILE_EXPECTED_ACTION?: string;
+  CONTACT_SUBMISSION_LIMITER?: RateLimit;
 }
 
 const DEFAULT_ALLOWED_ORIGINS = [
@@ -34,6 +37,13 @@ const FROM_ADDRESS = "contact@hotbeamproductions.com";
 const MAX_BODY_BYTES = 25_000;
 const TURNSTILE_TIMEOUT_MS = 8_000;
 const GOOGLE_LOG_TIMEOUT_MS = 8_000;
+const RATE_LIMIT_ERROR = "Too many requests. Please wait before trying again.";
+
+interface TurnstileVerificationResult {
+  success: boolean;
+  hostname?: string;
+  action?: string;
+}
 
 const worker = {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -55,8 +65,12 @@ const worker = {
       return new Response("Method Not Allowed", { status: 405 });
     }
 
-    if (origin && !allowedOrigins.includes(origin)) {
+    if (!origin || !allowedOrigins.includes(origin)) {
       return new Response("Forbidden", { status: 403 });
+    }
+
+    if (!(await isRateLimitAllowed(env.CONTACT_SUBMISSION_LIMITER, `${origin}:${request.headers.get("CF-Connecting-IP") ?? "unknown"}`))) {
+      return corsResponse({ success: false, error: RATE_LIMIT_ERROR }, 429, origin);
     }
 
     if (!env.TURNSTILE_SECRET_KEY) {
@@ -101,7 +115,7 @@ const worker = {
       request.headers.get("CF-Connecting-IP")
     );
 
-    if (!turnstileResult) {
+    if (!matchesTurnstileExpectations(turnstileResult, env)) {
       return corsResponse(
         { success: false, error: "Bot verification failed. Please try again." },
         400,
@@ -153,7 +167,23 @@ function getAllowedOrigins(raw: string | undefined): string[] {
   return parsed.length > 0 ? parsed : DEFAULT_ALLOWED_ORIGINS;
 }
 
-async function verifyTurnstile(token: string, secret: string, ipAddress: string | null): Promise<boolean> {
+async function isRateLimitAllowed(limiter: RateLimit | undefined, key: string): Promise<boolean> {
+  if (!limiter) return true;
+
+  try {
+    const outcome = await limiter.limit({ key });
+    return outcome.success;
+  } catch {
+    // Fail open if the binding is unavailable so contact intake still works.
+    return true;
+  }
+}
+
+async function verifyTurnstile(
+  token: string,
+  secret: string,
+  ipAddress: string | null
+): Promise<TurnstileVerificationResult> {
   try {
     const response = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
       method: "POST",
@@ -166,13 +196,36 @@ async function verifyTurnstile(token: string, secret: string, ipAddress: string 
       signal: AbortSignal.timeout(TURNSTILE_TIMEOUT_MS),
     });
 
-    if (!response.ok) return false;
+    if (!response.ok) return { success: false };
 
-    const result = (await response.json()) as { success?: boolean };
-    return Boolean(result.success);
+    const result = (await response.json()) as TurnstileVerificationResult;
+    return {
+      success: Boolean(result.success),
+      hostname: typeof result.hostname === "string" ? result.hostname : undefined,
+      action: typeof result.action === "string" ? result.action : undefined,
+    };
   } catch {
+    return { success: false };
+  }
+}
+
+function matchesTurnstileExpectations(
+  result: TurnstileVerificationResult,
+  env: Env
+): boolean {
+  if (!result.success) return false;
+
+  const expectedHostname = env.TURNSTILE_EXPECTED_HOSTNAME?.trim().toLowerCase();
+  if (expectedHostname && result.hostname?.trim().toLowerCase() !== expectedHostname) {
     return false;
   }
+
+  const expectedAction = env.TURNSTILE_EXPECTED_ACTION?.trim();
+  if (expectedAction && result.action?.trim() !== expectedAction) {
+    return false;
+  }
+
+  return true;
 }
 
 function escapeHtml(value: string): string {
