@@ -81,7 +81,7 @@ export function SiteProgressModal() {
       aria-labelledby={titleId}
       aria-describedby={descriptionId}
       aria-modal="true"
-      className="z-50 w-[calc(100%-2rem)] max-w-lg rounded-lg border border-border bg-surface p-0 text-foreground shadow-[0_30px_120px_rgba(0,0,0,0.55)]"
+      className="fixed left-1/2 top-1/2 z-50 m-0 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-lg border border-border bg-surface p-0 text-foreground shadow-[0_30px_120px_rgba(0,0,0,0.55)]"
       onClick={(event) => {
         if (event.target === event.currentTarget) {
           dismiss();
