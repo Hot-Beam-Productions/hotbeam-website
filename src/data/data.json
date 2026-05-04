@@ -5,8 +5,8 @@
     "url": "https://www.hotbeamproductions.com",
     "location": "Denver, Colorado",
     "region": "Front Range + Nationwide",
-    "phoneDisplay": "(303) 555-1234",
-    "phoneHref": "+13035551234",
+    "phoneDisplay": "(720) 955 8929",
+    "phoneHref": "+17209558929",
     "email": "info@hotbeamproductions.com",
     "instagramHandle": "@hotbeamproductions",
     "instagramUrl": "https://www.instagram.com/hotbeamproductions/",
@@ -481,26 +481,7 @@
         "imageUrl": "https://pub-XXXX.r2.dev/team/beau.jpg"
       }
     ],
-    "crew": [
-      {
-        "id": "crew-01",
-        "name": "Crew Lead",
-        "role": "Laser Operator / LSO",
-        "imageUrl": "https://pub-XXXX.r2.dev/team/crew-01.jpg"
-      },
-      {
-        "id": "crew-02",
-        "name": "Crew Lead",
-        "role": "Lighting Programmer",
-        "imageUrl": "https://pub-XXXX.r2.dev/team/crew-02.jpg"
-      },
-      {
-        "id": "crew-03",
-        "name": "Crew Lead",
-        "role": "Video Engineer",
-        "imageUrl": "https://pub-XXXX.r2.dev/team/crew-03.jpg"
-      }
-    ],
+    "crew": [],
     "closingCta": {
       "title": "Need a Team That Can Carry the Whole Show?",
       "description": "Send your date, venue, and goals. We will return a practical scope, staffing plan, and next steps.",

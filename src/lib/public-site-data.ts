@@ -20,6 +20,7 @@ import {
   workSettingsSchema,
 } from "@/lib/schemas";
 import { getPublishedSiteSnapshot } from "@/lib/published-site-snapshot";
+import { polishAboutData, polishContactData, polishHomeData } from "@/lib/public-content-polish";
 
 type FirestoreValue =
   | { nullValue: null }
@@ -55,6 +56,7 @@ const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ?? process.env.FIR
 const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY ?? process.env.FIREBASE_API_KEY;
 const PUBLIC_DATA_REVALIDATE_SECONDS = 30 * 60;
 const PUBLIC_CACHE_TAG = "public-site-data";
+const PUBLIC_CONTENT_VERSION = "public-content-polish-v1";
 const CANONICAL_SITE_ORIGIN = process.env.NEXT_PUBLIC_SITE_ORIGIN?.trim() || "";
 const ROOT_DOMAIN = "hotbeamproductions.com";
 const WWW_DOMAIN = "www.hotbeamproductions.com";
@@ -296,17 +298,17 @@ async function loadSeoData(options: LoadOptions = {}): Promise<SiteData["seo"]> 
 
 async function loadHomeData(options: LoadOptions = {}): Promise<SiteData["home"]> {
   const baseFallback = await getBaseFallbackData(options);
-  return baseFallback.home;
+  return polishHomeData(baseFallback.home);
 }
 
 async function loadAboutData(options: LoadOptions = {}): Promise<SiteData["about"]> {
   const baseFallback = await getBaseFallbackData(options);
-  return baseFallback.about;
+  return polishAboutData(baseFallback.about);
 }
 
 async function loadContactData(options: LoadOptions = {}): Promise<SiteData["contact"]> {
   const baseFallback = await getBaseFallbackData(options);
-  return baseFallback.contact;
+  return polishContactData(baseFallback.contact);
 }
 
 async function loadFooterData(options: LoadOptions = {}): Promise<SiteData["footer"]> {
@@ -455,57 +457,57 @@ export async function getPublicSiteDataFresh(): Promise<SiteData> {
   return loadPublicSiteData({ fresh: true });
 }
 
-export const getPublicSiteData = unstable_cache(loadPublicSiteData, ["public-site-data-full"], {
+export const getPublicSiteData = unstable_cache(loadPublicSiteData, ["public-site-data-full", PUBLIC_CONTENT_VERSION], {
   revalidate: PUBLIC_DATA_REVALIDATE_SECONDS,
   tags: [PUBLIC_CACHE_TAG],
 });
 
-export const getPublicShellData = unstable_cache(loadPublicShellData, ["public-shell-data"], {
+export const getPublicShellData = unstable_cache(loadPublicShellData, ["public-shell-data", PUBLIC_CONTENT_VERSION], {
   revalidate: PUBLIC_DATA_REVALIDATE_SECONDS,
   tags: [PUBLIC_CACHE_TAG],
 });
 
-export const getPublicBrandData = unstable_cache(loadPublicBrandData, ["public-brand-data"], {
+export const getPublicBrandData = unstable_cache(loadPublicBrandData, ["public-brand-data", PUBLIC_CONTENT_VERSION], {
   revalidate: PUBLIC_DATA_REVALIDATE_SECONDS,
   tags: [PUBLIC_CACHE_TAG],
 });
 
-export const getPublicBrandSeoData = unstable_cache(loadPublicBrandSeoData, ["public-brand-seo-data"], {
+export const getPublicBrandSeoData = unstable_cache(loadPublicBrandSeoData, ["public-brand-seo-data", PUBLIC_CONTENT_VERSION], {
   revalidate: PUBLIC_DATA_REVALIDATE_SECONDS,
   tags: [PUBLIC_CACHE_TAG],
 });
 
-export const getPublicNavigationData = unstable_cache(loadPublicNavigationData, ["public-navigation-data"], {
+export const getPublicNavigationData = unstable_cache(loadPublicNavigationData, ["public-navigation-data", PUBLIC_CONTENT_VERSION], {
   revalidate: PUBLIC_DATA_REVALIDATE_SECONDS,
   tags: [PUBLIC_CACHE_TAG],
 });
 
-export const getPublicHomePageData = unstable_cache(loadPublicHomePageData, ["public-home-page-data"], {
+export const getPublicHomePageData = unstable_cache(loadPublicHomePageData, ["public-home-page-data", PUBLIC_CONTENT_VERSION], {
   revalidate: PUBLIC_DATA_REVALIDATE_SECONDS,
   tags: [PUBLIC_CACHE_TAG],
 });
 
-export const getPublicWorkData = unstable_cache(loadPublicWorkPageData, ["public-work-page-data"], {
+export const getPublicWorkData = unstable_cache(loadPublicWorkPageData, ["public-work-page-data", PUBLIC_CONTENT_VERSION], {
   revalidate: PUBLIC_DATA_REVALIDATE_SECONDS,
   tags: [PUBLIC_CACHE_TAG],
 });
 
-export const getPublicRentalsData = unstable_cache(loadPublicRentalsPageData, ["public-rentals-page-data"], {
+export const getPublicRentalsData = unstable_cache(loadPublicRentalsPageData, ["public-rentals-page-data", PUBLIC_CONTENT_VERSION], {
   revalidate: PUBLIC_DATA_REVALIDATE_SECONDS,
   tags: [PUBLIC_CACHE_TAG],
 });
 
-export const getPublicAboutData = unstable_cache(loadPublicAboutPageData, ["public-about-page-data"], {
+export const getPublicAboutData = unstable_cache(loadPublicAboutPageData, ["public-about-page-data", PUBLIC_CONTENT_VERSION], {
   revalidate: PUBLIC_DATA_REVALIDATE_SECONDS,
   tags: [PUBLIC_CACHE_TAG],
 });
 
-export const getPublicContactData = unstable_cache(loadPublicContactPageData, ["public-contact-page-data"], {
+export const getPublicContactData = unstable_cache(loadPublicContactPageData, ["public-contact-page-data", PUBLIC_CONTENT_VERSION], {
   revalidate: PUBLIC_DATA_REVALIDATE_SECONDS,
   tags: [PUBLIC_CACHE_TAG],
 });
 
-export const getPublicSitemapData = unstable_cache(loadPublicSitemapData, ["public-sitemap-data"], {
+export const getPublicSitemapData = unstable_cache(loadPublicSitemapData, ["public-sitemap-data", PUBLIC_CONTENT_VERSION], {
   revalidate: PUBLIC_DATA_REVALIDATE_SECONDS,
   tags: [PUBLIC_CACHE_TAG],
 });

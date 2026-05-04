@@ -37,7 +37,7 @@ export default async function Home() {
 
   return (
     <>
-      <section className="relative flex h-screen items-center justify-center overflow-clip">
+      <section className="relative flex min-h-svh items-center overflow-clip px-6 pb-16 pt-28 md:pt-32">
         <div className="absolute inset-0">
           <video
             className="h-full w-full object-cover"
@@ -51,44 +51,44 @@ export default async function Home() {
             <source src={heroVideoSrc} type={heroVideoType} />
             Your browser does not support the video tag.
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/55 to-background" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_35%,rgba(46,99,255,0.25),transparent_34%)]" />
         </div>
 
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-25 md:justify-end md:pr-[8vw] md:opacity-35">
           <Image
             src="/logo.png"
             alt=""
             width={600}
             height={600}
-            className="h-auto w-[clamp(16rem,40vw,36rem)]"
+            className="h-auto w-[clamp(18rem,42vw,38rem)]"
             priority
           />
         </div>
-      </section>
 
-      <section className="relative px-6 pb-20 pt-16">
         <HeroBeams />
 
-        <div className="relative z-10 mx-auto w-full max-w-5xl text-center">
+        <div className="relative z-10 mx-auto w-full max-w-7xl">
+          <div className="max-w-3xl">
           <p className="mono-label mb-6 !text-laser-cyan">{home.hero.eyebrow}</p>
 
-          <h1 className="mx-auto max-w-4xl font-heading text-4xl leading-tight tracking-tight text-foreground md:text-6xl">
+          <h1 className="font-heading text-4xl leading-tight tracking-tight text-foreground md:text-6xl lg:text-7xl">
             {home.hero.headline}
           </h1>
 
-          <p className="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-muted-light md:text-lg">
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-light md:text-lg">
             {home.hero.subheadline}
           </p>
 
-          <p className="mt-6 font-heading text-xl tracking-[0.2em] text-foreground/90 uppercase md:text-2xl">
+          <p className="mt-6 font-heading text-lg uppercase text-foreground/90 md:text-2xl">
             {home.hero.departmentLine}
           </p>
 
-          <p className="mx-auto mt-7 max-w-3xl text-base leading-relaxed text-muted-light md:text-lg">
+          <p className="mt-7 max-w-2xl text-base leading-relaxed text-muted-light md:text-lg">
             {home.hero.description}
           </p>
 
-          <div className="mt-10 flex flex-wrap justify-center gap-4">
+          <div className="mt-10 flex flex-wrap gap-4">
             <GlowButton href={home.hero.primaryCta.href} variant="primary">
               {home.hero.primaryCta.label}
               <ArrowRight className="ml-2 inline h-4 w-4" aria-hidden="true" />
@@ -98,19 +98,20 @@ export default async function Home() {
             </GlowButton>
           </div>
 
-          <div className="mx-auto mt-6 flex max-w-4xl flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-muted-light md:text-sm">
+          <div className="mt-6 flex max-w-3xl flex-wrap gap-x-6 gap-y-2 text-xs text-muted-light md:text-sm">
             {home.quickDecisionSignals.map((signal) => (
               <p key={signal}>{signal}</p>
             ))}
           </div>
 
-          <div className="mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="mt-14 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3">
             {home.results.map((item) => (
               <div key={item.label} className="border border-border bg-surface px-5 py-4 text-left">
                 <p className="font-heading text-3xl leading-none text-foreground">{item.value}</p>
                 <p className="mt-2 text-xs uppercase tracking-[0.14em] text-muted-light">{item.label}</p>
               </div>
             ))}
+          </div>
           </div>
         </div>
       </section>

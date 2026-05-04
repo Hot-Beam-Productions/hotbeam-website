@@ -10,11 +10,10 @@ function truncateAtWordBoundary(value: string, maxLength: number): string {
   if (normalized.length <= maxLength) return normalized;
   if (maxLength <= 3) return normalized.slice(0, maxLength);
 
-  const hardSlice = normalized.slice(0, maxLength - 3).trimEnd();
+  const hardSlice = normalized.slice(0, maxLength).trimEnd();
   const lastSpace = hardSlice.lastIndexOf(" ");
-  const useSoftBoundary = lastSpace >= Math.floor((maxLength - 3) * 0.6);
-  const clipped = useSoftBoundary ? hardSlice.slice(0, lastSpace) : hardSlice;
-  return `${clipped}...`;
+  const useSoftBoundary = lastSpace >= Math.floor(maxLength * 0.6);
+  return useSoftBoundary ? hardSlice.slice(0, lastSpace) : hardSlice;
 }
 
 export function clampSeoTitle(title: string, maxLength = DEFAULT_TITLE_MAX): string {

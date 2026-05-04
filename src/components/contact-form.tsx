@@ -50,9 +50,10 @@ interface ContactResponse {
 
 interface ContactFormProps {
   contact: ContactData;
+  sourceItem?: string;
 }
 
-export function ContactForm({ contact }: ContactFormProps) {
+export function ContactForm({ contact, sourceItem = "" }: ContactFormProps) {
   const [pending, setPending] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | undefined>();
@@ -107,6 +108,7 @@ export function ContactForm({ contact }: ContactFormProps) {
       venue: String(formData.get("venue") ?? "").trim() || undefined,
       eventType: String(formData.get("eventType") ?? "").trim() || undefined,
       gearNeeds: formData.getAll("gearNeeds").map((value) => String(value)),
+      sourceItem: String(formData.get("sourceItem") ?? "").trim() || undefined,
       message: String(formData.get("message") ?? "").trim(),
       turnstileToken,
     };
@@ -169,6 +171,13 @@ export function ContactForm({ contact }: ContactFormProps) {
         name="companyWebsite"
         aria-hidden="true"
       />
+
+      {sourceItem ? (
+        <div className="border border-laser-cyan/30 bg-laser-cyan/10 px-4 py-3 text-sm text-muted-light">
+          Asking about: <span className="text-foreground">{sourceItem}</span>
+          <input type="hidden" name="sourceItem" value={sourceItem} />
+        </div>
+      ) : null}
 
       {error && (
         <div
@@ -317,7 +326,7 @@ export function ContactForm({ contact }: ContactFormProps) {
                 name="phone"
                 type="tel"
                 className={inputStyles}
-                placeholder="(303) 555-0100"
+                placeholder="Optional callback number"
                 autoComplete="tel"
                 inputMode="tel"
               />

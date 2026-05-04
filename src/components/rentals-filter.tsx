@@ -35,6 +35,19 @@ const iconByCategory: Record<string, ComponentType<{ className?: string }>> = {
   sfx: Sparkles,
 };
 
+const fallbackCategoryLabels: Record<string, string> = {
+  all: "All",
+  lighting: "Lighting",
+  video: "Video",
+  lasers: "Lasers",
+  atmospherics: "Atmospherics",
+  "audio-dj": "Audio / DJ",
+  rigging: "Rigging",
+  staging: "Staging",
+  power: "Power",
+  sfx: "SFX",
+};
+
 interface RentalsFilterProps {
   items: RentalItem[];
   categories: Array<{ value: string; label: string }>;
@@ -45,9 +58,28 @@ export function RentalsFilter({ items, categories, footerNote }: RentalsFilterPr
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
   const prefersReduced = useReducedMotion();
+  const resolvedCategories = useMemo(() => {
+    const categoryMap = new Map(categories.map((category) => [category.value, category]));
+    categoryMap.set("all", categoryMap.get("all") ?? { value: "all", label: "All" });
+
+    for (const item of items) {
+      if (!categoryMap.has(item.category)) {
+        categoryMap.set(item.category, {
+          value: item.category,
+          label: fallbackCategoryLabels[item.category] ?? item.category,
+        });
+      }
+    }
+
+    return Array.from(categoryMap.values()).sort((a, b) => {
+      if (a.value === "all") return -1;
+      if (b.value === "all") return 1;
+      return a.label.localeCompare(b.label);
+    });
+  }, [categories, items]);
   const categoryLabelMap = useMemo(
-    () => new Map(categories.map((category) => [category.value, category.label])),
-    [categories]
+    () => new Map(resolvedCategories.map((category) => [category.value, category.label])),
+    [resolvedCategories]
   );
 
   const filtered = useMemo(() => {
@@ -68,7 +100,7 @@ export function RentalsFilter({ items, categories, footerNote }: RentalsFilterPr
     <>
       <div className="mb-10 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-wrap gap-2" role="group" aria-label="Inventory categories">
-          {categories.map((category) => {
+          {resolvedCategories.map((category) => {
             const CategoryIcon = iconByCategory[category.value] ?? Wrench;
             const selected = activeCategory === category.value;
 

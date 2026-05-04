@@ -12,11 +12,11 @@ export default async function PublicLayout({
   return (
     <>
       <Navbar brand={brand} navigation={navigation} />
+      <SiteProgressModal />
       <main id="main-content" className="min-h-screen">
         {children}
       </main>
       <Footer brand={brand} footer={footer} navigation={navigation} />
-      <SiteProgressModal />
       <TechNoticeBanner />
     </>
   );

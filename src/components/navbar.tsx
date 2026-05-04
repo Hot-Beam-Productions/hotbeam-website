@@ -57,10 +57,10 @@ export function Navbar({ brand, navigation }: NavbarProps) {
             </Link>
           ))}
           <Link
-            href={`mailto:${brand.email}`}
+            href="/contact"
             className="mono-label rounded-sm border border-laser-cyan bg-laser-cyan/10 px-4 py-2 !text-laser-cyan transition-all hover:bg-laser-cyan/20"
           >
-            Email Production Team
+            Request a Proposal
           </Link>
         </div>
 
@@ -101,11 +101,11 @@ export function Navbar({ brand, navigation }: NavbarProps) {
                   </Link>
                 ))}
                 <Link
-                  href={`mailto:${brand.email}`}
+                  href="/contact"
                   onClick={() => setMobileOpen(false)}
                   className="mono-label !text-sm !text-laser-cyan"
                 >
-                  Email Production Team
+                  Request a Proposal
                 </Link>
               </div>
             </div>

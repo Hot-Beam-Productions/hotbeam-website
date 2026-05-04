@@ -73,6 +73,7 @@ export default async function RentalDetailPage({ params }: Props) {
   if (!item) notFound();
 
   const relatedItems = rentals.items.filter((entry) => item.frequentlyRentedTogether?.includes(entry.id));
+  const itemInquiryHref = `/contact?item=${encodeURIComponent(item.name)}#contact-form`;
 
   const productSchema = {
     "@context": "https://schema.org",
@@ -185,7 +186,7 @@ export default async function RentalDetailPage({ params }: Props) {
                 Need this item in your build? Send the show details and we will scope the right package.
               </p>
               <div className="mt-5 border-t border-border pt-5">
-                <GlowButton href="/contact" variant="primary">
+                <GlowButton href={itemInquiryHref} variant="primary">
                   Ask About This Item
                 </GlowButton>
               </div>

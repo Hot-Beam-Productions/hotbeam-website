@@ -13,8 +13,21 @@ export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
 };
 
-export default async function ContactPage() {
+interface ContactPageProps {
+  searchParams?: Promise<{
+    item?: string | string[];
+  }>;
+}
+
+function getSourceItem(rawItem: string | string[] | undefined): string {
+  const value = Array.isArray(rawItem) ? rawItem[0] : rawItem;
+  return typeof value === "string" ? value.trim().slice(0, 160) : "";
+}
+
+export default async function ContactPage({ searchParams }: ContactPageProps) {
   const { brand, contact } = await getPublicContactData();
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const sourceItem = getSourceItem(resolvedSearchParams?.item);
 
   return (
     <div className="px-6 pb-24 pt-28 md:pt-32">
@@ -112,7 +125,7 @@ export default async function ContactPage() {
           <div className="lg:col-span-2">
             <HashFocusTarget id="contact-form">
               <div className="border border-border bg-surface p-6 sm:p-8">
-                <ContactForm contact={contact} />
+                <ContactForm contact={contact} sourceItem={sourceItem} />
               </div>
             </HashFocusTarget>
           </div>

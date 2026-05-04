@@ -10,6 +10,7 @@ const ContactSchema = z.object({
   venue: z.string().trim().max(160).optional(),
   eventType: z.string().trim().max(80).optional(),
   gearNeeds: z.array(z.string().trim().min(1).max(60)).max(20).optional().default([]),
+  sourceItem: z.string().trim().max(160).optional(),
   message: z.string().trim().min(10, "Message must be at least 10 characters").max(5_000),
   turnstileToken: z.string().min(1, "Bot verification token missing").max(2_048),
 });
@@ -131,9 +132,7 @@ const worker = {
       message.setSender({ name: "Hot Beam Website", addr: FROM_ADDRESS });
       message.setRecipient(toAddress);
       message.setHeader("Reply-To", parsed.data.email);
-      message.setSubject(
-        `Proposal Request from ${parsed.data.name}${parsed.data.eventType ? ` - ${parsed.data.eventType}` : ""}`
-      );
+      message.setSubject(buildEmailSubject(parsed.data));
       message.addMessage({ contentType: "text/html", data: html });
 
       const emailMessage = new EmailMessage(FROM_ADDRESS, toAddress, message.asRaw());
@@ -237,6 +236,16 @@ function escapeHtml(value: string): string {
     .replace(/'/g, "&#39;");
 }
 
+function normalizeSubjectText(value: string): string {
+  return value.replace(/[\r\n]+/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function buildEmailSubject(data: ContactPayload): string {
+  const subjectDetail = data.sourceItem ?? data.eventType;
+  const detail = subjectDetail ? ` - ${normalizeSubjectText(subjectDetail)}` : "";
+  return `Proposal Request from ${normalizeSubjectText(data.name)}${detail}`;
+}
+
 function buildEmailHtml(data: ContactPayload): string {
   const name = escapeHtml(data.name);
   const email = escapeHtml(data.email);
@@ -244,6 +253,7 @@ function buildEmailHtml(data: ContactPayload): string {
   const eventDate = data.eventDate ? escapeHtml(data.eventDate) : "";
   const venue = data.venue ? escapeHtml(data.venue) : "";
   const eventType = data.eventType ? escapeHtml(data.eventType) : "";
+  const sourceItem = data.sourceItem ? escapeHtml(data.sourceItem) : "";
   const message = escapeHtml(data.message).replace(/\n/g, "<br />");
 
   const gearList =
@@ -260,6 +270,7 @@ function buildEmailHtml(data: ContactPayload): string {
       ${eventDate ? `<tr><td style="padding:4px 8px;color:#5f6368">Event Date</td><td style="padding:4px 8px">${eventDate}</td></tr>` : ""}
       ${venue ? `<tr><td style="padding:4px 8px;color:#5f6368">Venue</td><td style="padding:4px 8px">${venue}</td></tr>` : ""}
       ${eventType ? `<tr><td style="padding:4px 8px;color:#5f6368">Event Type</td><td style="padding:4px 8px">${eventType}</td></tr>` : ""}
+      ${sourceItem ? `<tr><td style="padding:4px 8px;color:#5f6368">Inventory Item</td><td style="padding:4px 8px">${sourceItem}</td></tr>` : ""}
     </table>
     ${gearList}
     <h3 style="font-family:system-ui,sans-serif;margin-top:16px">Project Brief</h3>
@@ -280,6 +291,7 @@ async function logToGoogleSheet(
     venue: data.venue,
     eventType: data.eventType,
     gearNeeds: data.gearNeeds,
+    sourceItem: data.sourceItem,
     message: data.message,
   };
 
