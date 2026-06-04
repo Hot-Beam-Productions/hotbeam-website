@@ -55,13 +55,13 @@ export default async function Home() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_35%,rgba(46,99,255,0.25),transparent_34%)]" />
         </div>
 
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-25 md:justify-end md:pr-[8vw] md:opacity-35">
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-35 md:opacity-45">
           <Image
             src="/logo.png"
             alt=""
-            width={600}
-            height={600}
-            className="h-auto w-[clamp(18rem,42vw,38rem)]"
+            width={6000}
+            height={3273}
+            className="h-auto w-[min(88vw,58rem)]"
             priority
           />
         </div>
