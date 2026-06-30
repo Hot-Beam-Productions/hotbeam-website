@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { ArrowRight, Award, MapPin, Users, Zap } from "lucide-react";
+import { ArrowRight, CalendarCheck, MapPin, ShieldCheck, Zap } from "lucide-react";
 import { CmsImage } from "@/components/cms-image";
 import { GlowButton } from "@/components/glow-button";
-import { MediaPlaceholder } from "@/components/media-placeholder";
 import { SectionHeading } from "@/components/section-heading";
 import { isPublishedMediaUrl } from "@/lib/media-url";
 import { getPublicAboutData, getPublicBrandData } from "@/lib/public-site-data";
@@ -15,7 +14,16 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
-const statIcons = [Zap, Users, MapPin, Award];
+const statIcons = [CalendarCheck, ShieldCheck, Zap, MapPin];
+
+function getInitials(name: string): string {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("");
+}
 
 export default async function AboutPage() {
   const [{ about }, { brand }] = await Promise.all([getPublicAboutData(), getPublicBrandData()]);
@@ -37,88 +45,90 @@ export default async function AboutPage() {
           subtitle={about.heading.subtitle}
         />
 
-        <section className="mb-24" aria-labelledby="founders-heading">
-          <p id="founders-heading" className="mono-label mb-8 !text-laser-cyan">
+        <section className="mb-24 md:mb-28" aria-labelledby="founders-heading">
+          <p id="founders-heading" className="mono-label !text-laser-cyan">
             Founders
           </p>
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+          <div className="spec-line mt-6 w-24" />
+          <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-12">
             {about.partners.map((partner) => (
-              <article
-                key={partner.id}
-                className="border border-border bg-surface p-7 transition-colors hover:border-laser-cyan/30"
-              >
-                <div className="flex items-start gap-5">
-                  <div className="h-20 w-20 flex-shrink-0 overflow-hidden border border-border bg-surface-light">
-                    {isPublishedMediaUrl(partner.imageUrl) ? (
-                      <CmsImage
-                        src={partner.imageUrl}
-                        alt={partner.name}
-                        width={80}
-                        height={80}
-                        className="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <MediaPlaceholder
-                        label="Headshot"
-                        aspect="square"
-                        className="!aspect-auto !h-full"
-                      />
-                    )}
-                  </div>
-                  <div>
-                    <h3 className="font-heading text-3xl tracking-tight text-foreground">
-                      {partner.name}
-                    </h3>
-                    <p className="mono-label mt-1 !text-laser-cyan">{partner.role}</p>
-                    <p className="mt-4 text-sm leading-relaxed text-muted-light">{partner.bio}</p>
-                  </div>
+              <article key={partner.id} className="group">
+                <div className="relative aspect-[4/5] w-full overflow-hidden border border-border bg-surface-light">
+                  {isPublishedMediaUrl(partner.imageUrl) ? (
+                    <CmsImage
+                      src={partner.imageUrl}
+                      alt={partner.name}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    />
+                  ) : (
+                    <div
+                      className="flex h-full w-full items-center justify-center bg-gradient-to-br from-surface-light to-surface font-heading text-7xl font-bold tracking-tight text-laser-cyan/80"
+                      aria-hidden="true"
+                    >
+                      {getInitials(partner.name)}
+                    </div>
+                  )}
                 </div>
+                <h3 className="mt-6 font-heading text-3xl tracking-tight text-foreground">
+                  {partner.name}
+                </h3>
+                <p className="mono-label mt-2 !text-laser-cyan">{partner.role}</p>
+                <p className="mt-4 max-w-md text-base leading-relaxed text-muted-light">{partner.bio}</p>
+                {partner.email && (
+                  <a
+                    href={`mailto:${partner.email}`}
+                    className="mono-label mt-3 inline-block !text-laser-cyan transition-colors hover:!text-foreground"
+                  >
+                    {partner.email}
+                  </a>
+                )}
               </article>
             ))}
           </div>
         </section>
 
-        <section className="mb-24 grid grid-cols-1 gap-14 lg:grid-cols-2">
-          <div>
-            <h2 className="font-heading text-4xl tracking-tight text-foreground md:text-5xl">
-              {about.storyTitle}
-            </h2>
-            <div className="mt-6 space-y-4 text-base leading-relaxed text-muted-light">
+        <section className="mb-24 md:mb-28">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
+            <div>
+              <h2 className="font-heading text-3xl tracking-tight text-foreground md:text-4xl">
+                {about.storyTitle}
+              </h2>
+              <div className="spec-line mt-6 w-24" />
+            </div>
+            <div className="space-y-5 text-lg leading-relaxed text-muted-light">
               {about.story.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
           </div>
-          <div className="relative">
-            <MediaPlaceholder label="Behind the scenes" aspect="portrait" className="border border-border" />
-            <div className="absolute -bottom-4 -right-4 h-full w-full border border-laser-cyan/20 -z-10" />
+        </section>
+
+        <section className="mb-24 md:mb-28" aria-label="Track record">
+          <div className="grid grid-cols-2 gap-px overflow-hidden border border-border bg-border md:grid-cols-4">
+            {about.stats.map((stat, index) => {
+              const Icon = statIcons[index] ?? ShieldCheck;
+
+              return (
+                <div key={stat.label} className="bg-background p-6">
+                  <Icon className="h-5 w-5 text-laser-cyan" aria-hidden="true" />
+                  <p className="mt-4 font-heading text-3xl leading-none tracking-tight text-foreground">
+                    {stat.value}
+                  </p>
+                  <p className="mt-2 text-xs uppercase tracking-[0.13em] text-muted-light">{stat.label}</p>
+                </div>
+              );
+            })}
           </div>
         </section>
 
-        <section className="mb-24 grid grid-cols-2 gap-4 md:grid-cols-4" aria-label="Company statistics">
-          {about.stats.map((stat, index) => {
-            const Icon = statIcons[index] ?? Zap;
-
-            return (
-              <article key={stat.label} className="border border-border bg-surface p-6 text-center">
-                <Icon className="mx-auto h-5 w-5 text-laser-cyan" aria-hidden="true" />
-                <p className="mt-4 font-heading text-4xl leading-none text-foreground">{stat.value}</p>
-                <p className="mt-2 text-xs uppercase tracking-[0.13em] text-muted-light">{stat.label}</p>
-              </article>
-            );
-          })}
-        </section>
-
-        <section className="mb-24">
-          <h2 className="font-heading text-4xl tracking-tight text-foreground md:text-5xl">
+        <section className="mb-24 md:mb-28">
+          <h2 className="font-heading text-3xl tracking-tight text-foreground md:text-4xl">
             Operating Principles
           </h2>
-          <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="mt-10 grid grid-cols-1 gap-px overflow-hidden border border-border bg-border md:grid-cols-3">
             {about.values.map((value) => (
-              <article
-                key={value.title}
-                className="scanline-overlay border border-border bg-surface p-7 transition-colors hover:border-laser-cyan/30"
-              >
+              <article key={value.title} className="bg-background p-7">
                 <h3 className="font-heading text-2xl tracking-tight text-foreground">
                   {value.title}
                 </h3>
@@ -129,30 +139,44 @@ export default async function AboutPage() {
         </section>
 
         {about.crew.length > 0 && (
-          <section className="mb-24">
-            <p className="mono-label mb-6 !text-laser-cyan">Specialists</p>
-            <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+          <section className="mb-24 md:mb-28" aria-labelledby="crew-heading">
+            <p id="crew-heading" className="mono-label !text-laser-cyan">
+              Crew
+            </p>
+            <div className="spec-line mt-6 w-24" />
+            <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-12 lg:grid-cols-3">
               {about.crew.map((member) => (
-                <article key={member.id} className="text-center">
-                  <div className="mx-auto mb-3 h-16 w-16 overflow-hidden rounded-full border border-border bg-surface-light">
+                <article key={member.id} className="group">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden border border-border bg-surface-light">
                     {isPublishedMediaUrl(member.imageUrl) ? (
                       <CmsImage
                         src={member.imageUrl}
                         alt={member.name}
-                        width={64}
-                        height={64}
-                        className="h-full w-full object-cover"
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       />
                     ) : (
-                      <MediaPlaceholder
-                        label=""
-                        aspect="square"
-                        className="!aspect-auto !h-full"
-                      />
+                      <div
+                        className="flex h-full w-full items-center justify-center bg-gradient-to-br from-surface-light to-surface font-heading text-6xl font-bold tracking-tight text-laser-cyan/80"
+                        aria-hidden="true"
+                      >
+                        {getInitials(member.name)}
+                      </div>
                     )}
                   </div>
-                  <p className="text-sm text-foreground">{member.name}</p>
-                  <p className="mono-label mt-1 !text-muted">{member.role}</p>
+                  <h3 className="mt-5 font-heading text-2xl tracking-tight text-foreground">{member.name}</h3>
+                  <p className="mono-label mt-2 !text-laser-cyan">{member.role}</p>
+                  {member.bio && (
+                    <p className="mt-3 max-w-md text-sm leading-relaxed text-muted-light">{member.bio}</p>
+                  )}
+                  {member.email && (
+                    <a
+                      href={`mailto:${member.email}`}
+                      className="mono-label mt-3 inline-block !text-muted-light transition-colors hover:!text-laser-cyan"
+                    >
+                      {member.email}
+                    </a>
+                  )}
                 </article>
               ))}
             </div>

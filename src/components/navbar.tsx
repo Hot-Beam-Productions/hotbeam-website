@@ -25,6 +25,9 @@ export function Navbar({ brand, navigation }: NavbarProps) {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const navItems = navigation.length > 0 ? navigation : DEFAULT_NAVIGATION;
+  // The contact CTA button below already links to /contact, so drop any
+  // duplicate "Request a Proposal" link coming from the navigation data.
+  const primaryNavItems = navItems.filter((link) => !link.href.startsWith("/contact"));
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/80 bg-background/90 backdrop-blur-xl">
@@ -42,7 +45,7 @@ export function Navbar({ brand, navigation }: NavbarProps) {
         </Link>
 
         <div className="hidden items-center gap-7 md:flex">
-          {navItems.map((link) => (
+          {primaryNavItems.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -85,7 +88,7 @@ export function Navbar({ brand, navigation }: NavbarProps) {
           >
             <div className="px-6 py-4">
               <div className="flex flex-col gap-3">
-                {navItems.map((link) => (
+                {primaryNavItems.map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}

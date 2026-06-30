@@ -70,6 +70,7 @@ export const teamMemberSchema = z.object({
   role: z.string().min(1),
   bio: z.string().optional(),
   imageUrl: z.string(),
+  email: z.string().email().optional(),
 });
 
 export const brandSchema = z.object({

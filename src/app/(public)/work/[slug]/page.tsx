@@ -58,7 +58,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       url: canonicalPath,
       type: "article",
-      images: imageUrl ? [{ url: imageUrl }] : [],
+      images: [{ url: imageUrl ?? toAbsoluteUrl(brand.url, "/og-default.jpg") }],
     },
   };
 }

@@ -6,8 +6,12 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
+  Home,
+  Users,
   Film,
   Package,
+  Mail,
+  Sparkles,
   Link2,
   LogOut,
   Menu,
@@ -18,9 +22,13 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/resources", label: "Resource Links", icon: Link2 },
+  { href: "/admin/home", label: "Home Page", icon: Home },
+  { href: "/admin/about", label: "About / Team", icon: Users },
   { href: "/admin/portfolio", label: "Portfolio", icon: Film },
   { href: "/admin/rentals", label: "Rental Items", icon: Package },
+  { href: "/admin/contact", label: "Contact", icon: Mail },
+  { href: "/admin/brand", label: "Brand & Info", icon: Sparkles },
+  { href: "/admin/resources", label: "Resource Links", icon: Link2 },
 ];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {

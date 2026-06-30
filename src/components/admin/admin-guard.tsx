@@ -7,10 +7,6 @@ import { AdminShell } from "./admin-shell";
 import { LoadingSpinner } from "./loading-spinner";
 
 const REMOVED_ADMIN_PATHS = new Set([
-  "/admin/home",
-  "/admin/about",
-  "/admin/contact",
-  "/admin/brand",
   "/admin/rentals/settings",
 ]);
 

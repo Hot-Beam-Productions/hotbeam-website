@@ -1,15 +1,25 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Lightbulb, Monitor, Sparkles, Zap, type LucideIcon } from "lucide-react";
 import { GlowButton } from "@/components/glow-button";
 import { HeroBeams } from "@/components/hero-animations";
+import { ScrollCue } from "@/components/scroll-cue";
+import { Reveal } from "@/components/reveal";
+import { SectionHeading } from "@/components/section-heading";
 import { InstagramFeed } from "@/components/instagram-feed";
 import { MediaPlaceholder } from "@/components/media-placeholder";
 import { CmsImage } from "@/components/cms-image";
 import { getSupportedVideoMimeType, isPublishedMediaUrl, isSupportedVideoUrl } from "@/lib/media-url";
 import { getPublicHomePageData, getPublicBrandSeoData } from "@/lib/public-site-data";
 import { clampSeoDescription, clampSeoTitle } from "@/lib/seo";
+
+const serviceIcons: Record<string, LucideIcon> = {
+  lightbulb: Lightbulb,
+  monitor: Monitor,
+  zap: Zap,
+  sparkles: Sparkles,
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const { brand, seo } = await getPublicBrandSeoData();
@@ -37,7 +47,7 @@ export default async function Home() {
 
   return (
     <>
-      <section className="relative flex min-h-svh items-center overflow-clip px-6 pb-16 pt-28 md:pt-32">
+      <section className="relative flex min-h-dvh flex-col items-center justify-center overflow-clip px-6 py-24 text-center">
         <div className="absolute inset-0">
           <video
             className="h-full w-full object-cover"
@@ -47,82 +57,91 @@ export default async function Home() {
             playsInline
             preload="metadata"
             poster={heroVideoPoster}
+            aria-hidden="true"
           >
             <source src={heroVideoSrc} type={heroVideoType} />
             Your browser does not support the video tag.
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/55 to-background" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_35%,rgba(46,99,255,0.25),transparent_34%)]" />
-        </div>
-
-        <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-35 md:opacity-45">
-          <Image
-            src="/logo.png"
-            alt=""
-            width={6000}
-            height={3273}
-            className="h-auto w-[min(88vw,58rem)]"
-            priority
-          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/40 to-background" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_28%,rgba(3,5,14,0.6))]" />
         </div>
 
         <HeroBeams />
 
-        <div className="relative z-10 mx-auto w-full max-w-7xl">
-          <div className="max-w-3xl">
-          <p className="mono-label mb-6 !text-laser-cyan">{home.hero.eyebrow}</p>
-
-          <h1 className="font-heading text-4xl leading-tight tracking-tight text-foreground md:text-6xl lg:text-7xl">
+        <div className="relative z-10 flex w-full max-w-4xl flex-col items-center">
+          <p className="mono-label mb-7 !text-laser-cyan">{home.hero.departmentLine}</p>
+          <Image
+            src="/logo.png"
+            alt={brand.name}
+            width={6000}
+            height={3273}
+            priority
+            className="h-auto w-[min(86vw,44rem)] drop-shadow-[0_10px_45px_rgba(0,0,0,0.6)]"
+          />
+          <h1 className="mt-9 max-w-3xl font-heading text-2xl font-bold leading-tight tracking-tight text-foreground sm:text-3xl md:text-[2.6rem]">
             {home.hero.headline}
           </h1>
-
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-light md:text-lg">
-            {home.hero.subheadline}
-          </p>
-
-          <p className="mt-6 font-heading text-lg uppercase text-foreground/90 md:text-2xl">
-            {home.hero.departmentLine}
-          </p>
-
-          <p className="mt-7 max-w-2xl text-base leading-relaxed text-muted-light md:text-lg">
-            {home.hero.description}
-          </p>
-
-          <div className="mt-10 flex flex-wrap gap-4">
+          <div className="mt-9">
             <GlowButton href={home.hero.primaryCta.href} variant="primary">
               {home.hero.primaryCta.label}
               <ArrowRight className="ml-2 inline h-4 w-4" aria-hidden="true" />
             </GlowButton>
-            <GlowButton href={home.hero.secondaryCta.href} variant="outline">
-              {home.hero.secondaryCta.label}
-            </GlowButton>
-          </div>
-
-          <div className="mt-6 flex max-w-3xl flex-wrap gap-x-6 gap-y-2 text-xs text-muted-light md:text-sm">
-            {home.quickDecisionSignals.map((signal) => (
-              <p key={signal}>{signal}</p>
-            ))}
-          </div>
-
-          <div className="mt-14 grid max-w-3xl grid-cols-1 gap-3 sm:grid-cols-3">
-            {home.results.map((item) => (
-              <div key={item.label} className="border border-border bg-surface px-5 py-4 text-left">
-                <p className="font-heading text-3xl leading-none text-foreground">{item.value}</p>
-                <p className="mt-2 text-xs uppercase tracking-[0.14em] text-muted-light">{item.label}</p>
-              </div>
-            ))}
-          </div>
           </div>
         </div>
+
+        <ScrollCue />
       </section>
 
-      <section className="px-6 pb-16" aria-label="Trust signals">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-3 border border-border bg-surface p-5 lg:grid-cols-4">
-          {home.trustSignals.map((signal) => (
-            <p key={signal} className="mono-label !text-foreground/70">
-              {signal}
+      <section className="px-6 py-20 md:py-28" aria-labelledby="intro-heading">
+        <div className="mx-auto max-w-7xl">
+          <Reveal>
+            <p className="mono-label !text-laser-cyan">{home.hero.eyebrow}</p>
+            <h2
+              id="intro-heading"
+              className="mt-5 max-w-4xl font-heading text-3xl leading-[1.1] tracking-tight text-foreground md:text-5xl"
+            >
+              {home.hero.subheadline}
+            </h2>
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-light md:text-lg">
+              {home.hero.description}
             </p>
-          ))}
+          </Reveal>
+
+          <Reveal delay={0.05}>
+            <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted-light">
+              {home.quickDecisionSignals.map((signal) => (
+                <p key={signal} className="flex items-center gap-2.5">
+                  <span
+                    className="h-1.5 w-1.5 flex-shrink-0 rounded-full bg-laser-cyan"
+                    aria-hidden="true"
+                  />
+                  {signal}
+                </p>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              {home.results.map((item) => (
+                <div key={item.label} className="border border-border bg-surface px-6 py-6">
+                  <p className="font-heading text-4xl leading-none text-foreground">{item.value}</p>
+                  <p className="mt-2 text-xs uppercase tracking-[0.14em] text-muted-light">{item.label}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.12}>
+            <div className="mt-3 grid grid-cols-1 gap-x-6 gap-y-3 border border-border bg-surface p-6 sm:grid-cols-2 lg:grid-cols-4">
+              {home.trustSignals.map((signal) => (
+                <p key={signal} className="flex gap-2.5 text-xs leading-relaxed text-muted-light">
+                  <span className="mt-1 h-1 w-1 flex-shrink-0 bg-laser-cyan" aria-hidden="true" />
+                  {signal}
+                </p>
+              ))}
+            </div>
+          </Reveal>
         </div>
       </section>
 
@@ -160,56 +179,37 @@ export default async function Home() {
 
       <section id="capabilities" className="px-6 py-24" aria-labelledby="services-heading">
         <div className="mx-auto max-w-7xl">
-          <h2 id="services-heading" className="font-heading text-4xl tracking-tight md:text-5xl">
-            Core Services
-          </h2>
-
-          <div className="mt-12 grid grid-cols-1 gap-6 lg:grid-cols-3">
-            <article className="border border-border bg-surface p-6">
-              <h3 id="intelligent-lighting" className="font-heading text-3xl tracking-tight text-foreground">
-                Lighting Design and Show Operation
-              </h3>
-              <p className="mt-4 text-sm leading-relaxed text-muted-light">
-                We design, previsualize, and run lighting systems built for live pacing, camera needs, and
-                real venue constraints. Every rig is programmed, tested, and deployment-ready before load-in.
-              </p>
-              <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-muted-light">
-                <li>Previsualization and cue programming</li>
-                <li>grandMA and Avolites control workflows</li>
-                <li>Indoor and IP-rated outdoor systems</li>
-              </ul>
-            </article>
-
-            <article className="border border-border bg-surface p-6">
-              <h3 id="class-iv-lasers" className="font-heading text-3xl tracking-tight text-foreground">
-                Laser Design and Operation
-              </h3>
-              <p className="mt-4 text-sm leading-relaxed text-muted-light">
-                From beam architecture to live playback, we build laser moments that fit the music and
-                integrate with the rest of your show file. Safety and variance compliance stay built in from
-                day one.
-              </p>
-              <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-muted-light">
-                <li>Pangolin Beyond Programming</li>
-                <li>FDA variance-compliant workflows</li>
-                <li>Timecode, DMX, and Art-Net integration</li>
-              </ul>
-            </article>
-
-            <article className="border border-border bg-surface p-6">
-              <h3 id="led-video-walls" className="font-heading text-3xl tracking-tight text-foreground">
-                LED Video and Media Systems
-              </h3>
-              <p className="mt-4 text-sm leading-relaxed text-muted-light">
-                We deploy LED walls and media servers that hold up under show pressure. Content playback,
-                IMAG, and venue-specific mapping are configured for stable operation and fast recovery.
-              </p>
-              <ul className="mt-5 list-disc space-y-2 pl-5 text-sm text-muted-light">
-                <li>LED wall processing and mapping</li>
-                <li>Media server and playback systems</li>
-                <li>Multi-camera and IMAG support</li>
-              </ul>
-            </article>
+          <SectionHeading
+            as="h2"
+            label={home.services.label}
+            title={home.services.title}
+            subtitle={home.services.subtitle}
+          />
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {home.services.items.map((service) => {
+              const Icon = serviceIcons[service.icon] ?? Zap;
+              return (
+                <Reveal key={service.id}>
+                  <article className="h-full border border-border bg-surface p-7 transition-colors hover:border-laser-cyan/40">
+                    <div className="flex items-center gap-3.5">
+                      <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center border border-laser-cyan/30 bg-laser-cyan/10 text-laser-cyan">
+                        <Icon className="h-5 w-5" aria-hidden="true" />
+                      </span>
+                      <h3 className="font-heading text-2xl tracking-tight text-foreground">{service.title}</h3>
+                    </div>
+                    <p className="mt-4 text-sm leading-relaxed text-muted-light">{service.description}</p>
+                    <ul className="mt-5 space-y-2 text-sm text-muted-light">
+                      {service.highlights.map((highlight) => (
+                        <li key={highlight} className="flex gap-2.5">
+                          <span className="mt-1.5 h-1 w-1 flex-shrink-0 bg-laser-cyan" aria-hidden="true" />
+                          {highlight}
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -246,22 +246,20 @@ export default async function Home() {
       </section>
 
       <section className="px-6 pb-24" aria-labelledby="equipment-inventory-heading">
-        <div className="mx-auto max-w-7xl border border-border bg-surface p-8">
-          <h2 id="equipment-inventory-heading" className="font-heading text-4xl tracking-tight md:text-5xl">
-            Show-Ready Inventory
-          </h2>
-          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-muted-light">
-            Lighting, laser, video, rigging, and power systems maintained for fast deployment and predictable
-            performance.
-          </p>
-          <ul className="mt-6 grid list-disc gap-3 pl-5 text-sm text-muted-light md:grid-cols-2 lg:grid-cols-3">
-            <li>Laser control and projector packages</li>
-            <li>Moving lights, strobes, and wash fixtures</li>
-            <li>LED wall and media server systems</li>
-            <li>Truss, lifts, and rigging hardware</li>
-            <li>Stage decks and support infrastructure</li>
-            <li>Power distribution and cabling</li>
-          </ul>
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 border border-border bg-surface p-8 md:flex-row md:items-center md:justify-between md:p-10">
+          <div className="max-w-xl">
+            <h2 id="equipment-inventory-heading" className="font-heading text-3xl tracking-tight md:text-4xl">
+              Show-Ready Inventory
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-muted-light">
+              Lighting, laser, video, rigging, and power systems &mdash; maintained in-house for fast
+              deployment and predictable performance on show day.
+            </p>
+          </div>
+          <GlowButton href="/rentals" variant="outline">
+            Browse Inventory
+            <ArrowRight className="ml-2 inline h-4 w-4" aria-hidden="true" />
+          </GlowButton>
         </div>
       </section>
 

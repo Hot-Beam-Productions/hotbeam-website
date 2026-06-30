@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Manrope, Sora } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -22,6 +22,13 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
   weight: ["400", "500", "600", "700"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  colorScheme: "dark",
+  themeColor: "#05070e",
+};
 
 function toAbsoluteUrl(baseUrl: string, pathOrUrl: string): string {
   try {

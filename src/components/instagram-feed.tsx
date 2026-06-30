@@ -72,7 +72,7 @@ export async function InstagramFeed({ brand }: InstagramFeedProps) {
                 >
                   <Image
                     src={imageUrl}
-                    alt={post.caption ? post.caption.slice(0, 100) : "Instagram post"}
+                    alt={post.caption ? post.caption.slice(0, 100) : "Hot Beam Productions Instagram post"}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 640px) 100vw, 33vw"
