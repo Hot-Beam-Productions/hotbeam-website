@@ -1,8 +1,8 @@
-name: Sync Fallback JSON and Deploy
+name: Sync Firestore Snapshots
 
+# Vercel auto-deploys on push via its native Git integration, so this workflow
+# only keeps the build-time fallback (data.json) and metrics snapshot fresh.
 on:
-  push:
-    branches: [main]
   schedule:
     # Every 6 hours (UTC)
     - cron: "0 */6 * * *"
@@ -13,14 +13,12 @@ permissions:
   id-token: write
 
 concurrency:
-  group: sync-fallback-and-deploy
+  group: sync-firestore-snapshots
   cancel-in-progress: true
 
 jobs:
-  sync-and-deploy:
+  sync:
     runs-on: ubuntu-latest
-    # Skip commits made by this workflow (fallback sync commits tagged [skip ci])
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,12 +38,9 @@ jobs:
         env:
           NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
           NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
         run: |
           missing=0
-          for key in NEXT_PUBLIC_FIREBASE_PROJECT_ID NEXT_PUBLIC_FIREBASE_API_KEY VERCEL_TOKEN VERCEL_ORG_ID VERCEL_PROJECT_ID; do
+          for key in NEXT_PUBLIC_FIREBASE_PROJECT_ID NEXT_PUBLIC_FIREBASE_API_KEY; do
             if [ -z "${!key}" ]; then
               echo "::error::Missing required secret: $key"
               missing=1
@@ -56,7 +51,6 @@ jobs:
           fi
 
       - name: Authenticate to Google Cloud for metrics sync
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         id: google_auth
         uses: google-github-actions/auth@v2
         with:
@@ -66,14 +60,12 @@ jobs:
           access_token_scopes: https://www.googleapis.com/auth/monitoring.read
 
       - name: Sync fallback JSON from Firestore
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         env:
           NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
           NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
         run: npm run sync:fallback-json
 
       - name: Sync Firestore metrics snapshot
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         env:
           NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
           FIRESTORE_DATABASE_ID: "(default)"
@@ -81,7 +73,6 @@ jobs:
         run: npm run sync:firestore-metrics
 
       - name: Detect fallback changes
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         id: changes
         run: |
           if git diff --quiet -- src/data/data.json src/data/firestore-metrics.json; then
@@ -98,14 +89,3 @@ jobs:
           git add src/data/data.json src/data/firestore-metrics.json
           git commit -m "chore: sync firestore snapshots [skip ci]"
           git push
-
-      - name: Deploy to Vercel (production)
-        if: github.event_name == 'push' || steps.changes.outputs.changed == 'true'
-        env:
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: |
-          npx vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
-          npx vercel build --prod --token="$VERCEL_TOKEN"
-          npx vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN"
