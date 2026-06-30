@@ -1,11 +1,12 @@
 name: Sync Firestore Snapshots
 
-# Vercel auto-deploys on push via its native Git integration, so this workflow
-# only keeps the build-time fallback (data.json) and metrics snapshot fresh.
+# Manual-only. Vercel auto-deploys on push and holds the app's env vars, but
+# GitHub Actions has a SEPARATE secret store and can't read Vercel's variables.
+# This job only refreshes the build-time fallbacks (data.json + metrics), which
+# are a safety net (the live site/admin read Firestore at runtime). To run it,
+# add NEXT_PUBLIC_FIREBASE_PROJECT_ID + NEXT_PUBLIC_FIREBASE_API_KEY as Actions
+# secrets, or just refresh locally: npm run sync:fallback-admin (gcloud ADC).
 on:
-  schedule:
-    # Every 6 hours (UTC)
-    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 permissions:
